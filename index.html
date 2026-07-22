@@ -1,22 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Islamicist</title>
+
     <style>
-        body {
-            background: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 100px;
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
         }
-        h1 {
-            font-size: 60px;
+
+        body{
+            background:black;
+            color:white;
+        }
+
+        nav{
+            position:fixed;
+            width:100%;
+            padding:20px 50px;
+            display:flex;
+            justify-content:space-between;
+            background:rgba(0,0,0,0.8);
+            z-index:1000;
+        }
+
+        nav ul{
+            display:flex;
+            gap:20px;
+            list-style:none;
+        }
+
+        nav a{
+            color:white;
+            text-decoration:none;
+        }
+
+        .hero{
+            height:100vh;
+            background:
+            linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+            url('https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1600&q=80');
+            background-size:cover;
+            background-position:center;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+        }
+
+        .hero h1{
+            font-size:70px;
+            letter-spacing:10px;
+        }
+
+        .hero p{
+            margin-top:20px;
+            font-size:20px;
+            color:#ccc;
+        }
+
+        section{
+            padding:100px 50px;
+        }
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:20px;
+        }
+
+        .card{
+            background:#111;
+            padding:25px;
+            border:1px solid #333;
+        }
+
+        footer{
+            text-align:center;
+            padding:40px;
+            background:#111;
         }
     </style>
 </head>
 <body>
-    <h1>ISLAMICIST</h1>
-    <p>Knowledge • Discussion • Community</p>
+
+<nav>
+    <h2>ISLAMICIST</h2>
+
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#articles">Articles</a></li>
+        <li><a href="#members">Members</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div>
+        <h1>ISLAMICIST</h1>
+        <p>Knowledge • Discussion • Community</p>
+    </div>
+</section>
+
+<section id="about">
+    <h2>About</h2>
+    <br>
+    <p>A website for sharing ideas, articles, history, and respectful discussion.</p>
+</section>
+
+<section id="articles">
+    <h2>Articles</h2>
+    <br>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Article One</h3>
+            <p>Add your article here.</p>
+        </div>
+
+        <div class="card">
+            <h3>Article Two</h3>
+            <p>Add your article here.</p>
+        </div>
+
+        <div class="card">
+            <h3>Article Three</h3>
+            <p>Add your article here.</p>
+        </div>
+    </div>
+</section>
+
+<section id="members">
+    <h2>Members</h2>
+    <br>
+    <p>Add member names or usernames here.</p>
+</section>
+
+<section id="contact">
+    <h2>Contact</h2>
+    <br>
+    <p>Email or social links here.</p>
+</section>
+
+<footer>
+    © 2026 Islamicist
+</footer>
+
 </body>
 </html>
