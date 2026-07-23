@@ -3,161 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>islamicist</title>
-
+    <title>Website Layout</title>
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, sans-serif;
+        /* Base Reset & Layout Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
         }
 
-        body{
-            background:black;
-            color:white;
-        }
-
-        nav{
-            position:fixed;
-            width:100%;
-            padding:20px 50px;
-            display:flex;
-            justify-content:space-between;
-            background:rgba(0,0,0,0.8);
-            z-index:1000;
-        }
-
-        .hero{
-            height:100vh;
-            background:
-            linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
-            url('https://media.discordapp.net/attachments/1291731301321146369/1529848944820093132/large.webp?ex=6a636e5b&is=6a621cdb&hm=3de8c42dbb9ef13c647b076b7e6ab3a9ad8cb790bd7ab5f81b708c5471652a0c&=&format=webp');
-            background-size:cover;
-            background-position:center;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            text-align:center;
-            padding: 0 20px;
-        }
-
-        .hero-content {
-            max-width: 900px;
-        }
-
-        .hero h1{
-            font-size: 80px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .hero p{
-            font-size:22px;
-            color:#ccc;
-            font-style: italic;
-        }
-
-        section{
-            padding:100px 50px;
-        }
-
-        #about {
-            max-width: 900px;
+        .main-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        #about p {
-            text-align: center;
-            font-size: 20px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .video-container {
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .video-container video {
-            width: 100%;
-            max-width: 700px;
+        /* Content and Card Boxes */
+        .content-box, .description-box {
+            background: #ffffff;
+            padding: 20px;
             border-radius: 8px;
-            border: 1px solid #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .social-container {
-            max-width: 700px;
-            margin: 20px auto 0 auto;
-            display: flex;
-            justify-content: flex-start;
+        /* Video Container - Updated to Rectangle */
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16 / 9; /* Standard widescreen rectangle ratio */
+            background-color: #000;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 15px;
         }
 
-        .telegram-icon {
-            color: white;
-            text-decoration: none;
-            display: inline-block;
-            transition: opacity 0.2s ease, transform 0.2s ease;
+        .video-container video, 
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
         }
 
-        .telegram-icon:hover {
-            opacity: 0.7;
-            transform: scale(1.1);
-        }
-
-        .telegram-icon svg {
-            width: 32px;
-            height: 32px;
-            fill: none;
-            stroke: white;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        footer{
-            text-align:center;
-            padding:40px;
-            background:#111;
+        /* Secondary Placeholder Box */
+        .empty-box {
+            background: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            min-height: 150px;
         }
     </style>
 </head>
 <body>
 
-<nav>
-    <h2>☪︎</h2>
-</nav>
+    <div class="main-container">
+        <!-- Left Column: Video and Description -->
+        <div class="content-box">
+            <div class="video-container">
+                <!-- Replace src with your video link or use a video tag -->
+                <iframe src="https://www.youtube.com/embed/your-video-id" allowfullscreen></iframe>
+            </div>
+            <div class="description-box">
+                <h2>Documentation Overview</h2>
+                <p>This section outlines the details and instructions for the current project implementation.</p>
+            </div>
+        </div>
 
-<section class="hero">
-    <div class="hero-content">
-        <h1>𝐈  𝐒  𝐋  𝐀  𝐌  𝐈  𝐂  𝐈  𝐒  𝐓</h1>
-        <p>THE LAST STAND OF UMMAH</p>
+        <!-- Right Column: Additional Content / Empty Box -->
+        <div class="sidebar-box">
+            <div class="empty-box">
+                <h3>Additional Notes</h3>
+                <p>Placeholder content container.</p>
+            </div>
+        </div>
     </div>
-</section>
-
-<section id="about">
-    <p>End of the Ottoman Empire: The Ummah has fallen and been poisoned by an entity that originated from among us. On the other hand, there is a group that has no right to exist among us, spreading a hierarchy in God throughout Muslim countries. They are promoting man-made laws that contradict the Islamic laws given by Allah. It is a choice between embracing fabricated lies or accepting the truth and pulling our own string and implementing laws given by Allah—there is no in-between.<br><br>" WE DONT HAVE TO LIVE LIKE THIS " - akhi</p>
-    
-    <div class="video-container">
-        <video controls>
-            <source src="video-project-2_6JKsRMCq.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-
-    <div class="social-container">
-        <a href="https://t.me/+yNpHrg0ZHjg4OGI1" target="_blank" class="telegram-icon" title="Telegram Group">
-            <svg viewBox="0 0 24 24">
-                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
-            </svg>
-        </a>
-    </div>
-</section>
-
-<footer>
-    Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.
-</footer>
 
 </body>
 </html>
