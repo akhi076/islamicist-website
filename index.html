@@ -45,6 +45,108 @@
             transform: scale(1.1);
         }
 
+        /* Hamburger Menu Button Style */
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        /* Side Menu Drawer Styles */
+        .side-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .side-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100%;
+            background: #141414;
+            border-left: 1px solid #333;
+            z-index: 2600;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.8);
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .side-menu-header {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .side-menu-close {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .side-menu-close:hover {
+            color: #fff;
+        }
+
+        .side-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            overflow-y: auto;
+        }
+
+        .side-menu-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.2s ease, transform 0.2s ease;
+            text-align: left;
+        }
+
+        .side-menu-links a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
         /* Language Modal Overlay Styles */
         .lang-modal-overlay {
             position: fixed;
@@ -113,7 +215,6 @@
             padding-right: 5px;
         }
 
-        /* Custom scrollbar for flag list */
         .flags-grid::-webkit-scrollbar {
             width: 6px;
         }
@@ -355,7 +456,26 @@
 
 <nav>
     <button class="logo-btn" id="logoToggle" title="Select Nation / Language">☪︎</button>
+    <button class="menu-btn" id="menuToggle" title="Open Navigation Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </nav>
+
+<!-- Side Navigation Menu Drawer -->
+<div class="side-menu-overlay" id="sideMenuOverlay"></div>
+<div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+        <button class="side-menu-close" id="closeSideMenu">&times;</button>
+    </div>
+    <div class="side-menu-links">
+        <a href="#" data-translate="menu_home">Home</a>
+        <a href="#about" data-translate="menu_mission">Mission</a>
+        <a href="#about" data-translate="menu_get_active">Get Active</a>
+        <a href="#" data-translate="menu_donate">Donate</a>
+    </div>
+</div>
 
 <!-- Language / Flag Selection Modal -->
 <div class="lang-modal-overlay" id="langModal">
@@ -484,7 +604,32 @@
 </footer>
 
 <script>
-    // Modal Interaction Logic
+    // Side Menu Drawer Interaction Logic
+    const menuToggle = document.getElementById('menuToggle');
+    const sideMenu = document.getElementById('sideMenu');
+    const sideMenuOverlay = document.getElementById('sideMenuOverlay');
+    const closeSideMenu = document.getElementById('closeSideMenu');
+
+    function openMenu() {
+        sideMenu.classList.add('active');
+        sideMenuOverlay.classList.add('active');
+    }
+
+    function closeMenu() {
+        sideMenu.classList.remove('active');
+        sideMenuOverlay.classList.remove('active');
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    closeSideMenu.addEventListener('click', closeMenu);
+    sideMenuOverlay.addEventListener('click', closeMenu);
+
+    // Close side menu when clicking links inside it
+    document.querySelectorAll('.side-menu-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Language Modal Interaction Logic
     const logoToggle = document.getElementById('logoToggle');
     const langModal = document.getElementById('langModal');
     const closeModal = document.getElementById('closeModal');
@@ -506,6 +651,10 @@
     // Translation Data Dictionary
     const translations = {
         en: {
+            menu_home: "Home",
+            menu_mission: "Mission",
+            menu_get_active: "Get Active",
+            menu_donate: "Donate",
             hero_title: "𝐈  𝐒  𝐋  𝐀  𝐌  𝐈  𝐂  𝐈  𝐒  𝐓",
             hero_subtitle: "ISLAM FIRST. ENOUGH WITH LIES, NO MORE CORRUPTION",
             about_text: 'End of the Ottoman Empire: The Ummah has fallen and been poisoned by an entity that originated from among us. On the other hand, there is a group that has no right to exist among us, spreading a hierarchy in God throughout Muslim countries. They are promoting man-made laws that contradict the Islamic laws given by Allah. It is a choice between embracing fabricated lies or accepting the truth and pulling our own string and implementing laws given by Allah—there is no in-between.<br><br>" WE DONT HAVE TO LIVE LIKE THIS " - akhi',
@@ -515,6 +664,10 @@
             footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
         },
         ar: { // Saudi Arabia
+            menu_home: "الرئيسية",
+            menu_mission: "المهمة",
+            menu_get_active: "انخرط معنا",
+            menu_donate: "تبرع",
             hero_title: "إِسْلَامِيسْت",
             hero_subtitle: "الإسلام أولاً. كفى من الأكاذيب، لا مزيد من الفساد",
             about_text: 'نهاية الدولة العثمانية: لقد سقطت الأمة وتسممت من كيان نشأ من بيننا. ومن ناحية أخرى، هناك جماعة لا حق لها في الوجود بيننا، تنشر التسلسل الهرمي الإلهي في بلاد المسلمين. إنهم يروجون لقوانين وضعية تتعارض مع الشريعة الإسلامية التي أنزلها الله. إنه اختيار إما بين احتضان الأكاذيب الملفقة أو قبول الحقيقة وتطبيق قوانين الله - لا يوجد حل وسط.<br><br>"لسنا مضطرين للعيش هكذا" - أخي',
@@ -524,6 +677,10 @@
             footer_text: "حقوق الطبع والنشر © 2026 https://akhi076.github.io/islamicist-website/ جميع الحقوق محفوظة."
         },
         ur: { // Pakistan
+            menu_home: "ہوم",
+            menu_mission: "مشن",
+            menu_get_active: "سرگرم ہو جائیں",
+            menu_donate: "عطیہ دیں",
             hero_title: "اسلامسٹ",
             hero_subtitle: "اسلام سب سے پہلے۔ بہت ہو گیا جھوٹ، مزید بدعنوانی نہیں",
             about_text: 'عطمانی سلطنت کا خاتمہ: امت گر چکی ہے اور ایک ایسے ادارے کی طرف سے زہر آلود ہو چکی ہے جو ہم میں سے ہی نکلا تھا۔ دوسری طرف ایک ایسا گروہ ہے جسے ہم میں سے رہنے کا کوئی حق نہیں، جو مسلم ممالک میں خدا کے احکام میں درجہ بندی پھیلا رہا ہے۔ وہ انسان ساختہ قوانین کو فروغ دے رہے ہیں جو اللہ کی طرف سے دیے گئے اسلامی قوانین کے منافی ہیں۔ یہ من گھڑت جھوٹ کو گلے لگانے یا سچائی کو قبول کرنے اور اللہ کے دیے ہوئے قوانین کو نافذ کرنے کے درمیان انتخاب ہے—اس میں کوئی درمیانی راستہ نہیں ہے۔<br><br>"ہمیں اس طرح رہنے کی ضرورت نہیں ہے" - اخی',
@@ -533,6 +690,10 @@
             footer_text: "کاپی رائٹ © 2026 https://akhi076.github.io/islamicist-website/ تمام حقوق محفوظ ہیں۔"
         },
         bn: { // Bangladesh
+            menu_home: "হোম",
+            menu_mission: "মিশন",
+            menu_get_active: "যুক্ত হোন",
+            menu_donate: "দান করুন",
             hero_title: "ইসলামিস্ট",
             hero_subtitle: "ইসলাম সবার আগে। মিথ্যার আর নয়, আর কোনো দুর্নীতি নয়",
             about_text: 'উসমানীয় সাম্রাজ্যের পতন: উম্মাহ আজ পতনের মুখে এবং আমাদেরই মধ্য থেকে জন্ম নেওয়া এক শক্তি দ্বারা বিষাক্ত হয়েছে। অন্যদিকে এমন একটি দল রয়েছে যাদের আমাদের মধ্যে থাকার কোনো অধিকার নেই, তারা মুসলিম দেশগুলোতে মানবীয় আইন প্রচার করছে যা আল্লাহর দেওয়া ইসলামী আইনের পরিপন্থী। এটি বানোয়াট মিথ্যা গ্রহণ করা বা সত্যকে গ্রহণ করে আল্লাহর আইন বাস্তবায়ন করার মধ্যে একটি পছন্দ—এর মধ্যে কোনো মধ্যপন্থা নেই।<br><br>"আমাদের এভাবে বেঁচে থাকার দরকার নেই" - আখি',
@@ -542,6 +703,10 @@
             footer_text: "স্বত্বাধিকার © 2026 https://akhi076.github.io/islamicist-website/ সর্বস্বত্ব সংরক্ষিত।"
         },
         bs: { // Bosnia
+            menu_home: "Početna",
+            menu_mission: "Misija",
+            menu_get_active: "Uključi se",
+            menu_donate: "Doniraj",
             hero_title: "ISLAMIST",
             hero_subtitle: "ISLAM NA PRVOM MJESTU. DOSTA LAŽI, NEMA VIŠE KORUPCIJE",
             about_text: 'Kraj Osmanskog carstva: Ummet je pao i otrovan od strane entiteta koji je potekao iz naše sredine. S druge strane, postoji grupa koja nema pravo postojati među nama, šireći ljudske zakone koji su u suprotnosti s islamskim zakonima koje je objavio Allah. To je izbor između prihvatanja laži ili istine i implementacije Allahovih zakona—nema sredine.<br><br>"NE MORAMO OVAKO ŽIVJETI" - akhi',
@@ -551,6 +716,10 @@
             footer_text: "Autorska prava © 2026 https://akhi076.github.io/islamicist-website/ Sva prava zadržana."
         },
         tr: { // Turkey
+            menu_home: "Ana Sayfa",
+            menu_mission: "Misyon",
+            menu_get_active: "Aktif Ol",
+            menu_donate: "Bağış Yap",
             hero_title: "İSLAMİST",
             hero_subtitle: "ÖNCE İSLAM. YALANLARA YETER ARTIK, YOLSUZLUĞA SON",
             about_text: 'Osmanlı İmparatorluğu\'nun Sonu: Ümmet düştü ve içimizden çıkan bir unsur tarafından zehirlendi. Öte yandan aramızda bulunma hakkı olmayan, Müslüman ülkelerde beşeri yasaları yayan bir grup var. Allah\'ın koyduğu İslam kanunlarıyla çelişen insan yapımı kanunları teşvik ediyorlar. Bu, uydurma yalanları benimsemek ile gerçeği kabul edip Allah\'ın kanunlarını uygulamak arasında bir seçimdir; ortası yoktur.<br><br>"BÖYLE YAŞAMAK ZORUNDA DEĞİLİZ" - akhi',
@@ -560,6 +729,10 @@
             footer_text: "Telif Hakkı © 2026 https://akhi076.github.io/islamicist-website/ Tüm Hakları Saklıdır."
         },
         'ar-eg': { // Egypt
+            menu_home: "الرئيسية",
+            menu_mission: "المهمة",
+            menu_get_active: "شارك معانا",
+            menu_donate: "تبرع",
             hero_title: "إِسْلَامِيسْت",
             hero_subtitle: "الإسلام أولاً. كفاية أكاذيب، مفيش فساد تاني",
             about_text: 'نهاية الدولة العثمانية: الأمة وقعت واتسممت من كيان طلع من وسطنا. ومن ناحية تانية، فيه جماعة ملهوش حق وجود بينا، بينشروا قوانين بشرية بتعارض الشريعة اللي ربنا أنزلها. هو اختيار يا إما نصدق الأكاذيب أو نقبل الحق ونطبق شريعة ربنا — مفيش حل وسط.<br><br>"احنا مش مضطرين نعيش بالطريقة دي" - أخي',
@@ -569,6 +742,10 @@
             footer_text: "جميع الحقوق محفوظة © 2026 https://akhi076.github.io/islamicist-website/"
         },
         id: { // Indonesia
+            menu_home: "Beranda",
+            menu_mission: "Misi",
+            menu_get_active: "Bergabung",
+            menu_donate: "Donasi",
             hero_title: "ISLAMIST",
             hero_subtitle: "ISLAM PERTAMA. CUKUP DENGAN KEBOHONGAN, TIDAK ADA LAGI KORUPSI",
             about_text: 'Akhir Kekaisaran Ottoman: Umat telah jatuh dan diracuni oleh entitas yang berasal dari antara kita. Di sisi lain, ada kelompok yang tidak berhak untuk ada di antara kita, menyebarkan hukum buatan manusia di seluruh negara Muslim yang bertentangan dengan hukum Islam yang diberikan oleh Allah. Ini adalah pilihan antara merangkup kebohongan buatan atau menerima kebenaran dan menegakkan hukum Allah—tidak ada jalan tengah.<br><br>" KITA TIDAK HARUS HIDUP SEPERTI INI " - akhi',
@@ -578,6 +755,10 @@
             footer_text: "Hak Cipta © 2026 https://akhi076.github.io/islamicist-website/ Seluruh Hak Cipta Dilindungi Undang-Undang."
         },
         sq: { // Albania
+            menu_home: "Kryefaqja",
+            menu_mission: "Misioni",
+            menu_get_active: "Bëhu Aktiv",
+            menu_donate: "Dhuroni",
             hero_title: "ISLAMIST",
             hero_subtitle: "ISLAMI NË FILLIM. MJAFT ME GLUHA, NUK KA MË KORRUPSION",
             about_text: 'Fundi i Perandorisë Osmane: Umeti ka rënë dhe është helmuar nga një entitet që e pati origjinën nga mesi ynë. Nga ana tjetër, ekziston një grup që nuk ka të drejtë të ekzistojë mes noje, duke përhapur ligje njerëzore që bien në kundërshtim me ligjet islame të dhëna nga Allahu. Është një zgjedhje midis përqafimit të gënjeshtrave të fabrikuara ose pranimit të së vërtetës dhe zbatimit të ligjeve të dhëna nga Allahu—nuk ka rrugë të mesme.<br><br>" NE NUK DUHET TË JETOJMË KËSHTU " - akhi',
@@ -587,6 +768,10 @@
             footer_text: "Të drejtat e autorit © 2026 https://akhi076.github.io/islamicist-website/ Të gjitha të drejtat e rezervuara."
         },
         so: { // Somalia
+            menu_home: "Bogga Hore",
+            menu_mission: "Hadafka",
+            menu_get_active: "Firfircoonaow",
+            menu_donate: "Deeq Bixi",
             hero_title: "ISLAMIST",
             hero_subtitle: "ISLAAMKA HORE. KU FILAN BEYNAAN, KHRUUSH MA JIRO",
             about_text: 'Dhammaadkii Boqortooyadii Cusmaaniyiinta: Umaddu way dhacday waxaana sumeeyay hay’ad ka timid dhexdeenna. Dhanka kale, waxaa jira koox aan xaq u lahayn inay nala joogaan, oo faafinaysa sharciyo binu-aadmigu sameeyay oo ka soo horjeeda shareecada Islaamka ee uu Allah bixiyay. Waa doorasho u dhaxaysa in la qaato beenta la farsmeeyay ama in la aqoonsado xaqiiqada oo la hirgeliyo sharciga Allah—ma jiro wax dhexdhexaad ah.<br><br>" MA QASBANIN IN ANU SIDAN U NOOLAANO " - akhi',
@@ -596,6 +781,10 @@
             footer_text: "Xuquuqda Daabacaadda © 2026 https://akhi076.github.io/islamicist-website/ Xuquuqda oo dhan waa la dhowray."
         },
         'en-ng': { // Nigeria
+            menu_home: "Home",
+            menu_mission: "Mission",
+            menu_get_active: "Get Active",
+            menu_donate: "Donate",
             hero_title: "𝐈  𝐒  𝐋  𝐀  𝐌  𝐈  𝐂  𝐈  𝐒  𝐓",
             hero_subtitle: "ISLAM FIRST. ENOUGH WITH LIES, NO MORE CORRUPTION",
             about_text: 'End of the Ottoman Empire: The Ummah has fallen and been poisoned by an entity that originated from among us. On the other hand, there is a group that has no right to exist among us, spreading a hierarchy in God throughout Muslim countries. They are promoting man-made laws that contradict the Islamic laws given by Allah. It is a choice between embracing fabricated lies or accepting the truth and pulling our own string and implementing laws given by Allah—there is no in-between.<br><br>" WE DONT HAVE TO LIVE LIKE THIS " - akhi',
@@ -605,9 +794,13 @@
             footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
         },
         ps: { // Afghanistan
+            menu_home: "کور پاڼه",
+            menu_mission: "مأموریت",
+            menu_get_active: "فعال شئ",
+            menu_donate: "مرسته وکړئ",
             hero_title: "اسلامیسټ",
             hero_subtitle: "اسلام لومړی. نور دروغ بس دي، نور فساد نشته",
-            about_text: 'د عثماني خلافت پای: امت لویدلی او د یوې داسې ډلې لخوا مسموم شوی چې زموږ له منځه راوتلې وه. له بل پلوه، یوه داسې ډله شته چې زموږ په منځ کې د پاتې کیدو حق نه لري، او په اسلامي هیوادونو کې د خدای د حکمونو پر ځای د بشر جوړ شوي قوانین خپروي. دوی هغه قوانین پیاوړي کوي چې د الله تعالی له اسلامي قوانینو سره په ټکر کې دي. دا د جعلي دروغو منلو یا د حق منلو او د الله تعالی د قوانینو د پلي کولو ترمنځ یو انتخاب دی—منځنی لار نشته.<br><br>"موږ اړ نه یو چې داسې ژوند وکړو" - اخی',
+            about_text: 'د عثماني خلافت پای: امت لویدلی او د یوې داسې ډلې لخوا مسموم شوی چې زموږ له منځه راوتلې وه. له بل پلوه، یوه داسې ډله شته چې زموږ په منځ کې د پاتې کیدو حق نه لري، او په اسلامي هیوادونو کې د خدای د حکمونو پر ځای د بشر جوړ شوي قوانین خپروي. دوی هغه قوانین پیاوړي کوي چې د الله تعالی له اسلامي قوانینو سره په ټکر کې دي. دا د جعلي دروغو منلو یا د حق منلو او د الله تعالی د قوانینو د پلي کولو ترمنځ یو انتخاب دی—منځنی لار نشته.<br><br>"موږ اړ نه یو چې دasې ژوند وکړو" - اخی',
             docs_header: "زموږ په سایټ کې زموږ د وروڼو لخوا جوړ شوي نور مستند فلمونه",
             doc_one: "د اسلامي ذهنونو لپاره پټه جګړه د سمایل تو جنة لخوا",
             doc_two: "پر امریکا د مسلمانانو یرغل د سوني فاز او بیک لور لخوا",
