@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,8 +24,124 @@
             padding:20px 50px;
             display:flex;
             justify-content:space-between;
+            align-items: center;
             background:rgba(0,0,0,0.8);
             z-index:1000;
+        }
+
+        .logo-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .logo-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Language Modal Overlay Styles */
+        .lang-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lang-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lang-modal-content {
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 550px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .lang-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .lang-modal-close:hover {
+            color: #fff;
+        }
+
+        .lang-modal-title {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .flags-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .flag-option {
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .flag-option:hover {
+            transform: translateY(-3px);
+            border-color: #777;
+            background: #2a2a2a;
+        }
+
+        .flag-option img {
+            width: 64px;
+            height: 42px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .flag-option span {
+            font-size: 0.85rem;
+            color: #ddd;
+            font-weight: bold;
         }
 
         .hero{
@@ -226,8 +342,46 @@
 <body>
 
 <nav>
-    <h2>☪︎</h2>
+    <button class="logo-btn" id="logoToggle" title="Select Nation / Language">☪︎</button>
 </nav>
+
+<!-- Language / Flag Selection Modal -->
+<div class="lang-modal-overlay" id="langModal">
+    <div class="lang-modal-content">
+        <button class="lang-modal-close" id="closeModal">&times;</button>
+        <div class="lang-modal-title">Select Your Language or Nation</div>
+        <div class="flags-grid">
+            <div class="flag-option" onclick="setLanguage('en')">
+                <img src="https://flagcdn.com/w80/us.png" alt="English">
+                <span>English</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ar')">
+                <img src="https://flagcdn.com/w80/sa.png" alt="Saudi Arabia">
+                <span>Saudi Arabia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ur')">
+                <img src="https://flagcdn.com/w80/pk.png" alt="Pakistan">
+                <span>Pakistan</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('bn')">
+                <img src="https://flagcdn.com/w80/bd.png" alt="Bangladesh">
+                <span>Bangladesh</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('bs')">
+                <img src="https://flagcdn.com/w80/ba.png" alt="Bosnia">
+                <span>Bosnia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('tr')">
+                <img src="https://flagcdn.com/w80/tr.png" alt="Turkey">
+                <span>Turkey</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ar-eg')">
+                <img src="https://flagcdn.com/w80/eg.png" alt="Egypt">
+                <span>Egypt</span>
+            </div>
+        </div>
+    </div>
+</div>
 
 <section class="hero">
     <!-- Rain Container Overlay -->
@@ -247,13 +401,13 @@
     </div>
 
     <div class="hero-content">
-        <h1>𝐈  𝐒  𝐋  𝐀  𝐌  𝐈  𝐂  𝐈  𝐒  𝐓</h1>
-        <p>ISLAM FIRST. ENOUGH WITH LIES, NO MORE CORRUPTION</p>
+        <h1 data-translate="hero_title">𝐈  𝐒  𝐋  𝐀  𝐌  𝐈  𝐂  𝐈  𝐒  𝐓</h1>
+        <p data-translate="hero_subtitle">ISLAM FIRST. ENOUGH WITH LIES, NO MORE CORRUPTION</p>
     </div>
 </section>
 
 <section id="about">
-    <p>End of the Ottoman Empire: The Ummah has fallen and been poisoned by an entity that originated from among us. On the other hand, there is a group that has no right to exist among us, spreading a hierarchy in God throughout Muslim countries. They are promoting man-made laws that contradict the Islamic laws given by Allah. It is a choice between embracing fabricated lies or accepting the truth and pulling our own string and implementing laws given by Allah—there is no in-between.<br><br>" WE DONT HAVE TO LIVE LIKE THIS " - akhi</p>
+    <p data-translate="about_text">End of the Ottoman Empire: The Ummah has fallen and been poisoned by an entity that originated from among us. On the other hand, there is a group that has no right to exist among us, spreading a hierarchy in God throughout Muslim countries. They are promoting man-made laws that contradict the Islamic laws given by Allah. It is a choice between embracing fabricated lies or accepting the truth and pulling our own string and implementing laws given by Allah—there is no in-between.<br><br>" WE DONT HAVE TO LIVE LIKE THIS " - akhi</p>
     
     <div class="video-container">
         <video controls poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
@@ -264,11 +418,11 @@
 
     <!-- More Documentaries Section Added Under Video -->
     <div class="documentaries-section">
-        <h3>MORE DOCUMENTARIES MADE BY OUR BROTHERS ON OUR SITE</h3>
+        <h3 data-translate="docs_header">MORE DOCUMENTARIES MADE BY OUR BROTHERS ON OUR SITE</h3>
         <div class="docs-grid">
             <!-- Card 1 -->
             <a href="https://youtu.be/2CmqBK-kRDg" target="_blank" class="doc-card">
-                <div class="doc-title">The Hidden War for Muslim Minds by Smile 2 Jannah</div>
+                <div class="doc-title" data-translate="doc_one">The Hidden War for Muslim Minds by Smile 2 Jannah</div>
                 <div class="doc-thumbnail-container">
                     <img src="https://img.youtube.com/vi/2CmqBK-kRDg/hqdefault.jpg" alt="Documentary 1 Thumbnail">
                 </div>
@@ -276,7 +430,7 @@
 
             <!-- Card 2 -->
             <a href="https://youtu.be/zlkjhmkHNe4" target="_blank" class="doc-card">
-                <div class="doc-title">The Muslim Invasion Of America by SonnyFaz and Bek Lover</div>
+                <div class="doc-title" data-translate="doc_two">The Muslim Invasion Of America by SonnyFaz and Bek Lover</div>
                 <div class="doc-thumbnail-container">
                     <img src="https://img.youtube.com/vi/zlkjhmkHNe4/hqdefault.jpg" alt="Documentary 2 Thumbnail">
                 </div>
@@ -294,8 +448,119 @@
 </section>
 
 <footer>
-    Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.
+    <span data-translate="footer_text">Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span>
 </footer>
+
+<script>
+    // Modal Interaction Logic
+    const logoToggle = document.getElementById('logoToggle');
+    const langModal = document.getElementById('langModal');
+    const closeModal = document.getElementById('closeModal');
+
+    logoToggle.addEventListener('click', () => {
+        langModal.classList.add('active');
+    });
+
+    closeModal.addEventListener('click', () => {
+        langModal.classList.remove('active');
+    });
+
+    langModal.addEventListener('click', (e) => {
+        if (e.target === langModal) {
+            langModal.classList.remove('active');
+        }
+    });
+
+    // Translation Data Dictionary
+    const translations = {
+        en: {
+            hero_title: "𝐈  𝐒  𝐋  𝐀  𝐌  𝐈  𝐂  𝐈  𝐒  𝐓",
+            hero_subtitle: "ISLAM FIRST. ENOUGH WITH LIES, NO MORE CORRUPTION",
+            about_text: 'End of the Ottoman Empire: The Ummah has fallen and been poisoned by an entity that originated from among us. On the other hand, there is a group that has no right to exist among us, spreading a hierarchy in God throughout Muslim countries. They are promoting man-made laws that contradict the Islamic laws given by Allah. It is a choice between embracing fabricated lies or accepting the truth and pulling our own string and implementing laws given by Allah—there is no in-between.<br><br>" WE DONT HAVE TO LIVE LIKE THIS " - akhi',
+            docs_header: "MORE DOCUMENTARIES MADE BY OUR BROTHERS ON OUR SITE",
+            doc_one: "The Hidden War for Muslim Minds by Smile 2 Jannah",
+            doc_two: "The Muslim Invasion Of America by SonnyFaz and Bek Lover",
+            footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
+        },
+        ar: { // Saudi Arabia
+            hero_title: "إِسْلَامِيسْت",
+            hero_subtitle: "الإسلام أولاً. kفى من الاكاذيب، لا مزيد من الفساد",
+            about_text: 'نهاية الدولة العثمانية: لقد سقطت الأمة وتسممت من كيان نشأ من بيننا. ومن ناحية أخرى، هناك جماعة لا حق لها في الوجود بيننا، تنشر التسلسل الهرمي في الألوية ببلاد المسلمين. إنهم يروجون لقوانين وضعية تتعارض مع الشريعة الإسلامية التي أنزلها الله. إنه اختيار إما بين احتضان الأكاذيب الملفقة أو قبول الحقيقة وتطبيق قوانين الله - لا يوجد حل وسط.<br><br>"لسنا مضطرين للعيش هكذا" - أخي',
+            docs_header: "المزيد من الوثائقيات التي صنعها إخوتنا على موقعنا",
+            doc_one: "الحرب الخفية على العقول الإسلامية بقلم سمايل تو جنة",
+            doc_two: "الغزو الإسلامي لأمريكا بقلم سوني فاز وبيك لوفير",
+            footer_text: "حقوق الطبع والنشر © 2026 https://akhi076.github.io/islamicist-website/ جميع الحقوق محفوظة."
+        },
+        ur: { // Pakistan
+            hero_title: "اسلامسٹ",
+            hero_subtitle: "اسلام سب سے پہلے۔ بہت ہو گیا جھوٹ، مزید بدعنوانی نہیں",
+            about_text: 'عطمانی سلطنت کا خاتمہ: امت گر چکی ہے اور ایک ایسے ادارے کی طرف سے زہر آلود ہو چکی ہے جو ہم میں سے ہی نکلا تھا۔ دوسری طرف ایک ایسا گروہ ہے جسے ہم میں سے رہنے کا کوئی حق نہیں، جو مسلم ممالک میں خدا کے اندر درجہ بندی پھیلا رہا ہے۔ وہ انسان ساختہ قوانین کو فروغ دے رہے ہیں جو اللہ کی طرف سے دیے گئے اسلامی قوانین کے منافی ہیں۔ یہ من گھڑت جھوٹ کو گلے لگانے یا سح حقیقت کو قبول کرنے اور اللہ کے دیے ہوئے قوانین کو نافذ کرنے کے درمیان انتخاب ہے—اس میں کوئی درمیانی راستہ نہیں ہے۔<br><br>"ہمیں اس طرح رہنے کی ضرورت نہیں ہے" - اخی',
+            docs_header: "ہماری سائیٹ پر ہمارے بھائیوں کی بنائی گئی مزید ڈاکومینٹریز",
+            doc_one: "مسلم دماغوں کے لیے پوشیدہ جنگ از سائل ٹو جنہ",
+            doc_two: "امریکہ پر مسلم حملہ از سونی فاز اور بیک لور",
+            footer_text: "کاپی رائٹ © 2026 https://akhi076.github.io/islamicist-website/ تمام حقوق محفوظ ہیں۔"
+        },
+        bn: { // Bangladesh
+            hero_title: "ইসলামিস্ট",
+            hero_subtitle: "ইসলাম সবার আগে। মিথ্যার আর নয়, আর কোনো দুর্নীতি নয়",
+            about_text: 'উসমানীয় সাম্রাজ্যের পতন: উম্মাহ আজ পতনের মুখে এবং আমাদেরই মধ্য থেকে জন্ম নেওয়া এক শক্তি দ্বারা বিষাক্ত হয়েছে। অন্যদিকে এমন একটি দল রয়েছে যাদের আমাদের মধ্যে থাকার কোনো অধিকার নেই, তারা মুসলিম দেশগুলোতে মানবীয় আইন প্রচার করছে যা আল্লাহর দেওয়া ইসলামী আইনের পরিপন্থী। এটি বানোয়াট মিথ্যা গ্রহণ করা বা সত্যকে গ্রহণ করে আল্লাহর আইন বাস্তবায়ন করার মধ্যে একটি পছন্দ—এর মধ্যে কোনো মধ্যপন্থা নেই।<br><br>"আমাদের এভাবে বেঁচে থাকার দরকার নেই" - আখি',
+            docs_header: "আমাদের সাইটে আমাদের ভাইদের তৈরি আরও তথ্যচিত্র",
+            doc_one: "মুসলিম মনের বিরুদ্ধে অদৃশ্য যুদ্ধ - স্মাইল টু জান্নাহ",
+            doc_two: "আমেরিকায় মুসলিমদের আক্রমণ - সনি ফাজ এবং বেক লোভা",
+            footer_text: "স্বত্বাধিকার © 2026 https://akhi076.github.io/islamicist-website/ সর্বস্বত্ব সংরক্ষিত।"
+        },
+        bs: { // Bosnia
+            hero_title: "ISLAMIST",
+            hero_subtitle: "ISLAM NA PRVOM MJESTU. DOSTA LAŽI, NEMA VIŠE KORUPCIJE",
+            about_text: 'Kraj Osmanskog carstva: Ummet je pao i otrovan od strane entiteta koji je potekao iz naše sredine. S druge strane, postoji grupa koja nema pravo postojati među nama, šireći ljudske zakone koji su u suprotnosti s islamskim zakonima koje je objavio Allah. To je izbor između prihvatanja laži ili istine i implementacije Allahovih zakona—nema sredine.<br><br>"NE MORAMO OVAKO ŽIVJETI" - akhi',
+            docs_header: "VIŠE DOKUMENTARACA KOJE SU NAPRAVILI NAŠA BRAĆA NA NAŠOJ STRANICI",
+            doc_one: "Skriveni rat za muslimanske umove - Smile 2 Jannah",
+            doc_two: "Muslimanska invazija na Ameriku - SonnyFaz i Bek Lover",
+            footer_text: "Autorska prava © 2026 https://akhi076.github.io/islamicist-website/ Sva prava zadržana."
+        },
+        tr: { // Turkey
+            hero_title: "İSLAMİST",
+            hero_subtitle: "ÖNCE İSLAM. YALANLARA YETER ARTIK, YOLSUZLUĞA SON",
+            about_text: 'Osmanlı İmparatorluğu\'nun Sonu: Ümmet düştü ve içimizden çıkan bir unsur tarafından zehirlendi. Öte yandan aramızda bulunma hakkı olmayan, Müslüman ülkelerde beşeri yasaları yayan bir grup var. Allah\'ın koyduğu İslam kanunlarıyla çelişen insan yapımı kanunları teşvik ediyorlar. Bu, uydurma yalanları benimsemek ile gerçeği kabul edip Allah\'ın kanunlarını uygulamak arasında bir seçimdir; ortası yoktur.<br><br>"BÖYLE YAŞAMAK ZORUNDA DEĞİLİZ" - akhi',
+            docs_header: "SİTEMİZDE KARDEŞLERİMİZ TARAFINDAN YAPILAN DİĞER BELGESELLER",
+            doc_one: "Smile 2 Jannah'dan Müslüman Zihinleri İçin Gizli Savaş",
+            doc_two: "SonnyFaz ve Bek Lover'dan Amerika'nın Müslüman İşgali",
+            footer_text: "Telif Hakkı © 2026 https://akhi076.github.io/islamicist-website/ Tüm Hakları Saklıdır."
+        },
+        'ar-eg': { // Egypt
+            hero_title: "إِسْلَامِيسْت",
+            hero_subtitle: "الإسلام أولاً. كفاية أكاذيب، مفيش فساد تاني",
+            about_text: 'نهاية الدولة العثمانية: الأمة وقعت واتسممت من كيان طلع من وسطنا. ومن ناحية تانية، فيه جماعة ملهوش حق وجود بينا، بينشروا قوانين بشرية بتعارض الشريعة اللي ربنا أنزلها. هو اختيار يا إما نصدق الأكاذيب أو نقبل الحق ونطبق شريعة ربنا — مفيش حل وسط.<br><br>"احنا مش مضطرين نعيش بالطريقة دي" - أخي',
+            docs_header: "مزيد من الأفلام الوثائقية اللي عملوها إخواتنا على موقعنا",
+            doc_one: "الحرب الخفية على عقول المسلمين بواسطة سمايل تو جنة",
+            doc_two: "الغزو الإسلامي لأمريكا بواسطة سوني فاز وبيك لوفير",
+            footer_text: "جميع الحقوق محفوظة © 2026 https://akhi076.github.io/islamicist-website/"
+        }
+    };
+
+    function setLanguage(lang) {
+        const data = translations[lang];
+        if (!data) return;
+
+        // Update direction for Arabic and Urdu RTL support
+        if (lang === 'ar' || lang === 'ur' || lang === 'ar-eg') {
+            document.documentElement.setAttribute('dir', 'rtl');
+        } else {
+            document.documentElement.setAttribute('dir', 'ltr');
+        }
+
+        // Update all elements with data-translate attribute
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            const key = el.getAttribute('data-translate');
+            if (data[key]) {
+                el.innerHTML = data[key];
+            }
+        });
+
+        // Close modal after selection
+        langModal.classList.remove('active');
+    }
+</script>
 
 </body>
 </html>
