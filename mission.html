@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mission - Islamicist Website</title>
     <style>
-        body {
+        * {
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
             background-color: #0b0b0b;
             color: #ffffff;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+        }
+        body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -21,6 +27,7 @@
             align-items: center;
             padding: 20px 40px;
             background-color: #0b0b0b;
+            width: 100%;
         }
         .logo {
             font-size: 1.5rem;
@@ -46,6 +53,7 @@
         }
         main {
             flex: 1;
+            width: 100%;
         }
         footer {
             display: flex;
@@ -56,6 +64,7 @@
             color: #888888;
             font-size: 0.9rem;
             border-top: 1px solid #1a1a1a;
+            width: 100%;
         }
     </style>
 </head>
