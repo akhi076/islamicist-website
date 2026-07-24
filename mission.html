@@ -10,11 +10,11 @@
             color: #ffffff;
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100vh;
         }
         .container {
@@ -36,12 +36,23 @@
             width: 100%;
             border-radius: 8px;
             outline: none;
+            display: block;
         }
-        p {
+        .outside-text {
+            width: 90%;
+            max-width: 700px;
             margin-top: 25px;
             color: #cccccc;
             line-height: 1.6;
             font-size: 0.95rem;
+            text-align: left;
+        }
+        .content-image {
+            width: 90%;
+            max-width: 700px;
+            margin-top: 20px;
+            border-radius: 8px;
+            display: block;
         }
     </style>
 </head>
@@ -54,9 +65,14 @@
             <source src="video-project-4_EV9WRB8e.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-
-        <p>If you have received this, it's a sign from us. “If Muslims were to unite once again...</p>
     </div>
+
+    <div class="outside-text">
+        If you have received this, it's a sign from us. “If Muslims were to unite once again...
+    </div>
+
+    <!-- Replace 'your-image-filename.png' with your actual image file name -->
+    <img src="your-image-filename.png" alt="Mission Image" class="content-image">
 
 </body>
 </html>
