@@ -11,6 +11,9 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         header {
             display: flex;
@@ -41,15 +44,18 @@
             background-color: #ffffff;
             border-radius: 2px;
         }
-        .container {
-            width: 90%;
-            max-width: 700px;
-            background-color: #1a1a1a;
-            border: 1px solid #333333;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 40px auto;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        main {
+            flex: 1;
+        }
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #0b0b0b;
+            color: #888888;
+            font-size: 0.9rem;
+            border-top: 1px solid #1a1a1a;
         }
     </style>
 </head>
@@ -64,9 +70,14 @@
         </button>
     </header>
 
-    <div class="container">
-        <!-- Add your video, heading, and text inside here -->
-    </div>
+    <main>
+        <!-- Empty layout ready for your design -->
+    </main>
+
+    <footer>
+        <div>Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</div>
+        <div>𝐊𝐇𝐈𝐋𝐀𝐅𝐀𝐇</div>
+    </footer>
 
 </body>
 </html>
