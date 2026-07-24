@@ -273,10 +273,54 @@
         .page-container h1 {
             font-size: 42px;
             letter-spacing: 2px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             color: #fff;
             text-transform: uppercase;
             text-align: left;
+        }
+
+        /* Organization Table Styles matching second image */
+        .org-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            margin-top: 20px;
+        }
+
+        .org-table th {
+            text-align: left;
+            padding: 20px;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: #ccc;
+            border-bottom: 1px solid #333;
+            text-transform: uppercase;
+        }
+
+        .org-table th:last-child {
+            text-align: left;
+        }
+
+        .org-table td {
+            padding: 22px 20px;
+            border-bottom: 1px solid #222;
+            color: #ddd;
+            font-size: 1rem;
+        }
+
+        .org-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .org-table a {
+            color: #ccc;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+
+        .org-table a:hover {
+            color: #fff;
         }
 
         footer{
@@ -379,6 +423,25 @@
 <!-- GET ACTIVE CONTENT AREA -->
 <div class="page-container">
     <h1 data-translate="active_title">Get Active</h1>
+
+    <table class="org-table">
+        <thead>
+            <tr>
+                <th>Organization</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="https://t.me/MUSLIMLIVESMATTER" target="_blank">MUSLIMLIVESMATTER</a></td>
+                <td>All</td>
+            </tr>
+            <tr>
+                <td><a href="https://t.me/dailyislamist" target="_blank">Daily Islamist 🇹🇷 🇵🇸</a></td>
+                <td>Turkey</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <footer>
@@ -550,5 +613,3 @@
 
 </body>
 </html>
-```[cite: 1]
-
