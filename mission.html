@@ -16,6 +16,10 @@
         body{
             background:black;
             color:white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         nav{
@@ -261,61 +265,124 @@
             font-weight: bold;
         }
 
-        /* Page Content Area */
-        .page-container {
+        /* Main Content Area */
+        .main-content {
+            flex-grow: 1;
             max-width: 900px;
             margin: 0 auto;
-            padding: 160px 20px 100px 20px;
-            text-align: left;
-            min-height: 80vh;
+            padding: 130px 20px 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .page-container h1 {
-            font-size: 42px;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-            color: #fff;
-            text-transform: uppercase;
+        .video-card {
+            background: rgba(30, 10, 10, 0.7);
+            border: 1px solid #4a1515;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 650px;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .video-card video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .video-overlay-content {
+            position: relative;
+            z-index: 2;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            pointer-events: none;
         }
 
-        .page-container h2 {
-            font-size: 26px;
-            color: #f1f1f1;
-            margin-top: 35px;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
+        .video-card h2 {
+            font-size: 2rem;
+            letter-spacing: 3px;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
-        .page-container p {
-            font-size: 18px;
+        .play-btn {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .play-btn::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent #ffffff;
+            margin-left: 4px;
+        }
+
+        .manifesto-container {
+            text-align: left;
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .manifesto-container p {
+            font-size: 1.1rem;
             line-height: 1.8;
             color: #ccc;
             margin-bottom: 25px;
         }
 
-        .video-container {
-            margin: 40px 0;
-            text-align: center;
-        }
-
-        .video-container video {
+        .manifesto-banner {
             width: 100%;
-            max-width: 800px;
+            max-width: 650px;
+            margin-top: 15px;
             border-radius: 8px;
-            border: 1px solid #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            display: block;
         }
 
         footer{
             text-align:center;
-            padding:40px;
+            padding:30px;
             background:#111;
+            border-top: 1px solid #222;
         }
 
         .footer-brand {
-            margin-top: 10px;
-            font-size: 1.1rem;
+            margin-top: 5px;
+            font-size: 1rem;
             letter-spacing: 2px;
             color: #aaa;
         }
@@ -404,24 +471,27 @@
     </div>
 </div>
 
-<!-- MISSION CONTENT AREA -->
-<div class="page-container">
-    <h1 data-translate="mission_title">Our Mission & Manifesto</h1>
-    
-    <p data-translate="mission_intro">We stand for the absolute unification of the Ummah and the complete restoration of Sharia. Our core objective rejects modern corrupted global systems—including capitalism, secular democracy, and usury (riba)—which systematically oppress populations worldwide.</p>
-
-    <div class="video-container">
-        <video controls autoplay muted loop>
-            <source src="video-project-2_6JKsRMCq.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+<!-- MAIN CONTENT AREA -->
+<div class="main-content">
+    <div class="video-card">
+        <!-- Optional video source tag if file is local -->
+        <!-- <video src="video-project-2_6JKsRMCq.mp4" id="missionVideo"></video> -->
+        <div class="video-overlay-content">
+            <h2 data-translate="wake_title">WAKE UP MUSLIMS</h2>
+            <button class="play-btn" id="playBtn" title="Play Video"></button>
+        </div>
     </div>
 
-    <h2 data-translate="mission_heading_1">Challenging Global Economic Hegemony</h2>
-    <p data-translate="mission_text_1">A central pillar of our mission involves breaking away from financial enslavement. We aim to destabilize the US dollar trade system and challenge dominant global fiat networks, paving the way for independent, just monetary structures based on intrinsic value.</p>
-
-    <h2 data-translate="mission_heading_2">The Path Forward</h2>
-    <p data-translate="mission_text_2">Through education, digital media, and structural awareness, we awaken the Ummah to reclaim its sovereignty under the banner of the Shahada. Wake up, Muslims—the future belongs to unity and divine law.</p>
+    <div class="manifesto-container">
+        <p data-translate="manifesto_p1">If you have received this, it's a sign from us. “If Muslims were to unite once again, no power in the world could harm them. Even atom bombs and rockets could not vanquish them.” Maulana Mohammad Yousuf said.</p>
+        
+        <p data-translate="manifesto_p2">It's easy to tell if you look at the Muslim countries; there has been a hierarchy in God that's been spreading en masse across the countries. Such kafir satanic intervention like feminism and prostitution and OnlyFans and usury and clubs and pornography being exposed to the Muslim youth of this generation, like Salahudin Ayyubi quoted, "If you want to destroy any nation without war, make adultery and nudity common in the young generation." Islam says no to feminism, Islam says no to usury, Islam says no to pornography, and Islam says no to LGBTQ+ and queer and trans and to democracy and socialism and communism and capitalism. Laws like this are invented by the international Jew himself, who destroys religion and faith and its values that allow pedophilia and rape across the world. They don't want Sharia because it stops enabling such satanic, vile crimes they do on a regular basis, and they are scared of getting a harsher punishment, which they call a 7th-century mindset. If being anti-West is bad because we don't want our women to be whores and sex figures, then we are proud, as we have better moral standards than Westerners do. A religious person who invents anything that benefits something good not only for himself but for others as well—then it's not an issue. But that's not the case here; the Jew himself has created an intervention that has a negative impact on others who intervene in it. It only benefits the Jew himself. They are the most commonly found ones who are spreading hierarchy in God across Muslim countries.</p>
+        
+        <p data-translate="manifesto_p3">Our mission here is to destabilize the US dollar trade system and make our own currency for trading and ban usury. Say no to kafir laws and restore sharia. If you're a Muslim, whether you're white, Black, or any color, which doesn't matter, this mission of ours is a wake-up call to our brothers and sisters that we must unite; if not, then in 10 decades it will get worse. unite the ummah</p>
+        
+        <!-- Integrated Image from Repository -->
+        <img src="9ee177f75d78ad2a41b5d5f4e42cae83.jpg" alt="Shahada Banner" class="manifesto-banner">
+    </div>
 </div>
 
 <footer>
@@ -471,18 +541,25 @@
         }
     });
 
+    const playBtn = document.getElementById('playBtn');
+    const missionVideo = document.getElementById('missionVideo');
+    if (playBtn && missionVideo) {
+        playBtn.addEventListener('click', () => {
+            missionVideo.play();
+            playBtn.style.display = 'none';
+        });
+    }
+
     const translations = {
         en: {
             menu_home: "Home",
             menu_mission: "Mission",
             menu_get_active: "Get Active",
             menu_donate: "Donate",
-            mission_title: "Our Mission & Manifesto",
-            mission_intro: "We stand for the absolute unification of the Ummah and the complete restoration of Sharia. Our core objective rejects modern corrupted global systems—including capitalism, secular democracy, and usury (riba)—which systematically oppress populations worldwide.",
-            mission_heading_1: "Challenging Global Economic Hegemony",
-            mission_text_1: "A central pillar of our mission involves breaking away from financial enslavement. We aim to destabilize the US dollar trade system and challenge dominant global fiat networks, paving the way for independent, just monetary structures based on intrinsic value.",
-            mission_heading_2: "The Path Forward",
-            mission_text_2: "Through education, digital media, and structural awareness, we awaken the Ummah to reclaim its sovereignty under the banner of the Shahada. Wake up, Muslims—the future belongs to unity and divine law.",
+            wake_title: "WAKE UP MUSLIMS",
+            manifesto_p1: "If you have received this, it's a sign from us. “If Muslims were to unite once again, no power in the world could harm them. Even atom bombs and rockets could not vanquish them.” Maulana Mohammad Yousuf said.",
+            manifesto_p2: "It's easy to tell if you look at the Muslim countries; there has been a hierarchy in God that's been spreading en masse across the countries. Such kafir satanic intervention like feminism and prostitution and OnlyFans and usury and clubs and pornography being exposed to the Muslim youth of this generation, like Salahudin Ayyubi quoted, \"If you want to destroy any nation without war, make adultery and nudity common in the young generation.\" Islam says no to feminism, Islam says no to usury, Islam says no to pornography, and Islam says no to LGBTQ+ and queer and trans and to democracy and socialism and communism and capitalism. Laws like this are invented by the international Jew himself, who destroys religion and faith and its values that allow pedophilia and rape across the world. They don't want Sharia because it stops enabling such satanic, vile crimes they do on a regular basis, and they are scared of getting a harsher punishment, which they call a 7th-century mindset. If being anti-West is bad because we don't want our women to be whores and sex figures, then we are proud, as we have better moral standards than Westerners do. A religious person who invents anything that benefits something good not only for himself but for others as well—then it's not an issue. But that's not the case here; the Jew himself has created an intervention that has a negative impact on others who intervene in it. It only benefits the Jew himself. They are the most commonly found ones who are spreading hierarchy in God across Muslim countries.",
+            manifesto_p3: "Our mission here is to destabilize the US dollar trade system and make our own currency for trading and ban usury. Say no to kafir laws and restore sharia. If you're a Muslim, whether you're white, Black, or any color, which doesn't matter, this mission of ours is a wake-up call to our brothers and sisters that we must unite; if not, then in 10 decades it will get worse. unite the ummah",
             footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
         },
         ar: {
@@ -490,12 +567,10 @@
             menu_mission: "المهمة",
             menu_get_active: "انخرط معنا",
             menu_donate: "تبرع",
-            mission_title: "مهمتنا وبیاننا",
-            mission_intro: "نحن نقف من أجل توحيد الأمة المطلق والعودة الكاملة للشريعة. يرفض هدفنا الأساسي الأنظمة العالمية الفاسدة الحديثة—بما في ذلك الرأسمالية والديمقراطية العلمانية والربا—التي تظلم الشعوب منهجياً في جميع أنحاء العالم.",
-            mission_heading_1: "تحدي الهيمنة الاقتصادية العالمية",
-            mission_text_1: "الركيزة الأساسية لمهمتنا تتضمن التحرر من الاستعباد المالي. هدفنا هو زعزعة استقرار نظام التجارة بالدولار الأمريكي وتحدي شبكات العملات الورقية العالمية المهيمنة، مما يمهد الطريق لهياكل نقدية عادلة ومستقلة قائمة على القيمة الذاتية.",
-            mission_heading_2: "الطريق إلى الأمام",
-            mission_text_2: "من خلال التعليم، والإعلام الرقمي، والوعي الهيكلي، نوقظ الأمة لتستعيد سيادتها تحت راية الشهادة. استيقظوا أيها المسلمون—المستقبل ينتمي إلى الوحدة والقانون الإلهي.",
+            wake_title: "استيقظوا أيها المسلمون",
+            manifesto_p1: "إذا تلقيت هذا، فهذه علامة منّا. قال مولانا محمد يوسف: «لو اتحد المسلمون مرة أخرى، لما استطاعت أي قوة في العالم إلحاق الضرر بهم. وحتى القنابل الذرية والصواريخ لم تستطيع قهرهم».",
+            manifesto_p2: "من السهل معرفة ذلك إذا نظرت إلى البلدان الإسلامية؛ فقد انتشر تدخل شيطاني كافر مثل النسوية والبغاء وأونلي فانس والنوادي والمحتوى الإباحي بين شباب المسلمين في هذا الجيل. وكما قال صلاح الدين الأيوبي: «إذا أردت تدمير أي أمة بدون حرب، فاجعل الزنا والعري شائعين في الجيل الناشئ». الإسلام يقول لا للنسوية، ولا للربا، ولا للمحتوى الإباحي، ولا للمثليين والمتحولين جنسياً، ولا للديمقراطية والاشتراكية والشيوعية والرأس مالية. هذه القوانين اخترعها اليهود الدوليون أنفسهم ليدمروا الدين والقيم التي تمنع الجرائم في العالم. هم لا يريدون الشريعة لأنها توقف جرائمهم الشيطانية ويخافون من العقوبة الصارمة.",
+            manifesto_p3: "مهمتنا هنا هي زعزعة استقرار نظام التجارة بالدولار الأمريكي وإنشاء عملتنا الخاصة وحظر الربا. قولوا لا للقوانين الكفرية واستعيدوا الشريعة. إذا كنت مسلماً، سواء كنت أبيض أو أسود، فهذه دعوة لتتوحد الأمة.",
             footer_text: "حقوق الطبع والنشر © 2026 https://akhi076.github.io/islamicist-website/ جميع الحقوق محفوظة."
         },
         ur: {
@@ -503,25 +578,21 @@
             menu_mission: "مشن",
             menu_get_active: "سرگرم ہو جائیں",
             menu_donate: "عطیہ دیں",
-            mission_title: "ہمارا مشن اور منشور",
-            mission_intro: "ہم امت کے مطلق اتحاد اور شریعت کی مکمل بحالی کے لیے کھڑے ہیں۔ ہمارا بنیادی مقصد جدید خراب عالمی نظاموں—بشمول سرمایہ دارانہ نظام، سیکولر جمہوریت، اور سود—کو مسترد کرنا ہے جو دنیا بھر میں آبادیوں پر ظلم کرتے ہیں۔",
-            mission_heading_1: "عالمی معاشی غلبے کو چیلنج کرنا",
-            mission_text_1: "ہمارے مشن کا ایک مرکزی ستون مالی غلامی سے چھٹکارا حاصل کرنا ہے۔ ہمارا مقصد امریکی ڈالر کے تجارتی نظام کو غیر مستحکم کرنا اور غالب عالمی فیاٹ نیٹ ورکس کو چیلنج کرنا ہے، جو اندرونی قدر پر مبنی آزاد، منصفانہ مالیاتی ڈھانچے کی راہ ہموار کرتا ہے۔",
-            mission_heading_2: "آگے کا راستہ",
-            mission_text_2: "تعلیم، ڈیجیٹل میڈیا، اور ساختی آگاہی کے ذریعے، ہم امت کو کلمہ طیبہ کے سائے تلے اپنی خودمختاری واپس حاصل کرنے کے لیے بیدار کرتے ہیں۔ جاگ اٹھو مسلمانوں—مستقبل اتحاد اور الٰہی قانون کا ہے۔",
+            wake_title: "جاگ اٹھو مسلمانوں",
+            manifesto_p1: "اگر آپ کو یہ موصول ہوا ہے، تو یہ ہماری طرف سے ایک نشانی ہے۔ مولانا محمد یوسف نے فرمایا: «اگر مسلمان ایک بار پھر متحد ہو جائیں، تو دنیا کی کوئی طاقت انہیں نقصان نہیں پہنچا سکتی۔ یہاں تک کہ ایٹم بم اور راکٹ بھی انہیں مغلوب نہیں کر سکتے۔»",
+            manifesto_p2: "اگر آپ مسلم ممالک کو دیکھیں تو یہ دیکھنا آسان ہے؛ خدا میں ایک درجہ بندی بڑے پیمانے پر ممالک میں پھیل رہی ہے۔ اس نسل کے مسلم نوجوانوں کے سامنے فیمینزم، جسم فروشی، اونلی فنز، سود، کلبز اور پورنوگرافی جیسے کافرانہ شیطانی مداخلتیں لائی جا رہی ہیں، جیسا کہ صلاح الدین ایوبی نے کہا تھا، «اگر آپ جنگ کے بغیر کسی قوم کو تباہ کرنا چاہتے ہیں، تو نوجوان نسل میں زنا اور برهنگی عام کر دیں۔» اسلام فیمینزم کو نا کہتا ہے، اسلام سود کو نا کہتا ہے، اسلام پورنوگرافی کو نا کہتا ہے، اور اسلام LGBTQ+، کوئیر، ٹرانس، جمہوریت، سوشلزم، کمیونزم اور کیپیٹلزم کو نا کہتا ہے۔ اس طرح کے قوانین خود بین الاقوامی یہودی نے ایجاد کیے ہیں، جو مذہب اور ایمان کو تباہ کرتے ہیں۔",
+            manifesto_p3: "یہاں ہمارا مشن امریکی ڈالر کے تجارتی نظام کو غیر مستحکم کرنا، تجارت کے لیے اپنی کرنسی بنانا اور سود پر پابندی لگانا ہے۔ کافر قوانین کو نہ کہیں اور شریعت کو بحال کریں۔ اگر آپ مسلمان ہیں، تو یہ ہمارے بھائیوں اور بہنوں کے لیے بیداری کا پیغام ہے کہ ہمیں متحد ہونا چاہیے۔",
             footer_text: "کاپی رائٹ © 2026 https://akhi076.github.io/islamicist-website/ تمام حقوق محفوظ ہیں۔"
         },
         bn: {
             menu_home: "হোম",
-            menu_mission: "মিশণ",
+            menu_mission: "মিশন",
             menu_get_active: "যুক্ত হোন",
             menu_donate: "দান করুন",
-            mission_title: "আমাদের মিশন ও ইশতেহার",
-            mission_intro: "আমরা উম্মাহর পূর্ণাঙ্গ ঐক্য এবং শরীয়তের সম্পূর্ণ পুনর্প্রতিষ্ঠার পক্ষে। আমাদের মূল উদ্দেশ্য আধুনিক দুর্নীতিগ্রস্ত বৈশ্বিক ব্যবস্থাগুলোকে—পুঁজিবাদ, ধর্মনিরপেক্ষ গণতন্ত্র এবং সুদ (রিবা) সহ—বর্জন করা, যা বিশ্বব্যাপী জনগণকে পদ্ধতিগতভাবে নিপীড়ন করে।",
-            mission_heading_1: "বৈশ্বিক অর্থনৈতিক আধিপত্যকে চ্যালেঞ্জ করা",
-            mission_text_1: "আমাদের মিশনের একটি কেন্দ্রীয় স্তম্ভ হলো আর্থিক দাসত্ব থেকে বেরিয়ে আসা। আমাদের লক্ষ্য মার্কিন ডলার বাণিজ্য ব্যবস্থাকে অস্থিতিশীল করা এবং প্রভাবশালী বৈশ্বিক ফিয়াট নেটওয়ার্কগুলোকে চ্যালেঞ্জ করা, যা অভ্যন্তরীণ মূল্যের উপর ভিত্তি করে স্বাধীন, ন্যায্য আর্থিক কাঠামোর পথ প্রশস্ত করে।",
-            mission_heading_2: "এগিয়ে যাওয়ার পথ",
-            mission_text_2: "শিক্ষা, ডিজিটাল মিডিয়া এবং কাঠামোগত সচেতনতার মাধ্যমে, আমরা শাহাদাতের পতাকাতলে উম্মাহকে তাদের সার্বভৌমত্ব পুনরুদ্ধারের জন্য জাগ্রত করি। জেগে উঠুন মুসলমানরা—ভবিষ্যত ঐক্য এবং ঐশ্বরিক আইনের।",
+            wake_title: "জেগে উঠুন মুসলমানরা",
+            manifesto_p1: "আপনি যদি এটি পেয়ে থাকেন তবে এটি আমাদের কাছ থেকে একটি সংকেত। মাওলানা মোহাম্মদ ইউসুফ বলেছেন: “মুসলমানরা যদি আবার ঐক্যবদ্ধ হয়, তবে বিশ্বের কোনো শক্তিই তাদের ক্ষতি করতে পারবে না। এমনকি পারমাণবিক বোমা এবং রকেটও তাদের পরাস্ত করতে পারবে না।”",
+            manifesto_p2: "মুসলিম দেশগুলোর দিকে তাকালে এটি বোঝা সহজ; এই প্রজন্মের মুসলিম যুবকদের সামনে নারীবাদ, পতিতাবৃত্তি, ওনলিফ্যানস, সুদ, ক্লাব এবং পর্নোগ্রাফির মতো কাফের শয়তানি হস্তক্ষেপ তুলে ধরা হচ্ছে। সালাহউদ্দিন আইয়ুবী যেমন উদ্ধৃত করেছিলেন, \"যুদ্ধ ছাড়া কোনো জাতিকে ধ্বংস করতে চাইলে তরুণ প্রজন্মের মধ্যে ব্যভিচার ও নগ্নতা সাধারণ করে তুলুন।\" ইসলাম নারীবাদকে না বলে, ইসলাম সুদকে না বলে, ইসলাম পর্নোগ্রাফিকে না বলে, এবং ইসলাম LGBTQ+, কুইয়ার, ট্রান্স এবং গণতন্ত্র, সমাজতন্ত্র, সাম্যবাদ ও পুঁজিবাদকে না বলে। এই ধরনের আইন আন্তর্জাতিক ইহুদি নিজেই আবিষ্কার করেছে।",
+            manifesto_p3: "আমাদের এখানে মিশন হলো মার্কিন ডলার বাণিজ্য ব্যবস্থাকে অস্থিতিশীল করা এবং ট্রেডিংয়ের জন্য আমাদের নিজস্ব মুদ্রা তৈরি করা এবং সুদ নিষিদ্ধ করা। কাফের আইনকে না বলুন এবং শরিয়ত পুনরুদ্ধার করুন। আপনি যদি একজন মুসলমান হন, তবে আমাদের এই মিশন আমাদের ভাই ও বোনদের জন্য একটি জাগরণের ডাক যে আমাদের ঐক্যবদ্ধ হতে হবে।",
             footer_text: "স্বত্বাধিকার © 2026 https://akhi076.github.io/islamicist-website/ সর্বস্বত্ব সংরক্ষিত।"
         },
         bs: {
@@ -529,12 +600,10 @@
             menu_mission: "Misija",
             menu_get_active: "Uključi se",
             menu_donate: "Doniraj",
-            mission_title: "Naša Misija i Manifesto",
-            mission_intro: "Zalažemo se za apsolutno ujedinjenje ummeta i potpunu restauraciju šerijata. Naš glavni cilj odbacuje moderne korumpirane globalne sisteme—uključujući kapitalizam, sekularnu demokratiju i kamatu (kamatarenje)—koji sistematski tlače populacije širom svijeta.",
-            mission_heading_1: "Izazivanje globalne ekonomske hegemonije",
-            mission_text_1: "Centralni stub naše misije uključuje oslobađanje od finansijskog ropstva. Cilj nam je destabilizovati trgovinski sistem američkog dolara i izazvati dominantne globalne fiat mreže, utirući put nezavisnim, pravednim monetarnim strukturama zasnovanim na suštinskoj vrijednosti.",
-            mission_heading_2: "Put naprijed",
-            mission_text_2: "Kroz obrazovanje, digitalne medije i strukturnu svijest, budimo ummet da povrati svoj suverenitet pod barjakom Šehadeta. Probudite se, muslimani—budućnost pripada jedinstvu i Božanskom zakonu.",
+            wake_title: "PROBUDITE SE MUSLIMANI",
+            manifesto_p1: "Ako ste ovo primili, to je znak od nas. “Kada bi se muslimani ponovo ujedinili, nijedna sila na svijetu im ne bi mogla nauditi. Čak ni atomske bombe i rakete ih ne bi mogle pokoriti”, rekao je Mevlana Muhammed Jusuf.",
+            manifesto_p2: "Lako je vidjeti ako pogledate muslimanske zemlje; takve kafirske satanske intervencije poput feminizma, prostitucije, kamate i pornografije se nameću omladini. Kao što je Salahudin Ejubi citirao: \"Ako želite uništiti bilo koju naciju bez rata, učinite preljub i golotinju uobičajenim među mladom generacijom.\" Islam kaže ne feminizmu, kamati, pornografiji, LGBTQ+, demokratiji, socijalizmu, komunizmu i kapitalizmu.",
+            manifesto_p3: "Naša misija ovdje je da destabilizujemo trgovinski sistem američkog dolara, napravimo vlastitu valutu za trgovinu i zabranimo kamatu. Recite ne kafirskim zakonima i vratite šerijat. Ako ste musliman, ova naša misija je poziv na buđenje da se moramo ujediniti; ummet mora biti ujedinjen.",
             footer_text: "Autorska prava © 2026 https://akhi076.github.io/islamicist-website/ Sva prava zadržana."
         },
         tr: {
@@ -542,12 +611,10 @@
             menu_mission: "Misyon",
             menu_get_active: "Aktif Ol",
             menu_donate: "Bağış Yap",
-            mission_title: "Misyonumuz ve Manifestomuz",
-            mission_intro: "Ümmetin mutlak birliği ve Şeriatın eksiksiz ihyası için ayaktayız. Temel amacımız; dünya çapında halkları sistematik olarak ezen kapitalizm, laik demokrasi ve faiz (riba) dahil olmak üzere modern yozlaşmış küresel sistemleri reddetmektir.",
-            mission_heading_1: "Küresel Ekonomik Hegemonyaya Meydan Okumak",
-            mission_text_1: "Misyonumuzun merkezi bir ayağı mali kölelikten kurtulmaktır. Amacımız, ABD doları ticaret sistemini istikrarsızlaştırmak ve baskın küresel itibari para ağlarına meydan okuyarak içsel değere dayalı bağımsız, adil parasal yapıların yolunu açmaktır.",
-            mission_heading_2: "İleriye Doğru Yol",
-            mission_text_2: "Eğitim, dijital medya ve yapısal farkındalık yoluyla ümmeti Kelime-i Şehadet sancağı altında egemenliğini geri kazanmaya çağırıyoruz. Uyanın Müslümanlar—gelecek birlik ve ilahi kanuna aittir.",
+            wake_title: "UYANIN MÜSLÜMANLAR",
+            manifesto_p1: "Bunu aldıysanız, bu bizden bir işarettir. Mevlana Muhammed Yusuf şöyle demiştir: “Müslümanlar bir kez daha birleşseydi, dünyadaki hiçbir güç அவர்களுக்கு zarar veremezdi. Atom bombaları ve roketler bile onları yenemezdi.”",
+            manifesto_p2: "Müslüman ülkelere baktığınızda bunu söylemek kolaydır; bu neslin Müslüman gençlerine feministlik, fuhuş, OnlyFans, faiz ve pornografi gibi kafir şeytani müdahaleler maruz bırakılmaktadır. Selahaddin Eyyubi'nin dediği gibi, \"Bir milleti savaşsız yok etmek istiyorsanız, genç nesilde zinayı ve çıplaklığı yaygınlaştırın.\" İslam feminizme, faize, pornografiye, LGBTQ+'ya, demokrasiye, sosyalizme, komünizme ve kapitalizme hayır der.",
+            manifesto_p3: "Buradaki misyonumuz ABD doları ticaret sistemini istikrarsızlaştırmak, ticaret için kendi para birimimizi yapmak ve faizi yasaklamaktır. Kafir kanunlarına hayır deyin ve şeriatı yeniden kurun. Eğer bir Müslümansanız, bu misyonumuz birleşmemiz gerektiğine dair kardeşlerimize bir uyarıdır.",
             footer_text: "Telif Hakkı © 2026 https://akhi076.github.io/islamicist-website/ Tüm Hakları Saklıdır."
         },
         'ar-eg': {
@@ -555,12 +622,10 @@
             menu_mission: "المهمة",
             menu_get_active: "شارك معانا",
             menu_donate: "تبرع",
-            mission_title: "مهمتنا وبیاننا",
-            mission_intro: "إحنا واقفين عشان توحيد الأمة بشكل مطلق ورجوع الشريعة كاملة. هدفنا الأساسي بيبرز رفضنا للأنظمة العالمية الفاسدة الحديثة—زي الرأسمالية والديمقراطية العلمانية والربا—اللي بتظلم الشعوب في كل مكان.",
-            mission_heading_1: "تحدي الهيمنة الاقتصادية العالمية",
-            mission_text_1: "ركن أساسي في مهمتنا بيتضمن التحرر من العبودية المالية. هدفنا هو هز استقرار نظام التجارة بالدولار الأمريكي وتحدي شبكات العملات العالمية المهيمنة، عشان نمهد الطريق لهياكل نقدية عادلة ومستقلة.",
-            mission_heading_2: "الطريق اللي جاي",
-            mission_text_2: "عن طريق التعليم، والاعلام الرقمي، والوعي، بنصحى الأمة عشان ترجع سيادتها تحت راية الشهادة. استيقظوا أيها المسلمون—المستقبل للوحدة والقانون الإلهي.",
+            wake_title: "اصحوا يا مسلمين",
+            manifesto_p1: "لو وصلك ده، فدي إشارة مننا. قال مولانا محمد يوسف: «لو المسلمين اتحدوا تاني، مفيش أي قوة في العالم هتقدر تأذيهم».",
+            manifesto_p2: "الوضع واضح لو بصيت على الدول الإسلامية؛ في تدخلات شيطانية زي النسوية والبغاء وأونلي فانس والربا والنوادي والإباحية بتتعرض لشباب المسلمين. زي ما قال صلاح الدين الأيوبي: «لو عاوز تدمر أمة من غير حرب، خليهم ينتشروا في الزنا والعري». الإسلام بيقول لا للنسوية والربا والإباحية وLGBTQ+ والديمقراطية والرأسمالية.",
+            manifesto_p3: "مهمتنا هنا هي زعزعة استقرار نظام التجارة بالدولار الأمريكي ونعمل عملتنا الخاصة ونمنع الربا. قولوا لا للقوانين الكفرية ورجعوا الشريعة. اتحدوا يا أمة الإسلام.",
             footer_text: "جميع الحقوق محفوظة © 2026 https://akhi076.github.io/islamicist-website/"
         },
         id: {
@@ -568,12 +633,10 @@
             menu_mission: "Misi",
             menu_get_active: "Bergabung",
             menu_donate: "Donasi",
-            mission_title: "Misi & Manifesto Kami",
-            mission_intro: "Kami berdiri untuk penyatuan mutlak umat dan pemulihan Syariah sepenuhnya. Tujuan inti kami menolak sistem global modern yang korup—termasuk kapitalisme, demokrasi sekuler, dan riba—yang secara sistematis menindas populasi di seluruh dunia.",
-            mission_heading_1: "Menantang Hegemoni Ekonomi Global",
-            mission_text_1: "Pilar utama misi kami melibatkan pelepasan diri dari perbudakan finansial. Kami bertujuan untuk mengguncang sistem perdagangan dolar AS dan menantang jaringan fiat global yang dominan, membuka jalan bagi struktur moneter yang independen dan adil berdasarkan nilai intrinsik.",
-            mission_heading_2: "Jalan ke Depan",
-            mission_text_2: "Melalui pendidikan, media digital, dan kesadaran struktural, kami membangunkan umat untuk merebut kembali kedaulatan mereka di bawah panji Syahadat. Bangkitlah kaum Muslimin—masa depan adalah milik persatuan dan hukum ilahi.",
+            wake_title: "BANGKITLAH KAUM MUSLIMIN",
+            manifesto_p1: "Jika Anda menerima ini, itu adalah tanda dari kami. Maulana Mohammad Yousuf berkata, “Jika umat Islam bersatu kembali, tidak ada kekuatan di dunia yang dapat merugikan mereka.”",
+            manifesto_p2: "Sangat mudah untuk melihat negara-negara Muslim saat ini; ada intervensi setan kafir seperti feminisme, pelacuran, OnlyFans, riba, dan pornografi yang diekspos kepada pemuda Muslim. Seperti yang dikutip Salahudin Ayyubi, \"Jika Anda ingin menghancurkan suatu bangsa tanpa perang, buatlah perzinahan dan ketelanjangan menjadi biasa di kalangan generasi muda.\" Islam mengatakan tidak pada feminisme, riba, pornografi, LGBTQ+, demokrasi, sosialisme, komunisme, dan kapitalisme.",
+            manifesto_p3: "Misi kami di sini adalah untuk mengguncang sistem perdagangan dolar AS, membuat mata uang sendiri untuk perdagangan, dan melarang riba. Katakan tidak pada hukum kafir dan kembalikan syariah. Jika Anda seorang Muslim, misi ini adalah panggilan bangun bagi saudara-saudari kita untuk bersatu.",
             footer_text: "Hak Cipta © 2026 https://akhi076.github.io/islamicist-website/ Seluruh Hak Cipta Dilindungi Undang-Undang."
         },
         sq: {
@@ -581,12 +644,10 @@
             menu_mission: "Misioni",
             menu_get_active: "Bëhu Aktiv",
             menu_donate: "Dhuroni",
-            mission_title: "Misioni & Manifesti Ynë",
-            mission_intro: "Ne qëndrojmë për bashkimin absolut të ummetit dhe rivendosjen e plotë të Sheriatit. Qëllimi ynë kryesor refuzon sistemet e korruptuara moderne globale—prfshirë kapitalizmin, demokracinë laike dhe usury (kamatën)—të cilat shtypin sistematikisht popullatat në mbarë botën.",
-            mission_heading_1: "Sfida e Hegemonisë Ekonomike Globale",
-            mission_text_1: "Një shtyllë qendrore e misionit tonë përfshin shkëputjen nga skllavëria financiare. Ne synojmë të destabilizojmë sistemin tregtar të dollarit amerikan dhe të sfidojmë rrjetet dominuese globale të fiat-it, duke i hapur rrugën strukturave monetare të pavarura dhe të drejta.",
-            mission_heading_2: "Rruga Përpara",
-            mission_text_2: "Përmes arsimit, mediave dixhitale dhe ndërgjegjësimit strukturor, ne zgjojmë ummetin për të rimarrë sovranitetin e tij nën flamurin e Shehadetit. Zohuni, muslimanë—e ardhmja i përket unitetit dhe ligjit hyjnor.",
+            wake_title: "ZGJOHUNI MUSLIMANË",
+            manifesto_p1: "Nëse e keni marrë këtë, është një shenjë nga ne. Maulana Mohammad Yousuf tha: “Nëse muslimanët do të bashkoheshin edhe një herë, asnjë fuqi në botë nuk mund t'u bënte dëm.”",
+            manifesto_p2: "Është e lehtë të shikohet në vendet muslimane; ndërhyrjet satanike kafire si feminizmi, prostitucioni, OnlyFans, kamata dhe pornografia po u shfaqen rinisë. Siç citoi Salahudin Ayyubi: \"Nëse doni të shkatërroni çdo komb pa luftë, bëni tradhtinë bashkëshortore dhe nudizmin të zakonshme tek brezi i ri.\" Islam thotë jo feminizmit, kamatës, pornografisë, LGBTQ+, demokracisë dhe kapitalizmit.",
+            manifesto_p3: "Misioni ynë këtu është të destabilizojmë sistemin tregtar të dollarit amerikan, të bëjmë monedhën tonë për tregti dhe të ndalojmë kamatën. Thoni jo ligjeve kafire dhe rivendosni sheriatin. Bashkoni ummetin.",
             footer_text: "Të drejtat e autorit © 2026 https://akhi076.github.io/islamicist-website/ Të gjitha të drejtat e rezervuara."
         },
         so: {
@@ -594,12 +655,10 @@
             menu_mission: "Hadafka",
             menu_get_active: "Firfircoonaow",
             menu_donate: "Deeq Bixi",
-            mission_title: "Hadafkeenna & Manifesto",
-            mission_intro: "Waxaan u taaganahay midoobinta buuxda ee ummadda iyo soo celinta buuxda ee Sharciga. Ujeeddadeenna udub-dhexaadka ah waxay diidaysaa nidaamyada caalamiga ah ee musuqmaasuqyada saameeyay—oo ay ku jiraan hanti-wadaagga, dimuqraad-diidka, iyo ribada—ee si nidaamsan u caburiya dadweynaha adduunka oo dhan.",
-            mission_heading_1: "La loolanka Awoodda Dhaqaale ee Caalamiga ah",
-            mission_text_1: "Halbeeg muhiim ah oo ka mid ah hadafkeenna waa inaan iska deynino addoonsiga maaliyeynta. Waxaan u jeedنا inaan daciifino nidaamka ganacsiga doollarka Mareykanka oo aan caqabad ku noqono shabakadaha caalamiga ah ee fiat-ka, annagoo u gogol xaaraya qaab-dhismeed lacageed oo madaxbannaan oo cadaalad ah.",
-            mission_heading_2: "Waddada Hore",
-            mission_text_2: "An PSI aqoonta, warbaahinta dhijitaalka ah, iyo wacyiga dhismeedka, waxaan u kicineynaa ummadda inay dib u hanato madaxbannaanideeda oo hoos imaaneysa calanka Shahadada. Kacaya Muslimiintow—mustaqbalku wuxuu leeyahay midnimo iyo sharci ilaah.",
+            wake_title: "KACAYA MUSLIMIINTOW",
+            manifesto_p1: "Haddii aad tan heshay, waa calaamad naga timid. Maulana Mohammad Yousuf wuxuu yiri: “Haddii Muslimiintu mar kale midoobaan, ma jiro awood adduunka joogta oo wax yeeli karta.”",
+            manifesto_p2: "Way sahlan tahay in la ogaado haddii aad eegto waddamada Islaamka; waxaa jira faragelin shaydaani ah oo gaalays ah sida feminism, sinada, OnlyFans, ribada, iyo filimada qaawan oo la hor dhigayo dhalinyarada Muslimka ah. Sida Salahudin Ayyubi uu yiri, \"Haddii aad rabto inaad burburiso qaran kasta oo aan dagaal ahayn, ka dhig sinada iyo qaawanida mid caadi ah.\" Islaamku wuxuu diidayaa feminism, ribo, pornography, LGBTQ+, democracy, iyo capitalism.",
+            manifesto_p3: "Hadafkeenna halkan waa inaan daciifino nidaamka ganacsiga doollarka Mareykanka oo aan samaysano lacagteenna ganacsiga oo aan mamnuucno ribada. Haka dhahina sharciyada gaalada oo soo celiya shareecada. Mideeya ummadda.",
             footer_text: "Xuquuqda Daabacaadda © 2026 https://akhi076.github.io/islamicist-website/ Xuquuqda oo dhan waa la dhowray."
         },
         'en-ng': {
@@ -607,12 +666,10 @@
             menu_mission: "Mission",
             menu_get_active: "Get Active",
             menu_donate: "Donate",
-            mission_title: "Our Mission & Manifesto",
-            mission_intro: "We stand for the absolute unification of the Ummah and the complete restoration of Sharia. Our core objective rejects modern corrupted global systems—including capitalism, secular democracy, and usury (riba)—which systematically oppress populations worldwide.",
-            mission_heading_1: "Challenging Global Economic Hegemony",
-            mission_text_1: "A central pillar of our mission involves breaking away from financial enslavement. We aim to destabilize the US dollar trade system and challenge dominant global fiat networks, paving the way for independent, just monetary structures based on intrinsic value.",
-            mission_heading_2: "The Path Forward",
-            mission_text_2: "Through education, digital media, and structural awareness, we awaken the Ummah to reclaim its sovereignty under the banner of the Shahada. Wake up, Muslims—the future belongs to unity and divine law.",
+            wake_title: "WAKE UP MUSLIMS",
+            manifesto_p1: "If you have received this, it's a sign from us. “If Muslims were to unite once again, no power in the world could harm them. Even atom bombs and rockets could not vanquish them.” Maulana Mohammad Yousuf said.",
+            manifesto_p2: "It's easy to tell if you look at the Muslim countries; there has been a hierarchy in God that's been spreading en masse across the countries. Such kafir satanic intervention like feminism and prostitution and OnlyFans and usury and clubs and pornography being exposed to the Muslim youth of this generation, like Salahudin Ayyubi quoted, \"If you want to destroy any nation without war, make adultery and nudity common in the young generation.\" Islam says no to feminism, Islam says no to usury, Islam says no to pornography, and Islam says no to LGBTQ+ and queer and trans and to democracy and socialism and communism and capitalism.",
+            manifesto_p3: "Our mission here is to destabilize the US dollar trade system and make our own currency for trading and ban usury. Say no to kafir laws and restore sharia. If you're a Muslim, whether you're white, Black, or any color, which doesn't matter, this mission of ours is a wake-up call to our brothers and sisters that we must unite; if not, then in 10 decades it will get worse. unite the ummah",
             footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
         },
         ps: {
@@ -620,12 +677,10 @@
             menu_mission: "مأموریت",
             menu_get_active: "فعال شئ",
             menu_donate: "مرسته وکړئ",
-            mission_title: "زموږ مأموریت او منشور",
-            mission_intro: "موږ د امت د بشپړ اتحاد او د شریعت د بشپړ بیا پیاوړتیا لپاره ولاړ یو. زموږ اصلي هدف د معاصرو فاسدو نړیوالو سیسټمونو—پشمول د سرمایه دارۍ، سیکولر ډیموکراسۍ، او سود—ردول دي چې په ټوله نړۍ کې د خلکو ظلم کوي.",
-            mission_heading_1: "د نړیوال اقتصادي تسلط ننګول",
-            mission_text_1: "زموږ د مأموریت یوه مهمه برخه له مالي غلامۍ څخه ځان خلاصول دي. زموږ موخه دا ده چې د امریکايي ډالر سوداګریز سیسټم بې ثباته کړو او د غالب نړیوالو فیاټ شبکو ننګونه وکړو، ترڅو د خپلواکو، عادلانه مالي جوړښتونو لپاره لاره هواره شي.",
-            mission_heading_2: "مخکې لاره",
-            mission_text_2: "د زده کړې، ډیجیټل رسنیو، او ساختماني پوهاوي له لارې، موږ امت بیدار کوو ترڅو د شهادت تر بیرغ لاندې خپلواکي بیرته ترلاسه کړي. ویښ شئ مسلمانانو—راتلونکی د اتحاد او الهي قانون دی.",
+            wake_title: "ویښ شئ مسلمانانو",
+            manifesto_p1: "که تاسو دا ترلاسه کړی وي، دا زموږ لخوا یوه نښه ده. مولانا محمد یوسف وویل: «که مسلمانان یو ځل بیا متحد شي، په نړۍ کې هره ځواک دوی ته زیان نه شي رسولای.»",
+            manifesto_p2: "د اسلامي هیوادونو په لیدلو سره دا اسانه ده؛ کافر شیطانی مداخلې لکه فیمینزم، فاحشه‌ګري، اونلی فنز، سود او پورنوګرافي د مسلمانو ځوانانو مخې ته راوړل کیږي. لکه څنګه چې صلاح الدین ایوبي وویل: «که غواړئ پرته له جګړې کوم قوم تباه کړئ، نو په ځوان نسل کې زنا او بربنډتوب عام کړئ.» اسلام فیمینزم، سود، پورنوګرافي، LGBTQ+، او ډیموکراسۍ ته نه وايي.",
+            manifesto_p3: "دلته زموږ هدف د امریکايي ډالر سوداګریز سیسټم بې ثباته کول, د سوداګرۍ لپاره زموږ خپله کلتوري او مالي کرنسی جوړول او د سود منع کول دي. د کافرانو قانون ته نه وایئ او شریعت بحال کړئ. امت متحد کړئ.",
             footer_text: "د کاپی حق © 2026 https://akhi076.github.io/islamicist-website/ ټول حقونه خوندي دي."
         }
     };
