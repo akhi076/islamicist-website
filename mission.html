@@ -279,11 +279,32 @@
             text-align: center;
         }
 
+        .page-container h2 {
+            font-size: 26px;
+            color: #f1f1f1;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
         .page-container p {
             font-size: 18px;
             line-height: 1.8;
             color: #ccc;
             margin-bottom: 25px;
+        }
+
+        .video-container {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .video-container video {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         footer{
@@ -385,8 +406,22 @@
 
 <!-- MISSION CONTENT AREA -->
 <div class="page-container">
-    <h1 data-translate="mission_title">Our Mission</h1>
-    <p data-translate="mission_text">Add your detailed mission statement, goals, and core values here...</p>
+    <h1 data-translate="mission_title">Our Mission & Manifesto</h1>
+    
+    <p data-translate="mission_intro">We stand for the absolute unification of the Ummah and the complete restoration of Sharia. Our core objective rejects modern corrupted global systems—including capitalism, secular democracy, and usury (riba)—which systematically oppress populations worldwide.</p>
+
+    <div class="video-container">
+        <video controls autoplay muted loop>
+            <source src="video-project-2_6JKsRMCq.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <h2 data-translate="mission_heading_1">Challenging Global Economic Hegemony</h2>
+    <p data-translate="mission_text_1">A central pillar of our mission involves breaking away from financial enslavement. We aim to destabilize the US dollar trade system and challenge dominant global fiat networks, paving the way for independent, just monetary structures based on intrinsic value.</p>
+
+    <h2 data-translate="mission_heading_2">The Path Forward</h2>
+    <p data-translate="mission_text_2">Through education, digital media, and structural awareness, we awaken the Ummah to reclaim its sovereignty under the banner of the Shahada. Wake up, Muslims—the future belongs to unity and divine law.</p>
 </div>
 
 <footer>
@@ -442,8 +477,12 @@
             menu_mission: "Mission",
             menu_get_active: "Get Active",
             menu_donate: "Donate",
-            mission_title: "Our Mission",
-            mission_text: "Add your detailed mission statement, goals, and core values here...",
+            mission_title: "Our Mission & Manifesto",
+            mission_intro: "We stand for the absolute unification of the Ummah and the complete restoration of Sharia. Our core objective rejects modern corrupted global systems—including capitalism, secular democracy, and usury (riba)—which systematically oppress populations worldwide.",
+            mission_heading_1: "Challenging Global Economic Hegemony",
+            mission_text_1: "A central pillar of our mission involves breaking away from financial enslavement. We aim to destabilize the US dollar trade system and challenge dominant global fiat networks, paving the way for independent, just monetary structures based on intrinsic value.",
+            mission_heading_2: "The Path Forward",
+            mission_text_2: "Through education, digital media, and structural awareness, we awaken the Ummah to reclaim its sovereignty under the banner of the Shahada. Wake up, Muslims—the future belongs to unity and divine law.",
             footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
         },
         ar: {
@@ -451,8 +490,12 @@
             menu_mission: "المهمة",
             menu_get_active: "انخرط معنا",
             menu_donate: "تبرع",
-            mission_title: "مهمتنا",
-            mission_text: "أضف بيان مهمتك التفصيلي والأهداف والقيم الأساسية هنا...",
+            mission_title: "مهمتنا وبیاننا",
+            mission_intro: "نحن نقف من أجل توحيد الأمة المطلق والعودة الكاملة للشريعة. يرفض هدفنا الأساسي الأنظمة العالمية الفاسدة الحديثة—بما في ذلك الرأسمالية والديمقراطية العلمانية والربا—التي تظلم الشعوب منهجياً في جميع أنحاء العالم.",
+            mission_heading_1: "تحدي الهيمنة الاقتصادية العالمية",
+            mission_text_1: "الركيزة الأساسية لمهمتنا تتضمن التحرر من الاستعباد المالي. هدفنا هو زعزعة استقرار نظام التجارة بالدولار الأمريكي وتحدي شبكات العملات الورقية العالمية المهيمنة، مما يمهد الطريق لهياكل نقدية عادلة ومستقلة قائمة على القيمة الذاتية.",
+            mission_heading_2: "الطريق إلى الأمام",
+            mission_text_2: "من خلال التعليم، والإعلام الرقمي، والوعي الهيكلي، نوقظ الأمة لتستعيد سيادتها تحت راية الشهادة. استيقظوا أيها المسلمون—المستقبل ينتمي إلى الوحدة والقانون الإلهي.",
             footer_text: "حقوق الطبع والنشر © 2026 https://akhi076.github.io/islamicist-website/ جميع الحقوق محفوظة."
         },
         ur: {
@@ -460,17 +503,25 @@
             menu_mission: "مشن",
             menu_get_active: "سرگرم ہو جائیں",
             menu_donate: "عطیہ دیں",
-            mission_title: "ہمارا مشن",
-            mission_text: "یہاں اپنا تفصیلی مشن کا بیان، مقاصد اور بنیادی اقدار شامل کریں...",
+            mission_title: "ہمارا مشن اور منشور",
+            mission_intro: "ہم امت کے مطلق اتحاد اور شریعت کی مکمل بحالی کے لیے کھڑے ہیں۔ ہمارا بنیادی مقصد جدید خراب عالمی نظاموں—بشمول سرمایہ دارانہ نظام، سیکولر جمہوریت، اور سود—کو مسترد کرنا ہے جو دنیا بھر میں آبادیوں پر ظلم کرتے ہیں۔",
+            mission_heading_1: "عالمی معاشی غلبے کو چیلنج کرنا",
+            mission_text_1: "ہمارے مشن کا ایک مرکزی ستون مالی غلامی سے چھٹکارا حاصل کرنا ہے۔ ہمارا مقصد امریکی ڈالر کے تجارتی نظام کو غیر مستحکم کرنا اور غالب عالمی فیاٹ نیٹ ورکس کو چیلنج کرنا ہے، جو اندرونی قدر پر مبنی آزاد، منصفانہ مالیاتی ڈھانچے کی راہ ہموار کرتا ہے۔",
+            mission_heading_2: "آگے کا راستہ",
+            mission_text_2: "تعلیم، ڈیجیٹل میڈیا، اور ساختی آگاہی کے ذریعے، ہم امت کو کلمہ طیبہ کے سائے تلے اپنی خودمختاری واپس حاصل کرنے کے لیے بیدار کرتے ہیں۔ جاگ اٹھو مسلمانوں—مستقبل اتحاد اور الٰہی قانون کا ہے۔",
             footer_text: "کاپی رائٹ © 2026 https://akhi076.github.io/islamicist-website/ تمام حقوق محفوظ ہیں۔"
         },
         bn: {
             menu_home: "হোম",
-            menu_mission: "মিশন",
+            menu_mission: "মিশণ",
             menu_get_active: "যুক্ত হোন",
             menu_donate: "দান করুন",
-            mission_title: "আমাদের মিশন",
-            mission_text: "এখানে আপনার বিশদ মিশন বিবৃতি, লক্ষ্য এবং মূল মূল্যবোধ যোগ করুন...",
+            mission_title: "আমাদের মিশন ও ইশতেহার",
+            mission_intro: "আমরা উম্মাহর পূর্ণাঙ্গ ঐক্য এবং শরীয়তের সম্পূর্ণ পুনর্প্রতিষ্ঠার পক্ষে। আমাদের মূল উদ্দেশ্য আধুনিক দুর্নীতিগ্রস্ত বৈশ্বিক ব্যবস্থাগুলোকে—পুঁজিবাদ, ধর্মনিরপেক্ষ গণতন্ত্র এবং সুদ (রিবা) সহ—বর্জন করা, যা বিশ্বব্যাপী জনগণকে পদ্ধতিগতভাবে নিপীড়ন করে।",
+            mission_heading_1: "বৈশ্বিক অর্থনৈতিক আধিপত্যকে চ্যালেঞ্জ করা",
+            mission_text_1: "আমাদের মিশনের একটি কেন্দ্রীয় স্তম্ভ হলো আর্থিক দাসত্ব থেকে বেরিয়ে আসা। আমাদের লক্ষ্য মার্কিন ডলার বাণিজ্য ব্যবস্থাকে অস্থিতিশীল করা এবং প্রভাবশালী বৈশ্বিক ফিয়াট নেটওয়ার্কগুলোকে চ্যালেঞ্জ করা, যা অভ্যন্তরীণ মূল্যের উপর ভিত্তি করে স্বাধীন, ন্যায্য আর্থিক কাঠামোর পথ প্রশস্ত করে।",
+            mission_heading_2: "এগিয়ে যাওয়ার পথ",
+            mission_text_2: "শিক্ষা, ডিজিটাল মিডিয়া এবং কাঠামোগত সচেতনতার মাধ্যমে, আমরা শাহাদাতের পতাকাতলে উম্মাহকে তাদের সার্বভৌমত্ব পুনরুদ্ধারের জন্য জাগ্রত করি। জেগে উঠুন মুসলমানরা—ভবিষ্যত ঐক্য এবং ঐশ্বরিক আইনের।",
             footer_text: "স্বত্বাধিকার © 2026 https://akhi076.github.io/islamicist-website/ সর্বস্বত্ব সংরক্ষিত।"
         },
         bs: {
@@ -478,8 +529,12 @@
             menu_mission: "Misija",
             menu_get_active: "Uključi se",
             menu_donate: "Doniraj",
-            mission_title: "Naša Misija",
-            mission_text: "Ovdje dodajte svoju detaljnu izjavu o misiji, ciljevima i osnovnim vrijednostima...",
+            mission_title: "Naša Misija i Manifesto",
+            mission_intro: "Zalažemo se za apsolutno ujedinjenje ummeta i potpunu restauraciju šerijata. Naš glavni cilj odbacuje moderne korumpirane globalne sisteme—uključujući kapitalizam, sekularnu demokratiju i kamatu (kamatarenje)—koji sistematski tlače populacije širom svijeta.",
+            mission_heading_1: "Izazivanje globalne ekonomske hegemonije",
+            mission_text_1: "Centralni stub naše misije uključuje oslobađanje od finansijskog ropstva. Cilj nam je destabilizovati trgovinski sistem američkog dolara i izazvati dominantne globalne fiat mreže, utirući put nezavisnim, pravednim monetarnim strukturama zasnovanim na suštinskoj vrijednosti.",
+            mission_heading_2: "Put naprijed",
+            mission_text_2: "Kroz obrazovanje, digitalne medije i strukturnu svijest, budimo ummet da povrati svoj suverenitet pod barjakom Šehadeta. Probudite se, muslimani—budućnost pripada jedinstvu i Božanskom zakonu.",
             footer_text: "Autorska prava © 2026 https://akhi076.github.io/islamicist-website/ Sva prava zadržana."
         },
         tr: {
@@ -487,8 +542,12 @@
             menu_mission: "Misyon",
             menu_get_active: "Aktif Ol",
             menu_donate: "Bağış Yap",
-            mission_title: "Misyonumuz",
-            mission_text: "Buraya detaylı misyon beyninizi, hedeflerinizi ve temel değerlerinizi ekleyin...",
+            mission_title: "Misyonumuz ve Manifestomuz",
+            mission_intro: "Ümmetin mutlak birliği ve Şeriatın eksiksiz ihyası için ayaktayız. Temel amacımız; dünya çapında halkları sistematik olarak ezen kapitalizm, laik demokrasi ve faiz (riba) dahil olmak üzere modern yozlaşmış küresel sistemleri reddetmektir.",
+            mission_heading_1: "Küresel Ekonomik Hegemonyaya Meydan Okumak",
+            mission_text_1: "Misyonumuzun merkezi bir ayağı mali kölelikten kurtulmaktır. Amacımız, ABD doları ticaret sistemini istikrarsızlaştırmak ve baskın küresel itibari para ağlarına meydan okuyarak içsel değere dayalı bağımsız, adil parasal yapıların yolunu açmaktır.",
+            mission_heading_2: "İleriye Doğru Yol",
+            mission_text_2: "Eğitim, dijital medya ve yapısal farkındalık yoluyla ümmeti Kelime-i Şehadet sancağı altında egemenliğini geri kazanmaya çağırıyoruz. Uyanın Müslümanlar—gelecek birlik ve ilahi kanuna aittir.",
             footer_text: "Telif Hakkı © 2026 https://akhi076.github.io/islamicist-website/ Tüm Hakları Saklıdır."
         },
         'ar-eg': {
@@ -496,8 +555,12 @@
             menu_mission: "المهمة",
             menu_get_active: "شارك معانا",
             menu_donate: "تبرع",
-            mission_title: "مهمتنا",
-            mission_text: "أضف بيان مهمتك التفصيلي والأهداف والقيم الأساسية هنا...",
+            mission_title: "مهمتنا وبیاننا",
+            mission_intro: "إحنا واقفين عشان توحيد الأمة بشكل مطلق ورجوع الشريعة كاملة. هدفنا الأساسي بيبرز رفضنا للأنظمة العالمية الفاسدة الحديثة—زي الرأسمالية والديمقراطية العلمانية والربا—اللي بتظلم الشعوب في كل مكان.",
+            mission_heading_1: "تحدي الهيمنة الاقتصادية العالمية",
+            mission_text_1: "ركن أساسي في مهمتنا بيتضمن التحرر من العبودية المالية. هدفنا هو هز استقرار نظام التجارة بالدولار الأمريكي وتحدي شبكات العملات العالمية المهيمنة، عشان نمهد الطريق لهياكل نقدية عادلة ومستقلة.",
+            mission_heading_2: "الطريق اللي جاي",
+            mission_text_2: "عن طريق التعليم، والاعلام الرقمي، والوعي، بنصحى الأمة عشان ترجع سيادتها تحت راية الشهادة. استيقظوا أيها المسلمون—المستقبل للوحدة والقانون الإلهي.",
             footer_text: "جميع الحقوق محفوظة © 2026 https://akhi076.github.io/islamicist-website/"
         },
         id: {
@@ -505,8 +568,12 @@
             menu_mission: "Misi",
             menu_get_active: "Bergabung",
             menu_donate: "Donasi",
-            mission_title: "Misi Kami",
-            mission_text: "Tambahkan pernyataan misi terperinci, tujuan, dan nilai-nilai inti Anda di sini...",
+            mission_title: "Misi & Manifesto Kami",
+            mission_intro: "Kami berdiri untuk penyatuan mutlak umat dan pemulihan Syariah sepenuhnya. Tujuan inti kami menolak sistem global modern yang korup—termasuk kapitalisme, demokrasi sekuler, dan riba—yang secara sistematis menindas populasi di seluruh dunia.",
+            mission_heading_1: "Menantang Hegemoni Ekonomi Global",
+            mission_text_1: "Pilar utama misi kami melibatkan pelepasan diri dari perbudakan finansial. Kami bertujuan untuk mengguncang sistem perdagangan dolar AS dan menantang jaringan fiat global yang dominan, membuka jalan bagi struktur moneter yang independen dan adil berdasarkan nilai intrinsik.",
+            mission_heading_2: "Jalan ke Depan",
+            mission_text_2: "Melalui pendidikan, media digital, dan kesadaran struktural, kami membangunkan umat untuk merebut kembali kedaulatan mereka di bawah panji Syahadat. Bangkitlah kaum Muslimin—masa depan adalah milik persatuan dan hukum ilahi.",
             footer_text: "Hak Cipta © 2026 https://akhi076.github.io/islamicist-website/ Seluruh Hak Cipta Dilindungi Undang-Undang."
         },
         sq: {
@@ -514,8 +581,12 @@
             menu_mission: "Misioni",
             menu_get_active: "Bëhu Aktiv",
             menu_donate: "Dhuroni",
-            mission_title: "Misioni Ynë",
-            mission_text: "Shtoni deklaratën tuaj të detajuar të misionit, qëllimet dhe vlerat kryesore këtu...",
+            mission_title: "Misioni & Manifesti Ynë",
+            mission_intro: "Ne qëndrojmë për bashkimin absolut të ummetit dhe rivendosjen e plotë të Sheriatit. Qëllimi ynë kryesor refuzon sistemet e korruptuara moderne globale—prfshirë kapitalizmin, demokracinë laike dhe usury (kamatën)—të cilat shtypin sistematikisht popullatat në mbarë botën.",
+            mission_heading_1: "Sfida e Hegemonisë Ekonomike Globale",
+            mission_text_1: "Një shtyllë qendrore e misionit tonë përfshin shkëputjen nga skllavëria financiare. Ne synojmë të destabilizojmë sistemin tregtar të dollarit amerikan dhe të sfidojmë rrjetet dominuese globale të fiat-it, duke i hapur rrugën strukturave monetare të pavarura dhe të drejta.",
+            mission_heading_2: "Rruga Përpara",
+            mission_text_2: "Përmes arsimit, mediave dixhitale dhe ndërgjegjësimit strukturor, ne zgjojmë ummetin për të rimarrë sovranitetin e tij nën flamurin e Shehadetit. Zohuni, muslimanë—e ardhmja i përket unitetit dhe ligjit hyjnor.",
             footer_text: "Të drejtat e autorit © 2026 https://akhi076.github.io/islamicist-website/ Të gjitha të drejtat e rezervuara."
         },
         so: {
@@ -523,8 +594,12 @@
             menu_mission: "Hadafka",
             menu_get_active: "Firfircoonaow",
             menu_donate: "Deeq Bixi",
-            mission_title: "Hadafkeenna",
-            mission_text: "Halkan ku dar bayaankaaga hadafka faahfaahsan, yoolalka, iyo qiyamka aasaasiga ah...",
+            mission_title: "Hadafkeenna & Manifesto",
+            mission_intro: "Waxaan u taaganahay midoobinta buuxda ee ummadda iyo soo celinta buuxda ee Sharciga. Ujeeddadeenna udub-dhexaadka ah waxay diidaysaa nidaamyada caalamiga ah ee musuqmaasuqyada saameeyay—oo ay ku jiraan hanti-wadaagga, dimuqraad-diidka, iyo ribada—ee si nidaamsan u caburiya dadweynaha adduunka oo dhan.",
+            mission_heading_1: "La loolanka Awoodda Dhaqaale ee Caalamiga ah",
+            mission_text_1: "Halbeeg muhiim ah oo ka mid ah hadafkeenna waa inaan iska deynino addoonsiga maaliyeynta. Waxaan u jeedنا inaan daciifino nidaamka ganacsiga doollarka Mareykanka oo aan caqabad ku noqono shabakadaha caalamiga ah ee fiat-ka, annagoo u gogol xaaraya qaab-dhismeed lacageed oo madaxbannaan oo cadaalad ah.",
+            mission_heading_2: "Waddada Hore",
+            mission_text_2: "An PSI aqoonta, warbaahinta dhijitaalka ah, iyo wacyiga dhismeedka, waxaan u kicineynaa ummadda inay dib u hanato madaxbannaanideeda oo hoos imaaneysa calanka Shahadada. Kacaya Muslimiintow—mustaqbalku wuxuu leeyahay midnimo iyo sharci ilaah.",
             footer_text: "Xuquuqda Daabacaadda © 2026 https://akhi076.github.io/islamicist-website/ Xuquuqda oo dhan waa la dhowray."
         },
         'en-ng': {
@@ -532,8 +607,12 @@
             menu_mission: "Mission",
             menu_get_active: "Get Active",
             menu_donate: "Donate",
-            mission_title: "Our Mission",
-            mission_text: "Add your detailed mission statement, goals, and core values here...",
+            mission_title: "Our Mission & Manifesto",
+            mission_intro: "We stand for the absolute unification of the Ummah and the complete restoration of Sharia. Our core objective rejects modern corrupted global systems—including capitalism, secular democracy, and usury (riba)—which systematically oppress populations worldwide.",
+            mission_heading_1: "Challenging Global Economic Hegemony",
+            mission_text_1: "A central pillar of our mission involves breaking away from financial enslavement. We aim to destabilize the US dollar trade system and challenge dominant global fiat networks, paving the way for independent, just monetary structures based on intrinsic value.",
+            mission_heading_2: "The Path Forward",
+            mission_text_2: "Through education, digital media, and structural awareness, we awaken the Ummah to reclaim its sovereignty under the banner of the Shahada. Wake up, Muslims—the future belongs to unity and divine law.",
             footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
         },
         ps: {
@@ -541,8 +620,12 @@
             menu_mission: "مأموریت",
             menu_get_active: "فعال شئ",
             menu_donate: "مرسته وکړئ",
-            mission_title: "زموږ مأموریت",
-            mission_text: "دلته خپل تفصيلي د مأموریت بیان، اهداف او اصلي ارزښتونه اضافه کړئ...",
+            mission_title: "زموږ مأموریت او منشور",
+            mission_intro: "موږ د امت د بشپړ اتحاد او د شریعت د بشپړ بیا پیاوړتیا لپاره ولاړ یو. زموږ اصلي هدف د معاصرو فاسدو نړیوالو سیسټمونو—پشمول د سرمایه دارۍ، سیکولر ډیموکراسۍ، او سود—ردول دي چې په ټوله نړۍ کې د خلکو ظلم کوي.",
+            mission_heading_1: "د نړیوال اقتصادي تسلط ننګول",
+            mission_text_1: "زموږ د مأموریت یوه مهمه برخه له مالي غلامۍ څخه ځان خلاصول دي. زموږ موخه دا ده چې د امریکايي ډالر سوداګریز سیسټم بې ثباته کړو او د غالب نړیوالو فیاټ شبکو ننګونه وکړو، ترڅو د خپلواکو، عادلانه مالي جوړښتونو لپاره لاره هواره شي.",
+            mission_heading_2: "مخکې لاره",
+            mission_text_2: "د زده کړې، ډیجیټل رسنیو، او ساختماني پوهاوي له لارې، موږ امت بیدار کوو ترڅو د شهادت تر بیرغ لاندې خپلواکي بیرته ترلاسه کړي. ویښ شئ مسلمانانو—راتلونکی د اتحاد او الهي قانون دی.",
             footer_text: "د کاپی حق © 2026 https://akhi076.github.io/islamicist-website/ ټول حقونه خوندي دي."
         }
     };
