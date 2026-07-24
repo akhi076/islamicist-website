@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Active - islamicist</title>
 
-    <!-- Three.js for 3D Globe -->
+    <!-- Three.js and Globe.gl dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/globe.gl"></script>
 
     <style>
         *{
@@ -288,9 +289,10 @@
             height: 500px;
             border-radius: 4px;
             margin-bottom: 25px;
-            background: #000;
+            background: #050505;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         .search-container {
@@ -415,7 +417,7 @@
 <div class="page-container">
     <h1 data-translate="active_title">Get Active</h1>
 
-    <!-- 3D Rotating Globe Container -->
+    <!-- Interactive Detailed Globe Container -->
     <div id="globe-container"></div>
 
     <!-- Search Bar Container -->
@@ -471,56 +473,34 @@
         }
     });
 
-    // Initialize 3D Rotating Globe using Three.js
+    // Initialize Globe.gl with Country Borders and Labels
     const container = document.getElementById('globe-container');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    container.appendChild(renderer.domElement);
+    const worldGlobe = Globe()
+        (container)
+        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+        .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+        .polygonCapColor(() => 'rgba(20, 20, 20, 0.4)')
+        .polygonSideColor(() => 'rgba(0, 150, 255, 0.1)')
+        .polygonStrokeColor(() => '#1e90ff')
+        .polygonLabel(({ properties: d }) => `
+            <div style="background: rgba(0,0,0,0.8); color: white; padding: 5px 10px; border-radius: 4px; border: 1px solid #444; font-size: 12px;">
+                <b>${d.ADMIN}</b> (${d.ISO_A2})
+            </div>
+        `);
 
-    // Create Globe Sphere
-    const sphereGeometry = new THREE.SphereGeometry(2, 64, 64);
-    
-    // Load Earth Texture mapped to the sphere
-    const textureLoader = new THREE.TextureLoader();
-    const earthTexture = textureLoader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg');
-    
-    const sphereMaterial = new THREE.MeshStandardMaterial({
-        map: earthTexture,
-        roughness: 0.7,
-        metalness: 0.1
-    });
+    // Load Free Country Borders GeoJSON Data
+    fetch('https://raw.githubusercontent.com/vasturiano/globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson')
+        .then(res => res.json())
+        .then(countries => {
+            worldGlobe.polygonsData(countries.features);
+        });
 
-    const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    scene.add(globe);
-
-    // Add Ambient and Directional Lighting for dark theme depth
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-    scene.add(ambientLight);
-
-    const pointLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    pointLight.position.set(5, 3, 5);
-    scene.add(pointLight);
-
-    camera.position.z = 6;
-
-    // Animation loop to continuously rotate the globe smoothly
-    function animate() {
-        requestAnimationFrame(animate);
-        globe.rotation.y += 0.0025; // Speed of rotation
-        renderer.render(scene, camera);
-    }
-    animate();
-
-    // Handle Window Resize
-    window.addEventListener('resize', () => {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-    });
+    // Configure auto-rotation and view
+    worldGlobe.controls().autoRotate = true;
+    worldGlobe.controls().autoRotateSpeed = 0.5;
+    worldGlobe.controls().enableZoom = true;
+    worldGlobe.pointOfView({ altitude: 2.2 });
 
     const translations = {
         en: {
