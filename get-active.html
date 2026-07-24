@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Active - islamicist</title>
 
-    <!-- Corrected Globe.gl and Three.js CDN dependencies -->
-    <script src="https://unpkg.com/three@0.152.0/build/three.min.js"></script>
+    <!-- Reliable UMD bundle setup for Globe.gl and Three.js -->
+    <script src="https://unpkg.com/three"></script>
     <script src="https://unpkg.com/globe.gl"></script>
 
     <style>
@@ -50,7 +50,6 @@
             transform: scale(1.1);
         }
 
-        /* Hamburger Menu Button Style */
         .menu-btn {
             background: none;
             border: none;
@@ -72,7 +71,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Side Menu Drawer Styles */
         .side-menu-overlay {
             position: fixed;
             top: 0;
@@ -155,7 +153,6 @@
             transform: scale(1.05);
         }
 
-        /* Language Modal Overlay Styles */
         .lang-modal-overlay {
             position: fixed;
             top: 0;
@@ -265,7 +262,6 @@
             font-weight: bold;
         }
 
-        /* Page Content Area */
         .page-container {
             max-width: 1100px;
             margin: 0 auto;
@@ -283,7 +279,6 @@
             text-align: left;
         }
 
-        /* Globe Container Styles */
         #globe-container {
             width: 100%;
             height: 500px;
@@ -341,7 +336,6 @@
     </button>
 </nav>
 
-<!-- Side Navigation Menu Drawer -->
 <div class="side-menu-overlay" id="sideMenuOverlay"></div>
 <div class="side-menu" id="sideMenu">
     <div class="side-menu-header">
@@ -355,7 +349,6 @@
     </div>
 </div>
 
-<!-- Language / Flag Selection Modal -->
 <div class="lang-modal-overlay" id="langModal">
     <div class="lang-modal-content">
         <button class="lang-modal-close" id="closeModal">&times;</button>
@@ -413,14 +406,11 @@
     </div>
 </div>
 
-<!-- GET ACTIVE CONTENT AREA -->
 <div class="page-container">
     <h1 data-translate="active_title">Get Active</h1>
 
-    <!-- Interactive Detailed Globe Container -->
     <div id="globe-container"></div>
 
-    <!-- Search Bar Container -->
     <div class="search-container">
         <input type="text" id="organization-search" placeholder="Search for Organizations...">
     </div>
@@ -473,13 +463,13 @@
         }
     });
 
-    // Initialize Globe.gl correctly
+    // Initialize Globe correctly using jsDelivr asset URLs
     const container = document.getElementById('globe-container');
     
     const worldGlobe = Globe()
         (container)
-        .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-        .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+        .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-night.jpg')
+        .bumpImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-topology.png')
         .polygonCapColor(() => 'rgba(20, 20, 20, 0.4)')
         .polygonSideColor(() => 'rgba(0, 150, 255, 0.1)')
         .polygonStrokeColor(() => '#1e90ff')
@@ -496,7 +486,6 @@
             worldGlobe.polygonsData(countries.features);
         });
 
-    // Configure auto-rotation and view controls
     worldGlobe.controls().autoRotate = true;
     worldGlobe.controls().autoRotateSpeed = 0.5;
     worldGlobe.controls().enableZoom = true;
