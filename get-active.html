@@ -294,17 +294,16 @@
             align-items: center;
         }
 
-        /* City map label styling */
         .city-label {
             font-size: 10px;
-            color: rgba(255, 255, 255, 0.85);
-            background: rgba(0, 0, 0, 0.6);
-            padding: 2px 5px;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 2px 6px;
             border-radius: 3px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             white-space: nowrap;
             pointer-events: none;
-            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .search-container {
@@ -483,44 +482,34 @@
 
     const container = document.getElementById('globe-container');
     
-    // Sample major cities dataset with coordinates
     const majorCities = [
-        { name: "Makkah", lat: 21.3891, lng: 39.8579, country: "Saudi Arabia" },
-        { name: "Madinah", lat: 24.5247, lng: 39.5692, country: "Saudi Arabia" },
-        { name: "Riyadh", lat: 24.7136, lng: 46.6753, country: "Saudi Arabia" },
-        { name: "Cairo", lat: 30.0444, lng: 31.2357, country: "Egypt" },
-        { name: "Istanbul", lat: 41.0082, lng: 28.9784, country: "Turkey" },
-        { name: "Ankara", lat: 39.9334, lng: 32.8597, country: "Turkey" },
-        { name: "Dubai", lat: 25.2048, lng: 55.2708, country: "UAE" },
-        { name: "Baghdad", lat: 33.3152, lng: 44.3661, country: "Iraq" },
-        { name: "Islamabad", lat: 33.6844, lng: 73.0479, country: "Pakistan" },
-        { name: "Karachi", lat: 24.8607, lng: 67.0011, country: "Pakistan" },
-        { name: "Jakarta", lat: -6.2088, lng: 106.8456, country: "Indonesia" },
-        { name: "Kuala Lumpur", lat: 3.1390, lng: 101.6869, country: "Malaysia" },
-        { name: "London", lat: 51.5074, lng: -0.1278, country: "UK" },
-        { name: "New York", lat: 40.7128, lng: -74.0060, country: "USA" },
-        { name: "Paris", lat: 48.8566, lng: 2.3522, country: "France" },
-        { name: "Berlin", lat: 52.5200, lng: 13.4050, country: "Germany" },
-        { name: "Tokyo", lat: 35.6762, lng: 139.6503, country: "Japan" }
+        { name: "Makkah", lat: 21.3891, lng: 39.8579 },
+        { name: "Madinah", lat: 24.5247, lng: 39.5692 },
+        { name: "Riyadh", lat: 24.7136, lng: 46.6753 },
+        { name: "Cairo", lat: 30.0444, lng: 31.2357 },
+        { name: "Istanbul", lat: 41.0082, lng: 28.9784 },
+        { name: "Ankara", lat: 39.9334, lng: 32.8597 },
+        { name: "Dubai", lat: 25.2048, lng: 55.2708 },
+        { name: "Baghdad", lat: 33.3152, lng: 44.3661 },
+        { name: "Islamabad", lat: 33.6844, lng: 73.0479 },
+        { name: "Karachi", lat: 24.8607, lng: 67.0011 },
+        { name: "Jakarta", lat: -6.2088, lng: 106.8456 },
+        { name: "Kuala Lumpur", lat: 3.1390, lng: 101.6869 },
+        { name: "London", lat: 51.5074, lng: -0.1278 },
+        { name: "New York", lat: 40.7128, lng: -74.0060 },
+        { name: "Paris", lat: 48.8566, lng: 2.3522 },
+        { name: "Berlin", lat: 52.5200, lng: 13.4050 },
+        { name: "Tokyo", lat: 35.6762, lng: 139.6503 }
     ];
 
     const worldGlobe = Globe()
         (container)
-        .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-night.jpg')
+        // High-resolution Google Earth style satellite map imagery texture
+        .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-blue-marble.jpg')
         .bumpImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-topology.png')
-        .polygonCapColor(() => 'rgba(20, 20, 20, 0.4)')
-        .polygonSideColor(() => 'rgba(0, 150, 255, 0.1)')
-        .polygonStrokeColor(() => '#1e90ff')
-        .polygonLabel(({ properties: d }) => `
-            <div style="background: rgba(10, 10, 10, 0.9); color: white; padding: 10px 14px; border-radius: 6px; border: 1px solid #444; font-size: 13px; box-shadow: 0 4px 15px rgba(0,0,0,0.8); line-height: 1.5;">
-                <b style="font-size: 15px; color: #1e90ff; display: block; margin-bottom: 4px;">${d.ADMIN}</b>
-                <div><b>ISO Code:</b> ${d.ISO_A2 || 'N/A'}</div>
-                <div><b>Continent:</b> ${d.CONTINENT || 'N/A'}</div>
-                <div><b>Region:</b> ${d.SUBREGION || 'N/A'}</div>
-                <div><b>Estimated Pop:</b> ${Number(d.POP_EST || 0).toLocaleString()}</div>
-            </div>
-        `)
-        // Add City Markers and Text Labels on the Globe Surface
+        .polygonCapColor(() => 'rgba(0, 0, 0, 0)') // transparent so satellite view shows fully
+        .polygonSideColor(() => 'rgba(255, 255, 255, 0.05)')
+        .polygonStrokeColor(() => 'rgba(255, 255, 255, 0.2)')
         .htmlElementsData(majorCities)
         .htmlLat(d => d.lat)
         .htmlLng(d => d.lng)
