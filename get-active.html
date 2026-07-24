@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Active - islamicist</title>
 
-    <!-- Reliable UMD bundle setup for Globe.gl and Three.js -->
-    <script src="https://unpkg.com/three"></script>
-    <script src="https://unpkg.com/globe.gl"></script>
-
     <style>
         *{
             margin:0;
@@ -285,25 +281,14 @@
             height: 500px;
             margin: 0 auto 25px auto;
             border-radius: 4px;
-            background: #000;
+            background: #111;
+            border: 1px solid #333;
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        .city-label {
-            font-size: 10px;
-            color: #ffffff;
-            background: rgba(0, 0, 0, 0.75);
-            padding: 2px 6px;
-            border-radius: 3px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            white-space: nowrap;
-            pointer-events: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .search-container {
@@ -426,6 +411,7 @@
 <div class="page-container">
     <h1 data-translate="active_title">Get Active</h1>
 
+    <!-- Globe container is now cleared out -->
     <div id="globe-container"></div>
 
     <div class="search-container">
@@ -479,56 +465,6 @@
             langModal.classList.remove('active');
         }
     });
-
-    const container = document.getElementById('globe-container');
-    
-    const majorCities = [
-        { name: "Makkah", lat: 21.3891, lng: 39.8579 },
-        { name: "Madinah", lat: 24.5247, lng: 39.5692 },
-        { name: "Riyadh", lat: 24.7136, lng: 46.6753 },
-        { name: "Cairo", lat: 30.0444, lng: 31.2357 },
-        { name: "Istanbul", lat: 41.0082, lng: 28.9784 },
-        { name: "Ankara", lat: 39.9334, lng: 32.8597 },
-        { name: "Dubai", lat: 25.2048, lng: 55.2708 },
-        { name: "Baghdad", lat: 33.3152, lng: 44.3661 },
-        { name: "Islamabad", lat: 33.6844, lng: 73.0479 },
-        { name: "Karachi", lat: 24.8607, lng: 67.0011 },
-        { name: "Jakarta", lat: -6.2088, lng: 106.8456 },
-        { name: "Kuala Lumpur", lat: 3.1390, lng: 101.6869 },
-        { name: "London", lat: 51.5074, lng: -0.1278 },
-        { name: "New York", lat: 40.7128, lng: -74.0060 },
-        { name: "Paris", lat: 48.8566, lng: 2.3522 },
-        { name: "Berlin", lat: 52.5200, lng: 13.4050 },
-        { name: "Tokyo", lat: 35.6762, lng: 139.6503 }
-    ];
-
-    const worldGlobe = Globe()
-        (container)
-        // High-resolution Google Earth style satellite map imagery texture
-        .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-blue-marble.jpg')
-        .bumpImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-topology.png')
-        .polygonCapColor(() => 'rgba(0, 0, 0, 0)') // transparent so satellite view shows fully
-        .polygonSideColor(() => 'rgba(255, 255, 255, 0.05)')
-        .polygonStrokeColor(() => 'rgba(255, 255, 255, 0.2)')
-        .htmlElementsData(majorCities)
-        .htmlLat(d => d.lat)
-        .htmlLng(d => d.lng)
-        .htmlElement(d => {
-            const el = document.createElement('div');
-            el.innerHTML = `<div class="city-label">${d.name}</div>`;
-            return el;
-        });
-
-    fetch('https://raw.githubusercontent.com/vasturiano/globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson')
-        .then(res => res.json())
-        .then(countries => {
-            worldGlobe.polygonsData(countries.features);
-        });
-
-    worldGlobe.controls().autoRotate = true;
-    worldGlobe.controls().autoRotateSpeed = 0.5;
-    worldGlobe.controls().enableZoom = true;
-    worldGlobe.pointOfView({ altitude: 2.2 });
 
     const translations = {
         en: {
