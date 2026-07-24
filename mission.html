@@ -25,7 +25,7 @@
             display:flex;
             justify-content:space-between;
             align-items: center;
-            background: #1a1a1a; /* Grey color requested for visibility */
+            background: #1a1a1a;
             z-index:1000;
             border-bottom: 1px solid #333;
         }
@@ -152,30 +152,30 @@
             transform: scale(1.05);
         }
 
-        .mission-hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 20px;
+        /* Clean Header Space (No Image, No Rain) */
+        .hero{
+            height:40vh;
             background: black;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding: 0 20px;
+            padding-top: 80px;
         }
 
-        .mission-hero h1 {
-            font-size: 64px;
+        .hero h1{
+            font-size: 60px;
             letter-spacing: 4px;
-            margin-bottom: 25px;
-            font-weight: bold;
+            margin-top: 20px;
         }
 
-        .mission-hero p {
-            font-size: 20px;
-            color: #aaa;
-            font-style: italic;
-            line-height: 1.5;
-            max-width: 700px;
+        /* Empty Design Section for your Mission Page Content */
+        .mission-content-area {
+            min-height: 50vh;
+            padding: 50px;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         footer{
@@ -217,10 +217,16 @@
     </div>
 </div>
 
-<section class="mission-hero">
-    <h1>OUR MISSION</h1>
-    <p>This is your brand new, separate mission page! You can now code and design this page however you want, completely independent of your home page.<br><br>Add your text, manifestos, or extra videos right here.</p>
+<section class="hero">
+    <h1>M I S S I O N</h1>
 </section>
+
+<!-- ========================================== -->
+<!-- PASTE YOUR CUSTOM MISSION DESIGN CODE HERE -->
+<div class="mission-content-area">
+    
+</div>
+<!-- ========================================== -->
 
 <footer>
     <div><span>Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span></div>
