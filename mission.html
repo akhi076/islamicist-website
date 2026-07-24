@@ -4,66 +4,263 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>islamicist - Mission</title>
+
     <style>
         *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
         }
-        body {
-            background: black;
-            color: white;
-            padding: 50px;
+
+        body{
+            background:black;
+            color:white;
         }
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
+
+        nav{
+            position:fixed;
+            width:100%;
+            padding:20px 50px;
+            display:flex;
+            justify-content:space-between;
             align-items: center;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
+            background:rgba(0,0,0,0.8);
+            z-index:1000;
         }
+
         .logo-btn {
             background: none;
             border: none;
             cursor: pointer;
             color: white;
             font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
             text-decoration: none;
         }
-        .mission-content {
-            max-width: 800px;
-            margin: 120px auto 0 auto;
-            line-height: 1.8;
+
+        .logo-btn:hover {
+            transform: scale(1.1);
         }
-        h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
+
+        /* Hamburger Menu Button Style */
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            padding: 0;
+            z-index: 1001;
         }
-        p {
-            font-size: 18px;
-            color: #ccc;
+
+        .menu-btn span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        /* Side Menu Drawer Styles */
+        .side-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .side-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100%;
+            background: #141414;
+            border-left: 1px solid #333;
+            z-index: 2600;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.8);
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .side-menu-header {
+            display: flex;
+            justify-content: flex-end;
             margin-bottom: 20px;
+        }
+
+        .side-menu-close {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .side-menu-close:hover {
+            color: #fff;
+        }
+
+        .side-menu-links {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+            padding: 20px 0 40px 0;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .side-menu-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.2s ease, transform 0.2s ease;
+            text-align: center;
+        }
+
+        .side-menu-links a:hover {
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .hero{
+            height:100vh;
+            background: black;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero h1{
+            font-size: 80px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .hero p{
+            font-size:22px;
+            color:#ccc;
+            font-style: italic;
+        }
+
+        section{
+            padding:100px 50px;
+        }
+
+        #mission-main {
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 50vh;
+        }
+
+        footer{
+            text-align:center;
+            padding:40px;
+            background:#111;
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="logo-btn">☪︎ Home</a>
-    </nav>
+<nav>
+    <a href="index.html" class="logo-btn" title="Home">☪︎</a>
+    <button class="menu-btn" id="menuToggle" title="Open Navigation Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</nav>
 
-    <div class="mission-content">
-        <h1>OUR MISSION</h1>
-        <p>This is your brand new, separate mission page! You can now code and design this page however you want, completely independent of your home page.</p>
-        <p>Add your text, manifestos, or extra videos right here.</p>
+<!-- Side Navigation Menu Drawer -->
+<div class="side-menu-overlay" id="sideMenuOverlay"></div>
+<div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+        <button class="side-menu-close" id="closeSideMenu">&times;</button>
     </div>
+    <div class="side-menu-links">
+        <a href="index.html">Home</a>
+        <a href="mission.html">Mission</a>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>MISSION</h1>
+        <p>Your subtitle / intro here</p>
+    </div>
+</section>
+
+<!-- EMPTY SECTION READY FOR YOUR DESIGN -->
+<section id="mission-main">
+    <!-- PUT YOUR NEW MISSION PAGE CONTENT, TEXT, OR VIDEOS HERE -->
+</section>
+
+<footer>
+    <span>Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span>
+</footer>
+
+<script>
+    // Side Menu Drawer Interaction Logic
+    const menuToggle = document.getElementById('menuToggle');
+    const sideMenu = document.getElementById('sideMenu');
+    const sideMenuOverlay = document.getElementById('sideMenuOverlay');
+    const closeSideMenu = document.getElementById('closeSideMenu');
+
+    function openMenu() {
+        sideMenu.classList.add('active');
+        sideMenuOverlay.classList.add('active');
+    }
+
+    function closeMenu() {
+        sideMenu.classList.remove('active');
+        sideMenuOverlay.classList.remove('active');
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    closeSideMenu.addEventListener('click', closeMenu);
+    sideMenuOverlay.addEventListener('click', closeMenu);
+
+    document.querySelectorAll('.side-menu-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+</script>
 
 </body>
 </html>
