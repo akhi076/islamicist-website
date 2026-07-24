@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Active - islamicist</title>
 
-    <!-- Mapbox GL CSS -->
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 
     <style>
         *{
@@ -289,6 +289,7 @@
             border-radius: 4px;
             margin-bottom: 25px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            background: #111;
         }
 
         .search-container {
@@ -413,7 +414,7 @@
 <div class="page-container">
     <h1 data-translate="active_title">Get Active</h1>
 
-    <!-- Interactive Globe Map Container -->
+    <!-- Interactive Map Container -->
     <div id="map"></div>
 
     <!-- Search Bar Container -->
@@ -427,8 +428,8 @@
     <div class="footer-brand">𝐊𝐇𝐈𝐋𝐀𝐅𝐀𝐇</div>
 </footer>
 
-<!-- Mapbox GL JS -->
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script>
     const menuToggle = document.getElementById('menuToggle');
@@ -472,23 +473,14 @@
         }
     });
 
-    // Initialize Mapbox Globe
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZXhhbXBsZSIsImEiOiJjbHN2...'; // Swap this token out if needed
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/dark-v10',
-        center: [0, 20],
-        projection: 'globe',
-        zoom: 1.5
-    });
+    // Initialize Free Leaflet Map (Dark Mode Theme via CartoDB Tiles)
+    const map = L.map('map').setView([20, 0], 2);
 
-    map.on('style.load', () => {
-        map.setFog({
-            color: 'rgb(18, 24, 38)',
-            'high-color': 'rgb(28, 39, 59)',
-            'horizon-blend': 0.02,
-        });
-    });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(map);
 
     const translations = {
         en: {
