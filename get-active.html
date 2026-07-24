@@ -279,6 +279,11 @@
             text-align: left;
         }
 
+        /* RTL support for headings when arabic/urdu/etc are active */
+        html[dir="rtl"] .page-container h1 {
+            text-align: right;
+        }
+
         /* Organization Table Styles matching second image */
         .org-table {
             width: 100%;
@@ -298,8 +303,9 @@
             text-transform: uppercase;
         }
 
-        .org-table th:last-child {
-            text-align: left;
+        html[dir="rtl"] .org-table th,
+        html[dir="rtl"] .org-table td {
+            text-align: right;
         }
 
         .org-table td {
@@ -307,6 +313,7 @@
             border-bottom: 1px solid #222;
             color: #ddd;
             font-size: 1rem;
+            text-align: left;
         }
 
         .org-table tr:last-child td {
@@ -427,18 +434,18 @@
     <table class="org-table">
         <thead>
             <tr>
-                <th>Organization</th>
-                <th>Location</th>
+                <th data-translate="table_header_org">Organization</th>
+                <th data-translate="table_header_loc">Location</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td><a href="https://t.me/MUSLIMLIVESMATTER" target="_blank">MUSLIMLIVESMATTER</a></td>
-                <td>All</td>
+                <td data-translate="loc_all">All</td>
             </tr>
             <tr>
                 <td><a href="https://t.me/dailyislamist" target="_blank">Daily Islamist 🇹🇷 🇵🇸</a></td>
-                <td>Turkey</td>
+                <td data-translate="loc_turkey">Turkey</td>
             </tr>
         </tbody>
     </table>
@@ -498,6 +505,10 @@
             menu_get_active: "Get Active",
             menu_donate: "Donate",
             active_title: "Get Active",
+            table_header_org: "Organization",
+            table_header_loc: "Location",
+            loc_all: "All",
+            loc_turkey: "Turkey",
             footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
         },
         ar: {
@@ -506,6 +517,10 @@
             menu_get_active: "انخرط معنا",
             menu_donate: "تبرع",
             active_title: "انخرط معنا",
+            table_header_org: "المنظمة",
+            table_header_loc: "الموقع",
+            loc_all: "الكل",
+            loc_turkey: "تركيا",
             footer_text: "حقوق الطبع والنشر © 2026 https://akhi076.github.io/islamicist-website/ جميع الحقوق محفوظة."
         },
         ur: {
@@ -514,6 +529,10 @@
             menu_get_active: "سرگرم ہو جائیں",
             menu_donate: "عطیہ دیں",
             active_title: "سرگرم ہو جائیں",
+            table_header_org: "تنظیم",
+            table_header_loc: "مقام",
+            loc_all: "تمام",
+            loc_turkey: "ترکی",
             footer_text: "کاپی رائٹ © 2026 https://akhi076.github.io/islamicist-website/ تمام حقوق محفوظ ہیں۔"
         },
         bn: {
@@ -522,6 +541,10 @@
             menu_get_active: "যুক্ত হোন",
             menu_donate: "দান করুন",
             active_title: "যুক্ত হোন",
+            table_header_org: "সংস্থা",
+            table_header_loc: "অবস্থান",
+            loc_all: "সব",
+            loc_turkey: "তুরস্ক",
             footer_text: "স্বত্বাধিকার © 2026 https://akhi076.github.io/islamicist-website/ সর্বস্বত্ব সংরক্ষিত।"
         },
         bs: {
@@ -530,6 +553,10 @@
             menu_get_active: "Uključi se",
             menu_donate: "Doniraj",
             active_title: "Uključi se",
+            table_header_org: "Organizacija",
+            table_header_loc: "Lokacija",
+            loc_all: "Sve",
+            loc_turkey: "Turska",
             footer_text: "Autorska prava © 2026 https://akhi076.github.io/islamicist-website/ Sva prava zadržana."
         },
         tr: {
@@ -538,6 +565,10 @@
             menu_get_active: "Aktif Ol",
             menu_donate: "Bağış Yap",
             active_title: "Aktif Ol",
+            table_header_org: "Organizasyon",
+            table_header_loc: "Konum",
+            loc_all: "Tümü",
+            loc_turkey: "Türkiye",
             footer_text: "Telif Hakkı © 2026 https://akhi076.github.io/islamicist-website/ Tüm Hakları Saklıdır."
         },
         'ar-eg': {
@@ -546,6 +577,10 @@
             menu_get_active: "شارك معانا",
             menu_donate: "تبرع",
             active_title: "شارك معانا",
+            table_header_org: "المنظمة",
+            table_header_loc: "الموقع",
+            loc_all: "الكل",
+            loc_turkey: "تركيا",
             footer_text: "جميع الحقوق محفوظة © 2026 https://akhi076.github.io/islamicist-website/"
         },
         id: {
@@ -554,6 +589,10 @@
             menu_get_active: "Bergabung",
             menu_donate: "Donasi",
             active_title: "Bergabung",
+            table_header_org: "Organisasi",
+            table_header_loc: "Lokasi",
+            loc_all: "Semua",
+            loc_turkey: "Turki",
             footer_text: "Hak Cipta © 2026 https://akhi076.github.io/islamicist-website/ Seluruh Hak Cipta Dilindungi Undang-Undang."
         },
         sq: {
@@ -562,6 +601,10 @@
             menu_get_active: "Bëhu Aktiv",
             menu_donate: "Dhuroni",
             active_title: "Bëhu Aktiv",
+            table_header_org: "Organizata",
+            table_header_loc: "Vendndodhja",
+            loc_all: "Të gjitha",
+            loc_turkey: "Turqia",
             footer_text: "Të drejtat e autorit © 2026 https://akhi076.github.io/islamicist-website/ Të gjitha të drejtat e rezervuara."
         },
         so: {
@@ -570,6 +613,10 @@
             menu_get_active: "Firfircoonaow",
             menu_donate: "Deeq Bixi",
             active_title: "Firfircoonaow",
+            table_header_org: "Ururka",
+            table_header_loc: "Goobta",
+            loc_all: "Dhammaan",
+            loc_turkey: "Turkiya",
             footer_text: "Xuquuqda Daabacaadda © 2026 https://akhi076.github.io/islamicist-website/ Xuquuqda oo dhan waa la dhowray."
         },
         'en-ng': {
@@ -578,6 +625,10 @@
             menu_get_active: "Get Active",
             menu_donate: "Donate",
             active_title: "Get Active",
+            table_header_org: "Organization",
+            table_header_loc: "Location",
+            loc_all: "All",
+            loc_turkey: "Turkey",
             footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
         },
         ps: {
@@ -586,6 +637,10 @@
             menu_get_active: "فعال شئ",
             menu_donate: "مرسته وکړئ",
             active_title: "فعال شئ",
+            table_header_org: "سازمان",
+            table_header_loc: "موقعیت",
+            loc_all: "ټول",
+            loc_turkey: "ترکیه",
             footer_text: "د کاپی حق © 2026 https://akhi076.github.io/islamicist-website/ ټول حقونه خوندي دي."
         }
     };
