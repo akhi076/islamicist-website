@@ -1,39 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission - Islamicist Website</title>
+    <title>Mission - islamicist</title>
+
     <style>
-        * {
-            box-sizing: border-box;
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
         }
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: #0b0b0b;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
+
+        body{
+            background:black;
+            color:white;
         }
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
+
+        nav{
+            position:fixed;
+            width:100%;
+            padding:20px 50px;
+            display:flex;
+            justify-content:space-between;
             align-items: center;
-            padding: 20px 40px;
-            background-color: #0b0b0b;
-            width: 100%;
+            background: #1a1a1a;
+            z-index:1000;
+            border-bottom: 1px solid #333;
         }
-        .logo {
-            font-size: 1.5rem;
-            color: #ffffff;
-            text-decoration: none;
+
+        .logo-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
         }
+
+        .logo-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hamburger Menu Button Style */
         .menu-btn {
             background: none;
             border: none;
@@ -41,54 +54,313 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            width: 28px;
             height: 20px;
-            width: 30px;
+            padding: 0;
+            z-index: 1001;
         }
+
         .menu-btn span {
             display: block;
-            height: 3px;
             width: 100%;
-            background-color: #ffffff;
-            border-radius: 2px;
+            height: 2px;
+            background-color: white;
+            transition: all 0.3s ease;
         }
-        main {
-            flex: 1;
+
+        /* Side Menu Drawer Styles */
+        .side-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
-        footer {
+
+        .side-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100%;
+            background: #141414;
+            border-left: 1px solid #333;
+            z-index: 2600;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.8);
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background-color: #0b0b0b;
-            color: #ffffff;
-            font-size: 0.9rem;
-            width: 100%;
+            flex-direction: column;
+            padding: 30px;
         }
-        footer div:last-child {
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .side-menu-header {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .side-menu-close {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .side-menu-close:hover {
+            color: #fff;
+        }
+
+        .side-menu-links {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+            padding: 20px 0 40px 0;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .side-menu-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.2s ease, transform 0.2s ease;
+            text-align: center;
+        }
+
+        .side-menu-links a:hover {
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Mission Content Styles */
+        .mission-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 160px 20px 100px 20px;
+            text-align: left;
+        }
+
+        /* Video Container Styles with Custom Dark Red Thumbnail */
+        .mission-video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 40px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            background: #111;
+        }
+
+        .mission-video-wrapper video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #4a0000 0%, #1a0000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            cursor: pointer;
+            transition: opacity 0.4s ease;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .video-thumbnail h2 {
+            color: #fff;
+            font-size: 32px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.7);
+            margin-bottom: 15px;
+        }
+
+        .play-btn-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            color: white;
+            padding-left: 4px;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .video-thumbnail:hover .play-btn-icon {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        .mission-container h1 {
+            font-size: 42px;
             letter-spacing: 2px;
+            margin-bottom: 30px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .mission-container p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 25px;
+        }
+
+        /* Mission Image Style */
+        .mission-image-wrapper {
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto 0 auto;
+            text-align: center;
+        }
+
+        .mission-image-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #333;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            display: block;
+        }
+
+        footer{
+            text-align:center;
+            padding:40px;
+            background:#111;
+        }
+
+        .footer-brand {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            color: #aaa;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="index.html" class="logo">☪</a>
-        <button class="menu-btn" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </header>
+<nav>
+    <button class="logo-btn" onclick="window.location.href='index.html'" title="Home">☪︎</button>
+    <button class="menu-btn" id="menuToggle" title="Open Navigation Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</nav>
 
-    <main>
-        <!-- Empty layout ready for your design -->
-    </main>
+<!-- Side Navigation Menu Drawer -->
+<div class="side-menu-overlay" id="sideMenuOverlay"></div>
+<div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+        <button class="side-menu-close" id="closeSideMenu">&times;</button>
+    </div>
+    <div class="side-menu-links">
+        <a href="index.html">Home</a>
+        <a href="mission.html">Mission</a>
+        <a href="index.html#about">Get Active</a>
+        <a href="#">Donate</a>
+    </div>
+</div>
 
-    <footer>
-        <div>Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</div>
-        <div>𝐊𝐇𝐈𝐋𝐀𝐅𝐀𝐇</div>
-    </footer>
+<div class="mission-container">
+    <!-- Video Player with Dark Red Thumbnail -->
+    <div class="mission-video-wrapper" id="videoWrapper">
+        <div class="video-thumbnail" id="videoThumbnail">
+            <h2>WAKE UP MUSLIMS</h2>
+            <div class="play-btn-icon">▶</div>
+        </div>
+        <video id="missionVideo" controls>
+            <source src="video-project-4_EV9WRB8e.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <h1>OUR MISSION</h1>
+    <p>If you have received this, it's a sign from us. “If Muslims were to unite once again, no power in the world could harm them. Even atom bombs and rockets could not vanquish them.” Maulana Mohammad Yousuf said.</p>
+    <p>It's easy to tell if you look at the Muslim countries; there has been a hierarchy in God that's been spreading en masse across the countries. Such kafir satanic intervention like feminism and prostitution and OnlyFans and usury and clubs and pornography being exposed to the Muslim youth of this generation, like Salahudin Ayyubi quoted, "If you want to destroy any nation without war, make adultery and nudity common in the young generation." Islam says no to feminism, Islam says no to usury, Islam says no to pornography, and Islam says no to LGBTQ+ and queer and trans and to democracy and socialism and communism and capitalism. Laws like this are invented by the international Jew himself, who destroys religion and faith and its values that allow pedophilia and rape across the world. They don't want Sharia because it stops enabling such satanic, vile crimes they do on a regular basis, and they are scared of getting a harsher punishment, which they call a 7th-century mindset. If being anti-West is bad because we don't want our women to be whores and sex figures, then we are proud, as we have better moral standards than Westerners do. A religious person who invents anything that benefits something good not only for himself but for others as well—then it's not an issue. But that's not the case here; the Jew himself has created an intervention that has a negative impact on others who intervene in it. It only benefits the Jew himself. They are the most commonly found ones who are spreading hierarchy in God across Muslim countries.</p>
+    <p>Our mission here is to destabilize the US dollar trade system and make our own currency for trading and ban usury. Say no to kafir laws and restore sharia. If you're a Muslim, whether you're white, Black, or any color, which doesn't matter, this mission of ours is a wake-up call to our brothers and sisters that we must unite; if not, then in 10 decades it will get worse. unite the ummah.</p>
+
+    <!-- Image placed underneath the last paragraph -->
+    <div class="mission-image-wrapper">
+        <img src="9ee177f75d78ad2a41b5d5f4e42cae83.jpg" alt="Shahada Flag">
+    </div>
+</div>
+
+<footer>
+    <div><span>Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span></div>
+    <div class="footer-brand">𝐊𝐇𝐈𝐋𝐀𝐅𝐀𝐇</div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const sideMenu = document.getElementById('sideMenu');
+    const sideMenuOverlay = document.getElementById('sideMenuOverlay');
+    const closeSideMenu = document.getElementById('closeSideMenu');
+
+    function openMenu() {
+        sideMenu.classList.add('active');
+        sideMenuOverlay.classList.add('active');
+    }
+
+    function closeMenu() {
+        sideMenu.classList.remove('active');
+        sideMenuOverlay.classList.remove('active');
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    closeSideMenu.addEventListener('click', closeMenu);
+    sideMenuOverlay.addEventListener('click', closeMenu);
+
+    document.querySelectorAll('.side-menu-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Thumbnail Click Logic to Play Video
+    const videoThumbnail = document.getElementById('videoThumbnail');
+    const missionVideo = document.getElementById('missionVideo');
+
+    videoThumbnail.addEventListener('click', () => {
+        videoThumbnail.style.opacity = '0';
+        setTimeout(() => {
+            videoThumbnail.style.display = 'none';
+        }, 400);
+        missionVideo.play();
+    });
+</script>
 
 </body>
 </html>
