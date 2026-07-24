@@ -294,6 +294,19 @@
             align-items: center;
         }
 
+        /* City map label styling */
+        .city-label {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 2px 5px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+            pointer-events: none;
+            transition: all 0.2s;
+        }
+
         .search-container {
             width: 100%;
             max-width: 800px;
@@ -470,6 +483,27 @@
 
     const container = document.getElementById('globe-container');
     
+    // Sample major cities dataset with coordinates
+    const majorCities = [
+        { name: "Makkah", lat: 21.3891, lng: 39.8579, country: "Saudi Arabia" },
+        { name: "Madinah", lat: 24.5247, lng: 39.5692, country: "Saudi Arabia" },
+        { name: "Riyadh", lat: 24.7136, lng: 46.6753, country: "Saudi Arabia" },
+        { name: "Cairo", lat: 30.0444, lng: 31.2357, country: "Egypt" },
+        { name: "Istanbul", lat: 41.0082, lng: 28.9784, country: "Turkey" },
+        { name: "Ankara", lat: 39.9334, lng: 32.8597, country: "Turkey" },
+        { name: "Dubai", lat: 25.2048, lng: 55.2708, country: "UAE" },
+        { name: "Baghdad", lat: 33.3152, lng: 44.3661, country: "Iraq" },
+        { name: "Islamabad", lat: 33.6844, lng: 73.0479, country: "Pakistan" },
+        { name: "Karachi", lat: 24.8607, lng: 67.0011, country: "Pakistan" },
+        { name: "Jakarta", lat: -6.2088, lng: 106.8456, country: "Indonesia" },
+        { name: "Kuala Lumpur", lat: 3.1390, lng: 101.6869, country: "Malaysia" },
+        { name: "London", lat: 51.5074, lng: -0.1278, country: "UK" },
+        { name: "New York", lat: 40.7128, lng: -74.0060, country: "USA" },
+        { name: "Paris", lat: 48.8566, lng: 2.3522, country: "France" },
+        { name: "Berlin", lat: 52.5200, lng: 13.4050, country: "Germany" },
+        { name: "Tokyo", lat: 35.6762, lng: 139.6503, country: "Japan" }
+    ];
+
     const worldGlobe = Globe()
         (container)
         .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-night.jpg')
@@ -485,7 +519,16 @@
                 <div><b>Region:</b> ${d.SUBREGION || 'N/A'}</div>
                 <div><b>Estimated Pop:</b> ${Number(d.POP_EST || 0).toLocaleString()}</div>
             </div>
-        `);
+        `)
+        // Add City Markers and Text Labels on the Globe Surface
+        .htmlElementsData(majorCities)
+        .htmlLat(d => d.lat)
+        .htmlLng(d => d.lng)
+        .htmlElement(d => {
+            const el = document.createElement('div');
+            el.innerHTML = `<div class="city-label">${d.name}</div>`;
+            return el;
+        });
 
     fetch('https://raw.githubusercontent.com/vasturiano/globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson')
         .then(res => res.json())
