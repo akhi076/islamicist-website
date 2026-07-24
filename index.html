@@ -25,8 +25,9 @@
             display:flex;
             justify-content:space-between;
             align-items: center;
-            background:rgba(0,0,0,0.8);
+            background: #1a1a1a;
             z-index:1000;
+            border-bottom: 1px solid #333;
         }
 
         .logo-btn {
@@ -357,7 +358,7 @@
         .video-container iframe {
             width: 100%;
             height: 100%;
-            object-files: cover;
+            object-fit: cover;
             border: none;
         }
 
@@ -480,9 +481,9 @@
         <button class="side-menu-close" id="closeSideMenu">&times;</button>
     </div>
     <div class="side-menu-links">
-        <a href="#" data-translate="menu_home">Home</a>
-        <a href="#about" data-translate="menu_mission">Mission</a>
-        <a href="#about" data-translate="menu_get_active">Get Active</a>
+        <a href="index.html" data-translate="menu_home">Home</a>
+        <a href="mission.html" target="_blank" data-translate="menu_mission">Mission</a>
+        <a href="index.html#about" data-translate="menu_get_active">Get Active</a>
         <a href="#" data-translate="menu_donate">Donate</a>
     </div>
 </div>
@@ -549,7 +550,6 @@
     <!-- Rain Container Overlay -->
     <div class="rain">
         <script>
-            // Automatically generate falling raindrops
             for (let i = 0; i < 80; i++) {
                 let drop = document.createElement('div');
                 drop.classList.add('drop');
@@ -578,7 +578,7 @@
         </video>
     </div>
 
-    <!-- More Documentaries Section Added Under Video -->
+    <!-- More Documentaries Section Under Video -->
     <div class="documentaries-section">
         <h3 data-translate="docs_header">MORE DOCUMENTARIES MADE BY OUR BROTHERS ON OUR SITE</h3>
         <div class="docs-grid">
@@ -615,7 +615,6 @@
 </footer>
 
 <script>
-    // Side Menu Drawer Interaction Logic
     const menuToggle = document.getElementById('menuToggle');
     const sideMenu = document.getElementById('sideMenu');
     const sideMenuOverlay = document.getElementById('sideMenuOverlay');
@@ -635,12 +634,10 @@
     closeSideMenu.addEventListener('click', closeMenu);
     sideMenuOverlay.addEventListener('click', closeMenu);
 
-    // Close side menu when clicking links inside it
     document.querySelectorAll('.side-menu-links a').forEach(link => {
         link.addEventListener('click', closeMenu);
     });
 
-    // Language Modal Interaction Logic
     const logoToggle = document.getElementById('logoToggle');
     const langModal = document.getElementById('langModal');
     const closeModal = document.getElementById('closeModal');
@@ -659,7 +656,6 @@
         }
     });
 
-    // Translation Data Dictionary
     const translations = {
         en: {
             menu_home: "Home",
@@ -674,7 +670,7 @@
             doc_two: "The Muslim Invasion Of America by SonnyFaz and Bek Lover",
             footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
         },
-        ar: { // Saudi Arabia
+        ar: {
             menu_home: "الرئيسية",
             menu_mission: "المهمة",
             menu_get_active: "انخرط معنا",
@@ -687,7 +683,7 @@
             doc_two: "الغزو الإسلامي لأمريكا بقلم سوني فاز وبيك لوفير",
             footer_text: "حقوق الطبع والنشر © 2026 https://akhi076.github.io/islamicist-website/ جميع الحقوق محفوظة."
         },
-        ur: { // Pakistan
+        ur: {
             menu_home: "ہوم",
             menu_mission: "مشن",
             menu_get_active: "سرگرم ہو جائیں",
@@ -700,7 +696,7 @@
             doc_two: "امریکہ پر مسلم حملہ از سونی فاز اور بیک لور",
             footer_text: "کاپی رائٹ © 2026 https://akhi076.github.io/islamicist-website/ تمام حقوق محفوظ ہیں۔"
         },
-        bn: { // Bangladesh
+        bn: {
             menu_home: "হোম",
             menu_mission: "মিশন",
             menu_get_active: "যুক্ত হোন",
@@ -713,7 +709,7 @@
             doc_two: "আমেরিকায় মুসলিমদের আক্রমণ - সনি ফাজ এবং বেক লোভা",
             footer_text: "স্বত্বাধিকার © 2026 https://akhi076.github.io/islamicist-website/ সর্বস্বত্ব সংরক্ষিত।"
         },
-        bs: { // Bosnia
+        bs: {
             menu_home: "Početna",
             menu_mission: "Misija",
             menu_get_active: "Uključi se",
@@ -726,7 +722,7 @@
             doc_two: "Muslimanska invazija na Ameriku - SonnyFaz i Bek Lover",
             footer_text: "Autorska prava © 2026 https://akhi076.github.io/islamicist-website/ Sva prava zadržana."
         },
-        tr: { // Turkey
+        tr: {
             menu_home: "Ana Sayfa",
             menu_mission: "Misyon",
             menu_get_active: "Aktif Ol",
@@ -739,7 +735,7 @@
             doc_two: "SonnyFaz ve Bek Lover'dan Amerika'nın Müslüman İşgali",
             footer_text: "Telif Hakkı © 2026 https://akhi076.github.io/islamicist-website/ Tüm Hakları Saklıdır."
         },
-        'ar-eg': { // Egypt
+        'ar-eg': {
             menu_home: "الرئيسية",
             menu_mission: "المهمة",
             menu_get_active: "شارك معانا",
@@ -752,7 +748,7 @@
             doc_two: "الغزو الإسلامي لأمريكا بواسطة سوني فاز وبيك لوفير",
             footer_text: "جميع الحقوق محفوظة © 2026 https://akhi076.github.io/islamicist-website/"
         },
-        id: { // Indonesia
+        id: {
             menu_home: "Beranda",
             menu_mission: "Misi",
             menu_get_active: "Bergabung",
@@ -765,7 +761,7 @@
             doc_two: "Invasi Muslim ke Amerika oleh SonnyFaz dan Bek Lover",
             footer_text: "Hak Cipta © 2026 https://akhi076.github.io/islamicist-website/ Seluruh Hak Cipta Dilindungi Undang-Undang."
         },
-        sq: { // Albania
+        sq: {
             menu_home: "Kryefaqja",
             menu_mission: "Misioni",
             menu_get_active: "Bëhu Aktiv",
@@ -778,7 +774,7 @@
             doc_two: "Invasioni Mysliman i Amerikës nga SonnyFaz dhe Bek Lover",
             footer_text: "Të drejtat e autorit © 2026 https://akhi076.github.io/islamicist-website/ Të gjitha të drejtat e rezervuara."
         },
-        so: { // Somalia
+        so: {
             menu_home: "Bogga Hore",
             menu_mission: "Hadafka",
             menu_get_active: "Firfircoonaow",
@@ -791,7 +787,7 @@
             doc_two: "Duulaanka Muslimiinta ee Ameerika waxaa qoray SonnyFaz dan Bek Lover",
             footer_text: "Xuquuqda Daabacaadda © 2026 https://akhi076.github.io/islamicist-website/ Xuquuqda oo dhan waa la dhowray."
         },
-        'en-ng': { // Nigeria
+        'en-ng': {
             menu_home: "Home",
             menu_mission: "Mission",
             menu_get_active: "Get Active",
@@ -799,12 +795,12 @@
             hero_title: "𝐈  𝐒  𝐋  𝐀  𝐌  𝐈  𝐂  𝐈  𝐒  𝐓",
             hero_subtitle: "ISLAM FIRST. ENOUGH WITH LIES, NO MORE CORRUPTION",
             about_text: 'End of the Ottoman Empire: The Ummah has fallen and been poisoned by an entity that originated from among us. On the other hand, there is a group that has no right to exist among us, spreading a hierarchy in God throughout Muslim countries. They are promoting man-made laws that contradict the Islamic laws given by Allah. It is a choice between embracing fabricated lies or accepting the truth and pulling our own string and implementing laws given by Allah—there is no in-between.<br><br>" WE DONT HAVE TO LIVE LIKE THIS " - akhi',
-            docs_header: "MORE DOCUMENTARIES MADE BY OUR BROTHERS ONOUR SITE",
+            docs_header: "MORE DOCUMENTARIES MADE BY OUR BROTHERS ON OUR SITE",
             doc_one: "The Hidden War for Muslim Minds by Smile 2 Jannah",
             doc_two: "The Muslim Invasion Of America by SonnyFaz and Bek Lover",
             footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
         },
-        ps: { // Afghanistan
+        ps: {
             menu_home: "کور پاڼه",
             menu_mission: "مأموریت",
             menu_get_active: "فعال شئ",
@@ -823,14 +819,12 @@
         const data = translations[lang];
         if (!data) return;
 
-        // Update direction for RTL languages
         if (lang === 'ar' || lang === 'ur' || lang === 'ar-eg' || lang === 'so' || lang === 'ps') {
             document.documentElement.setAttribute('dir', 'rtl');
         } else {
             document.documentElement.setAttribute('dir', 'ltr');
         }
 
-        // Update all elements with data-translate attribute
         document.querySelectorAll('[data-translate]').forEach(el => {
             const key = el.getAttribute('data-translate');
             if (data[key]) {
@@ -838,7 +832,6 @@
             }
         });
 
-        // Close modal after selection
         langModal.classList.remove('active');
     }
 </script>
