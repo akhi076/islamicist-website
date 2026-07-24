@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Active - islamicist</title>
 
-    <!-- Three.js and Globe.gl dependencies -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Corrected Globe.gl and Three.js CDN dependencies -->
+    <script src="https://unpkg.com/three@0.152.0/build/three.min.js"></script>
     <script src="https://unpkg.com/globe.gl"></script>
 
     <style>
@@ -289,7 +289,7 @@
             height: 500px;
             border-radius: 4px;
             margin-bottom: 25px;
-            background: #050505;
+            background: #000;
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
@@ -473,7 +473,7 @@
         }
     });
 
-    // Initialize Globe.gl with Country Borders and Labels
+    // Initialize Globe.gl correctly
     const container = document.getElementById('globe-container');
     
     const worldGlobe = Globe()
@@ -484,19 +484,19 @@
         .polygonSideColor(() => 'rgba(0, 150, 255, 0.1)')
         .polygonStrokeColor(() => '#1e90ff')
         .polygonLabel(({ properties: d }) => `
-            <div style="background: rgba(0,0,0,0.8); color: white; padding: 5px 10px; border-radius: 4px; border: 1px solid #444; font-size: 12px;">
+            <div style="background: rgba(0,0,0,0.85); color: white; padding: 6px 10px; border-radius: 4px; border: 1px solid #444; font-size: 13px;">
                 <b>${d.ADMIN}</b> (${d.ISO_A2})
             </div>
         `);
 
-    // Load Free Country Borders GeoJSON Data
+    // Load Country Borders GeoJSON Data
     fetch('https://raw.githubusercontent.com/vasturiano/globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson')
         .then(res => res.json())
         .then(countries => {
             worldGlobe.polygonsData(countries.features);
         });
 
-    // Configure auto-rotation and view
+    // Configure auto-rotation and view controls
     worldGlobe.controls().autoRotate = true;
     worldGlobe.controls().autoRotateSpeed = 0.5;
     worldGlobe.controls().enableZoom = true;
