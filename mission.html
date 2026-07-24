@@ -3,67 +3,837 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>islamicist - Mission</title>
+    <title>islamicist</title>
+
     <style>
         *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
         }
-        body {
-            background: black;
-            color: white;
-            padding: 50px;
+
+        body{
+            background:black;
+            color:white;
         }
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
+
+        nav{
+            position:fixed;
+            width:100%;
+            padding:20px 50px;
+            display:flex;
+            justify-content:space-between;
             align-items: center;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
+            background:rgba(0,0,0,0.8);
+            z-index:1000;
         }
+
         .logo-btn {
             background: none;
             border: none;
             cursor: pointer;
             color: white;
             font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .logo-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hamburger Menu Button Style */
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        /* Side Menu Drawer Styles */
+        .side-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .side-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100%;
+            background: #141414;
+            border-left: 1px solid #333;
+            z-index: 2600;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.8);
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .side-menu-header {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .side-menu-close {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .side-menu-close:hover {
+            color: #fff;
+        }
+
+        .side-menu-links {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+            padding: 20px 0 40px 0;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .side-menu-links a {
+            color: #ddd;
             text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.2s ease, transform 0.2s ease;
+            text-align: center;
         }
-        .mission-content {
-            max-width: 800px;
-            margin: 120px auto 0 auto;
-            line-height: 1.8;
+
+        .side-menu-links a:hover {
+            color: #fff;
+            transform: scale(1.05);
         }
-        h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
+
+        /* Language Modal Overlay Styles */
+        .lang-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lang-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lang-modal-content {
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 650px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .lang-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .lang-modal-close:hover {
+            color: #fff;
+        }
+
+        .lang-modal-title {
+            font-size: 1.2rem;
             letter-spacing: 2px;
+            margin-bottom: 25px;
+            color: #fff;
+            text-transform: uppercase;
         }
-        p {
-            font-size: 18px;
-            color: #ccc;
+
+        .flags-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            justify-items: center;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .flags-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .flags-grid::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 3px;
+        }
+
+        .flag-option {
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .flag-option:hover {
+            transform: translateY(-3px);
+            border-color: #777;
+            background: #2a2a2a;
+        }
+
+        .flag-option img {
+            width: 54px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .flag-option span {
+            font-size: 0.8rem;
+            color: #ddd;
+            font-weight: bold;
+        }
+
+        .hero{
+            height:100vh;
+            background:
+            linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+            url('https://media.discordapp.net/attachments/1291731301321146369/1529848944820093132/large.webp?ex=6a636e5b&is=6a621cdb&hm=3de8c42dbb9ef13c647b076b7e6ab3a9ad8cb790bd7ab5f81b708c5471652a0c&=&format=webp');
+            background-size:cover;
+            background-position:center;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Rain Effect Styles */
+        .rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .drop {
+            position: absolute;
+            bottom: 100%;
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.6));
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh);
+                opacity: 0.2;
+            }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero h1{
+            font-size: 80px;
+            line-height: 1.6;
             margin-bottom: 20px;
+        }
+
+        .hero p{
+            font-size:22px;
+            color:#ccc;
+            font-style: italic;
+        }
+
+        section{
+            padding:100px 50px;
+        }
+
+        #about {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        #about p {
+            text-align: center;
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .video-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .video-container video,
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+        }
+
+        .social-container {
+            max-width: 700px;
+            margin: 20px auto 0 auto;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .telegram-icon {
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .telegram-icon:hover {
+            opacity: 0.7;
+            transform: scale(1.1);
+        }
+
+        .telegram-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* More Documentaries Section Styles */
+        .documentaries-section {
+            max-width: 900px;
+            margin: 60px auto 0 auto;
+            text-align: center;
+        }
+
+        .documentaries-section h3 {
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .docs-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .doc-card {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            width: 320px;
+            padding: 15px;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-3px);
+            border-color: #777;
+        }
+
+        .doc-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .doc-thumbnail-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .doc-thumbnail-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        footer{
+            text-align:center;
+            padding:40px;
+            background:#111;
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="logo-btn">☪︎ Home</a>
-    </nav>
+<nav>
+    <button class="logo-btn" id="logoToggle" title="Select Nation / Language">☪︎</button>
+    <button class="menu-btn" id="menuToggle" title="Open Navigation Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</nav>
 
-    <div class="mission-content">
-        <h1>OUR MISSION</h1>
-        <p>This is your brand new, separate mission page! You can now code and design this page however you want, completely independent of your home page.</p>
-        <p>Add your text, manifestos, or extra videos right here.</p>
+<!-- Side Navigation Menu Drawer -->
+<div class="side-menu-overlay" id="sideMenuOverlay"></div>
+<div class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+        <button class="side-menu-close" id="closeSideMenu">&times;</button>
     </div>
+    <div class="side-menu-links">
+        <a href="index.html" data-translate="menu_home">Home</a>
+        <a href="mission.html" target="_blank" rel="noopener noreferrer" data-translate="menu_mission">Mission</a>
+        <a href="mission.html#about" target="_blank" rel="noopener noreferrer" data-translate="menu_get_active">Get Active</a>
+        <a href="#" data-translate="menu_donate">Donate</a>
+    </div>
+</div>
+
+<!-- Language / Flag Selection Modal -->
+<div class="lang-modal-overlay" id="langModal">
+    <div class="lang-modal-content">
+        <button class="lang-modal-close" id="closeModal">&times;</button>
+        <div class="lang-modal-title">Select Your Language or Nation</div>
+        <div class="flags-grid">
+            <div class="flag-option" onclick="setLanguage('en')">
+                <img src="https://flagcdn.com/w80/us.png" alt="English">
+                <span>English</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ar')">
+                <img src="https://flagcdn.com/w80/sa.png" alt="Saudi Arabia">
+                <span>Saudi Arabia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ur')">
+                <img src="https://flagcdn.com/w80/pk.png" alt="Pakistan">
+                <span>Pakistan</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('bn')">
+                <img src="https://flagcdn.com/w80/bd.png" alt="Bangladesh">
+                <span>Bangladesh</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('bs')">
+                <img src="https://flagcdn.com/w80/ba.png" alt="Bosnia">
+                <span>Bosnia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('tr')">
+                <img src="https://flagcdn.com/w80/tr.png" alt="Turkey">
+                <span>Turkey</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ar-eg')">
+                <img src="https://flagcdn.com/w80/eg.png" alt="Egypt">
+                <span>Egypt</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('id')">
+                <img src="https://flagcdn.com/w80/id.png" alt="Indonesia">
+                <span>Indonesia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('sq')">
+                <img src="https://flagcdn.com/w80/al.png" alt="Albania">
+                <span>Albania</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('so')">
+                <img src="https://flagcdn.com/w80/so.png" alt="Somalia">
+                <span>Somalia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('en-ng')">
+                <img src="https://flagcdn.com/w80/ng.png" alt="Nigeria">
+                <span>Nigeria</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ps')">
+                <img src="https://flagcdn.com/w80/af.png" alt="Afghanistan">
+                <span>Afghanistan</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="hero">
+    <!-- Rain Container Overlay -->
+    <div class="rain">
+        <script>
+            // Automatically generate falling raindrops
+            for (let i = 0; i < 80; i++) {
+                let drop = document.createElement('div');
+                drop.classList.add('drop');
+                drop.style.left = Math.random() * 100 + 'vw';
+                drop.style.top = (Math.random() * -20) + 'px';
+                drop.style.animationDuration = (0.5 + Math.random() * 0.5) + 's';
+                drop.style.animationDelay = (Math.random() * 2) + 's';
+                document.currentScript.parentNode.appendChild(drop);
+            }
+        </script>
+    </div>
+
+    <div class="hero-content">
+        <h1 data-translate="hero_title">𝐈  𝐒  𝐋  𝐀  𝐌  𝐈  𝐂  𝐈  𝐒  𝐓</h1>
+        <p data-translate="hero_subtitle">ISLAM FIRST. ENOUGH WITH LIES, NO MORE CORRUPTION</p>
+    </div>
+</section>
+
+<section id="about">
+    <p data-translate="about_text">End of the Ottoman Empire: The Ummah has fallen and been poisoned by an entity that originated from among us. On the other hand, there is a group that has no right to exist among us, spreading a hierarchy in God throughout Muslim countries. They are promoting man-made laws that contradict the Islamic laws given by Allah. It is a choice between embracing fabricated lies or accepting the truth and pulling our own string and implementing laws given by Allah—there is no in-between.<br><br>" WE DONT HAVE TO LIVE LIKE THIS " - akhi</p>
+    
+    <div class="video-container">
+        <video autoplay muted controls poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+            <source src="video-project-2_6JKsRMCq.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- More Documentaries Section Added Under Video -->
+    <div class="documentaries-section">
+        <h3 data-translate="docs_header">MORE DOCUMENTARIES MADE BY OUR BROTHERS ON OUR SITE</h3>
+        <div class="docs-grid">
+            <!-- Card 1 -->
+            <a href="https://youtu.be/2CmqBK-kRDg" target="_blank" class="doc-card">
+                <div class="doc-title" data-translate="doc_one">The Hidden War for Muslim Minds by Smile 2 Jannah</div>
+                <div class="doc-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/2CmqBK-kRDg/hqdefault.jpg" alt="Documentary 1 Thumbnail">
+                </div>
+            </a>
+
+            <!-- Card 2 -->
+            <a href="https://youtu.be/zlkjhmkHNe4" target="_blank" class="doc-card">
+                <div class="doc-title" data-translate="doc_two">The Muslim Invasion Of America by SonnyFaz and Bek Lover</div>
+                <div class="doc-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/zlkjhmkHNe4/hqdefault.jpg" alt="Documentary 2 Thumbnail">
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="social-container">
+        <a href="https://t.me/+yNpHrg0ZHjg4OGI1" target="_blank" class="telegram-icon" title="Telegram Group">
+            <svg viewBox="0 0 24 24">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
+            </svg>
+        </a>
+    </div>
+</section>
+
+<footer>
+    <span data-translate="footer_text">Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span>
+</footer>
+
+<script>
+    // Side Menu Drawer Interaction Logic
+    const menuToggle = document.getElementById('menuToggle');
+    const sideMenu = document.getElementById('sideMenu');
+    const sideMenuOverlay = document.getElementById('sideMenuOverlay');
+    const closeSideMenu = document.getElementById('closeSideMenu');
+
+    function openMenu() {
+        sideMenu.classList.add('active');
+        sideMenuOverlay.classList.add('active');
+    }
+
+    function closeMenu() {
+        sideMenu.classList.remove('active');
+        sideMenuOverlay.classList.remove('active');
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    closeSideMenu.addEventListener('click', closeMenu);
+    sideMenuOverlay.addEventListener('click', closeMenu);
+
+    // Close side menu when clicking links inside it
+    document.querySelectorAll('.side-menu-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Language Modal Interaction Logic
+    const logoToggle = document.getElementById('logoToggle');
+    const langModal = document.getElementById('langModal');
+    const closeModal = document.getElementById('closeModal');
+
+    logoToggle.addEventListener('click', () => {
+        langModal.classList.add('active');
+    });
+
+    closeModal.addEventListener('click', () => {
+        langModal.classList.remove('active');
+    });
+
+    langModal.addEventListener('click', (e) => {
+        if (e.target === langModal) {
+            langModal.classList.remove('active');
+        }
+    });
+
+    // Translation Data Dictionary
+    const translations = {
+        en: {
+            menu_home: "Home",
+            menu_mission: "Mission",
+            menu_get_active: "Get Active",
+            menu_donate: "Donate",
+            hero_title: "𝐈  𝐒  𝐋  𝐀  𝐌  𝐈  𝐂  𝐈  𝐒  𝐓",
+            hero_subtitle: "ISLAM FIRST. ENOUGH WITH LIES, NO MORE CORRUPTION",
+            about_text: 'End of the Ottoman Empire: The Ummah has fallen and been poisoned by an entity that originated from among us. On the other hand, there is a group that has no right to exist among us, spreading a hierarchy in God throughout Muslim countries. They are promoting man-made laws that contradict the Islamic laws given by Allah. It is a choice between embracing fabricated lies or accepting the truth and pulling our own string and implementing laws given by Allah—there is no in-between.<br><br>" WE DONT HAVE TO LIVE LIKE THIS " - akhi',
+            docs_header: "MORE DOCUMENTARIES MADE BY OUR BROTHERS ON OUR SITE",
+            doc_one: "The Hidden War for Muslim Minds by Smile 2 Jannah",
+            doc_two: "The Muslim Invasion Of America by SonnyFaz and Bek Lover",
+            footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
+        },
+        ar: { // Saudi Arabia
+            menu_home: "الرئيسية",
+            menu_mission: "المهمة",
+            menu_get_active: "انخرط معنا",
+            menu_donate: "تبرع",
+            hero_title: "إِسْلَامِيسْت",
+            hero_subtitle: "الإسلام أولاً. كفى من الأكاذيب، لا مزيد من الفساد",
+            about_text: 'نهاية الدولة العثمانية: لقد سقطت الأمة وتسممت من كيان نشأ من بيننا. ومن ناحية أخرى، هناك جماعة لا حق لها في الوجود بيننا، تنشر التسلسل الهرمي الإلهي في بلاد المسلمين. إنهم يروجون لقوانين وضعية تتعارض مع الشريعة الإسلامية التي أنزلها الله. إنه اختيار إما بين احتضان الأكاذيب الملفقة أو قبول الحقيقة وتطبيق قوانين الله - لا يوجد حل وسط.<br><br>"لسنا مضطرين للعيش هكذا" - أخي',
+            docs_header: "المزيد من الوثائقيات التي صنعها إخوتنا على موقعنا",
+            doc_one: "الحرب الخفية على العقول الإسلامية بقلم سمايل تو جنة",
+            doc_two: "الغزو الإسلامي لأمريكا بقلم سوني فاز وبيك لوفير",
+            footer_text: "حقوق الطبع والنشر © 2026 https://akhi076.github.io/islamicist-website/ جميع الحقوق محفوظة."
+        },
+        ur: { // Pakistan
+            menu_home: "ہوم",
+            menu_mission: "مشن",
+            menu_get_active: "سرگرم ہو جائیں",
+            menu_donate: "عطیہ دیں",
+            hero_title: "اسلامسٹ",
+            hero_subtitle: "اسلام سب سے پہلے۔ بہت ہو گیا جھوٹ، مزید بدعنوانی نہیں",
+            about_text: 'عطمانی سلطنت کا خاتمہ: امت گر چکی ہے اور ایک ایسے ادارے کی طرف سے زہر آلود ہو چکی ہے جو ہم میں سے ہی نکلا تھا۔ دوسری طرف ایک ایسا گروہ ہے جسے ہم میں سے رہنے کا کوئی حق نہیں، جو مسلم ممالک میں خدا کے احکام میں درجہ بندی پھیلا رہا ہے۔ وہ انسان ساختہ قوانین کو فروغ دے رہے ہیں جو اللہ کی طرف سے دیے گئے اسلامی قوانین کے منافی ہیں۔ یہ من گھڑت جھوٹ کو گلے لگانے یا سچائی کو قبول کرنے اور اللہ کے دیے ہوئے قوانین کو نافذ کرنے کے درمیان انتخاب ہے—اس میں کوئی درمیانی راستہ نہیں ہے.<br><br>"ہمیں اس طرح رہنے کی ضرورت نہیں ہے" - اخی',
+            docs_header: "ہماری سائیٹ پر ہمارے بھائیوں کی بنائی گئی مزید ڈاکومینٹریز",
+            doc_one: "مسلم دماغوں کے لیے پوشیدہ جنگ از سائل ٹو جنہ",
+            doc_two: "امریکہ پر مسلم حملہ از سونی فاز اور بیک لور",
+            footer_text: "کاپی رائٹ © 2026 https://akhi076.github.io/islamicist-website/ تمام حقوق محفوظ ہیں۔"
+        },
+        bn: { // Bangladesh
+            menu_home: "হোম",
+            menu_mission: "মিশন",
+            menu_get_active: "যুক্ত হোন",
+            menu_donate: "দান করুন",
+            hero_title: "ইসলামিস্ট",
+            hero_subtitle: "ইসলাম সবার আগে। মিথ্যার আর নয়, আর কোনো দুর্নীতি নয়",
+            about_text: 'উসমানীয় সাম্রাজ্যের পতন: উম্মাহ আজ পতনের মুখে এবং আমাদেরই মধ্য থেকে জন্ম নেওয়া এক শক্তি দ্বারা বিষাক্ত হয়েছে। অন্যদিকে এমন একটি দল রয়েছে যাদের আমাদের মধ্যে থাকার কোনো অধিকার নেই, তারা মুসলিম দেশগুলোতে মানবীয় আইন প্রচার করছে যা আল্লাহর দেওয়া ইসলামী আইনের পরিপন্থী। এটি বানোয়াট মিথ্যা গ্রহণ করা বা সত্যকে গ্রহণ করে আল্লাহর আইন বাস্তবায়ন করার মধ্যে একটি পছন্দ—এর মধ্যে কোনো মধ্যপন্থা নেই।<br><br>"আমাদের এভাবে বেঁচে থাকার দরকার নেই" - আখি',
+            docs_header: "আমাদের সাইটে আমাদের ভাইদের তৈরি আরও তথ্যচিত্র",
+            doc_one: "মুসলিম মনের বিরুদ্ধে অদৃশ্য যুদ্ধ - স্মাইল টু জান্নাহ",
+            doc_two: "আমেরিকায় মুসলিমদের আক্রমণ - সনি ফাজ এবং বেک লোভা",
+            footer_text: "স্বত্বাধিকার © 2026 https://akhi076.github.io/islamicist-website/ সর্বস্বত্ব সংরক্ষিত।"
+        },
+        bs: { // Bosnia
+            menu_home: "Početna",
+            menu_mission: "Misija",
+            menu_get_active: "Uključi se",
+            menu_donate: "Doniraj",
+            hero_title: "ISLAMIST",
+            hero_subtitle: "ISLAM NA PRVOM MJESTU. DOSTA LAŽI, NEMA VIŠE KORUPCIJE",
+            about_text: 'Kraj Osmanskog carstva: Ummet je pao i otrovan od strane entiteta koji je potekao iz naše sredine. S druge strane, postoji grupa koja nema pravo postojati među nama, šireći ljudske zakone koji su u suprotnosti s islamskim zakonima koje je objavio Allah. To je izbor između prihvatanja laži ili istine i implementacije Allahovih zakona—nema sredine.<br><br>"NE MORAMO OVAKO ŽIVJETI" - akhi',
+            docs_header: "VIŠE DOKUMENTARACA KOJE SU NAPRAVILI NAŠA BRAĆA NA NAŠOJ STRANICI",
+            doc_one: "Skriveni rat za muslimanske umove - Smile 2 Jannah",
+            doc_two: "Muslimanska invazija na Ameriku - SonnyFaz i Bek Lover",
+            footer_text: "Autorska prava © 2026 https://akhi076.github.io/islamicist-website/ Sva prava zadržana."
+        },
+        tr: { // Turkey
+            menu_home: "Ana Sayfa",
+            menu_mission: "Misyon",
+            menu_get_active: "Aktif Ol",
+            menu_donate: "Bağış Yap",
+            hero_title: "İSLAMİST",
+            hero_subtitle: "ÖNCE İSLAM. YALANLARA YETER ARTIK, YOLSUZLUĞA SON",
+            about_text: 'Osmanlı İmparatorluğu\'nun Sonu: Ümmet düştü ve içimizden çıkan bir unsur tarafından zehirlendi. Öte yandan aramızda bulunma hakkı olmayan, Müslüman ülkelerde beşeri yasaları yayan bir grup var. Allah\'ın koyduğu İslam kanunlarıyla çelişen insan yapımı kanunları teşvik ediyorlar. Bu, uydurma yalanları benimsemek ile gerçeği kabul edip Allah\'ın kanunlarını uygulamak arasında bir seçimdir; ortası yoktur.<br><br>"BÖYLE YAŞAMAK ZORUNDA DEĞİLİZ" - akhi',
+            docs_header: "SİTEMİZDE KARDEŞLERİMİZ TARAFINDAN YAPILAN DİĞER BELGESELLER",
+            doc_one: "Smile 2 Jannah'dan Müslüman Zihinleri İçin Gizli Savaş",
+            doc_two: "SonnyFaz ve Bek Lover'dan Amerika'nın Müslüman İşgali",
+            footer_text: "Telif Hakkı © 2026 https://akhi076.github.io/islamicist-website/ Tüm Hakları Saklıdır."
+        },
+        'ar-eg': { // Egypt
+            menu_home: "الرئيسية",
+            menu_mission: "المهمة",
+            menu_get_active: "شارك معانا",
+            menu_donate: "تبرع",
+            hero_title: "إِسْلَامِيسْت",
+            hero_subtitle: "الإسلام أولاً. كفاية أكاذيب، مفيش فساد تاني",
+            about_text: 'نهاية الدولة العثمانية: الأمة وقعت واتسممت من كيان طلع من وسطنا. ومن ناحية تانية، فيه جماعة ملهوش حق وجود بينا، بينشروا قوانين بشرية بتعارض الشريعة اللي ربنا أنزلها. هو اختيار يا إما نصدق الأكاذيب أو نقبل الحق ونطبق شريعة ربنا — مفيش حل وسط.<br><br>"احنا مش مضطرين نعيش بالطريقة دي" - أخي',
+            docs_header: "مزيد من الأفلام الوثائقية اللي عملوها إخواتنا على موقعنا",
+            doc_one: "الحرب الخفية على عقول المسلمين بواسطة سمايل تو جنة",
+            doc_two: "الغزو الإسلامي لأمريكا بواسطة سوني فاز وبيك لوفير",
+            footer_text: "جميع الحقوق محفوظة © 2026 https://akhi076.github.io/islamicist-website/"
+        },
+        id: { // Indonesia
+            menu_home: "Beranda",
+            menu_mission: "Misi",
+            menu_get_active: "Bergabung",
+            menu_donate: "Donasi",
+            hero_title: "ISLAMIST",
+            hero_subtitle: "ISLAM PERTAMA. CUKUP DENGAN KEBOHONGAN, TIDAK ADA LAGI KORUPSI",
+            about_text: 'Akhir Kekaisaran Ottoman: Umat telah jatuh dan diracuni oleh entitas yang berasal dari antara kita. Di sisi lain, ada kelompok yang tidak berhak untuk ada di antara kita, menyebarkan hukum buatan manusia di seluruh negara Muslim yang bertentangan dengan hukum Islam yang diberikan oleh Allah. Ini adalah pilihan antara merangkup kebohongan buatan atau menerima kebenaran dan menegakkan hukum Allah—tidak ada jalan tengah.<br><br>" KITA TIDAK HARUS HIDUP SEPERTI INI " - akhi',
+            docs_header: "LEBIH BANYAK DOKUMENTER YANG DIBUAT OLEH SAUDARA KITA DI SITUS KAMI",
+            doc_one: "Perang Tersembunyi untuk Pikiran Muslim oleh Smile 2 Jannah",
+            doc_two: "Invasi Muslim ke Amerika oleh SonnyFaz dan Bek Lover",
+            footer_text: "Hak Cipta © 2026 https://akhi076.github.io/islamicist-website/ Seluruh Hak Cipta Dilindungi Undang-Undang."
+        },
+        sq: { // Albania
+            menu_home: "Kryefaqja",
+            menu_mission: "Misioni",
+            menu_get_active: "Bëhu Aktiv",
+            menu_donate: "Dhuroni",
+            hero_title: "ISLAMIST",
+            hero_subtitle: "ISLAMI NË FILLIM. MJAFT ME GLUHA, NUK KA MË KORRUPSION",
+            about_text: 'Fundi i Perandorisë Osmane: Umeti ka rënë dhe është helmuar nga një entitet që e pati origjinën nga mesi ynë. Nga ana tjetër, ekziston një grup që nuk ka të drejtë të ekzistojë mes noje, duke përhapur ligje njerëzore që bien në kundërshtim me ligjet islame të dhëna nga Allahu. Është një zgjedhje midis përqafimit të gënjeshtrave të fabrikuara ose pranimit të së vërtetës dhe zbatimit të ligjeve të dhëna nga Allahu—nuk ka rrugë të mesme.<br><br>" NE NUK DUHET TË JETOJMË KËSHTU " - akhi',
+            docs_header: "MË SHUMË DOKUMENTARË TË BËRË NGA VËLLEZËRIT TANË NË FAQEN TONË",
+            doc_one: "Lufta e Fshehtë për Mendjet Myslimane nga Smile 2 Jannah",
+            doc_two: "Invasioni Mysliman i Amerikës nga SonnyFaz dhe Bek Lover",
+            footer_text: "Të drejtat e autorit © 2026 https://akhi076.github.io/islamicist-website/ Të gjitha të drejtat e rezervuara."
+        },
+        so: { // Somalia
+            menu_home: "Bogga Hore",
+            menu_mission: "Hadafka",
+            menu_get_active: "Firfircoonaow",
+            menu_donate: "Deeq Bixi",
+            hero_title: "ISLAMIST",
+            hero_subtitle: "ISLAAMKA HORE. KU FILAN BEYNAAN, KHRUUSH MA JIRO",
+            about_text: 'Dhammaadkii Boqortooyadii Cusmaaniyiinta: Umaddu way dhacday waxaana sumeeyay hay’ad ka timid dhexdeenna. Dhanka kale, waxaa jira koox aan xaq u lahayn inay nala joogaan, oo faafinaysa sharciyo binu-aadmigu sameeyay oo ka soo horjeeda shareecada Islaamka ee uu Allah bixiyay. Waa doorasho u dhaxaysa in la qaato beenta la farsmeeyay ama in la aqoonsado xaqiiqada oo la hirgeliyo sharciga Allah—ma jiro wax dhexdhexaad ah.<br><br>" MA QASBANIN IN ANU SIDAN U NOOLAANO " - akhi',
+            docs_header: "DUUBABKA DOKUMENTARIGA AH EE AY WALAALAHEEN KU SAMEEYEEN MAAHAYAA",
+            doc_one: "Dagaalka Qarsan ee Maskaxda Muslimiinta waxaa qoray Smile 2 Jannah",
+            doc_two: "Duulaanka Muslimiinta ee Ameerika waxaa qoray SonnyFaz dan Bek Lover",
+            footer_text: "Xuquuqda Daabacaadda © 2026 https://akhi076.github.io/islamicist-website/ Xuquuqda oo dhan waa la dhowray."
+        },
+        'en-ng': { // Nigeria
+            menu_home: "Home",
+            menu_mission: "Mission",
+            menu_get_active: "Get Active",
+            menu_donate: "Donate",
+            hero_title: "𝐈  𝐒  𝐋  𝐀  𝐌  𝐈  𝐂  𝐈  𝐒  𝐓",
+            hero_subtitle: "ISLAM FIRST. ENOUGH WITH LIES, NO MORE CORRUPTION",
+            about_text: 'End of the Ottoman Empire: The Ummah has fallen and been poisoned by an entity that originated from among us. On the other hand, there is a group that has no right to exist among us, spreading a hierarchy in God throughout Muslim countries. They are promoting man-made laws that contradict the Islamic laws given by Allah. It is a choice between embracing fabricated lies or accepting the truth and pulling our own string and implementing laws given by Allah—there is no in-between.<br><br>" WE DONT HAVE TO LIVE LIKE THIS " - akhi',
+            docs_header: "MORE DOCUMENTARIES MADE BY OUR BROTHERS ON OUR SITE",
+            doc_one: "The Hidden War for Muslim Minds by Smile 2 Jannah",
+            doc_two: "The Muslim Invasion Of America by SonnyFaz and Bek Lover",
+            footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
+        },
+        ps: { // Afghanistan
+            menu_home: "کور پاڼه",
+            menu_mission: "مأموریت",
+            menu_get_active: "فعال شئ",
+            menu_donate: "مرسته وکړئ",
+            hero_title: "اسلامیسټ",
+            hero_subtitle: "اسلام لومړی. نور دروغ بس دي، نور فساد نشته",
+            about_text: 'د عثماني خلافت پای: امت لویدلی او د یوې داسې ډلې لخوا مسموم شوی چې زموږ له منځه راوتلې وه. له بل پلوه، یوه داسې ډله شته چې زموږ په منځ کې د پاتې کیدو حق نه لري، او په اسلامي هیوادونو کې د خدای د حکمونو پر ځای د بشر جوړ شوي قوانین خپروي. دوی هغه قوانین پیاوړي کوي چې د الله تعالی له اسلامي قوانینو سره په ټکر کې دي. دا د جعلي دروغو منلو یا د حق منلو او د الله تعالی د قوانینو د پلي کولو ترمنځ یو انتخاب دی—منځنی لار نشته.<br><br>"موږ اړ نه یو چې دasې ژوند وکړو" - اخی',
+            docs_header: "زموږ په سایټ کې زموږ د وروڼو لخوا جوړ شوي نور مستند فلمونه",
+            doc_one: "د اسلامي ذهنونو لپاره پټه جګړه د سمایل تو جنة لخوا",
+            doc_two: "پر امریکا د مسلمانانو یرغل د سوني فاز اور بیک لور لخوا",
+            footer_text: "د کاپی حق © 2026 https://akhi076.github.io/islamicist-website/ ټول حقونه خوندي دي."
+        }
+    };
+
+    function setLanguage(lang) {
+        const data = translations[lang];
+        if (!data) return;
+
+        // Update direction for RTL languages
+        if (lang === 'ar' || lang === 'ur' || lang === 'ar-eg' || lang === 'so' || lang === 'ps') {
+            document.documentElement.setAttribute('dir', 'rtl');
+        } else {
+            document.documentElement.setAttribute('dir', 'ltr');
+        }
+
+        // Update all elements with data-translate attribute
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            const key = el.getAttribute('data-translate');
+            if (data[key]) {
+                el.innerHTML = data[key];
+            }
+        });
+
+        // Close modal after selection
+        langModal.classList.remove('active');
+    }
+</script>
 
 </body>
 </html>
