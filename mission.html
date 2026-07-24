@@ -151,6 +151,116 @@
             transform: scale(1.05);
         }
 
+        /* Language Modal Overlay Styles */
+        .lang-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lang-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lang-modal-content {
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 650px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .lang-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .lang-modal-close:hover {
+            color: #fff;
+        }
+
+        .lang-modal-title {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .flags-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            justify-items: center;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .flags-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .flags-grid::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 3px;
+        }
+
+        .flag-option {
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .flag-option:hover {
+            transform: translateY(-3px);
+            border-color: #777;
+            background: #2a2a2a;
+        }
+
+        .flag-option img {
+            width: 54px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .flag-option span {
+            font-size: 0.8rem;
+            color: #ddd;
+            font-weight: bold;
+        }
+
         /* Mission Content Styles */
         .mission-container {
             max-width: 900px;
@@ -274,7 +384,7 @@
 <body>
 
 <nav>
-    <button class="logo-btn" onclick="window.location.href='index.html'" title="Home">☪︎</button>
+    <button class="logo-btn" id="logoToggle" title="Select Nation / Language">☪︎</button>
     <button class="menu-btn" id="menuToggle" title="Open Navigation Menu">
         <span></span>
         <span></span>
@@ -289,10 +399,68 @@
         <button class="side-menu-close" id="closeSideMenu">&times;</button>
     </div>
     <div class="side-menu-links">
-        <a href="index.html">Home</a>
-        <a href="mission.html">Mission</a>
-        <a href="index.html#about">Get Active</a>
-        <a href="#">Donate</a>
+        <a href="index.html" data-translate="menu_home">Home</a>
+        <a href="mission.html" data-translate="menu_mission">Mission</a>
+        <a href="index.html#about" data-translate="menu_get_active">Get Active</a>
+        <a href="#" data-translate="menu_donate">Donate</a>
+    </div>
+</div>
+
+<!-- Language / Flag Selection Modal -->
+<div class="lang-modal-overlay" id="langModal">
+    <div class="lang-modal-content">
+        <button class="lang-modal-close" id="closeModal">&times;</button>
+        <div class="lang-modal-title">Select Your Language or Nation</div>
+        <div class="flags-grid">
+            <div class="flag-option" onclick="setLanguage('en')">
+                <img src="https://flagcdn.com/w80/us.png" alt="English">
+                <span>English</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ar')">
+                <img src="https://flagcdn.com/w80/sa.png" alt="Saudi Arabia">
+                <span>Saudi Arabia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ur')">
+                <img src="https://flagcdn.com/w80/pk.png" alt="Pakistan">
+                <span>Pakistan</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('bn')">
+                <img src="https://flagcdn.com/w80/bd.png" alt="Bangladesh">
+                <span>Bangladesh</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('bs')">
+                <img src="https://flagcdn.com/w80/ba.png" alt="Bosnia">
+                <span>Bosnia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('tr')">
+                <img src="https://flagcdn.com/w80/tr.png" alt="Turkey">
+                <span>Turkey</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ar-eg')">
+                <img src="https://flagcdn.com/w80/eg.png" alt="Egypt">
+                <span>Egypt</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('id')">
+                <img src="https://flagcdn.com/w80/id.png" alt="Indonesia">
+                <span>Indonesia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('sq')">
+                <img src="https://flagcdn.com/w80/al.png" alt="Albania">
+                <span>Albania</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('so')">
+                <img src="https://flagcdn.com/w80/so.png" alt="Somalia">
+                <span>Somalia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('en-ng')">
+                <img src="https://flagcdn.com/w80/ng.png" alt="Nigeria">
+                <span>Nigeria</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ps')">
+                <img src="https://flagcdn.com/w80/af.png" alt="Afghanistan">
+                <span>Afghanistan</span>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -300,7 +468,7 @@
     <!-- Video Player with Dark Red Thumbnail -->
     <div class="mission-video-wrapper" id="videoWrapper">
         <div class="video-thumbnail" id="videoThumbnail">
-            <h2>WAKE UP MUSLIMS</h2>
+            <h2 data-translate="video_title">WAKE UP MUSLIMS</h2>
             <div class="play-btn-icon">▶</div>
         </div>
         <video id="missionVideo" controls>
@@ -309,10 +477,10 @@
         </video>
     </div>
 
-    <h1>OUR MISSION</h1>
-    <p>If you have received this, it's a sign from us. “If Muslims were to unite once again, no power in the world could harm them. Even atom bombs and rockets could not vanquish them.” Maulana Mohammad Yousuf said.</p>
-    <p>It's easy to tell if you look at the Muslim countries; there has been a hierarchy in God that's been spreading en masse across the countries. Such kafir satanic intervention like feminism and prostitution and OnlyFans and usury and clubs and pornography being exposed to the Muslim youth of this generation, like Salahudin Ayyubi quoted, "If you want to destroy any nation without war, make adultery and nudity common in the young generation." Islam says no to feminism, Islam says no to usury, Islam says no to pornography, and Islam says no to LGBTQ+ and queer and trans and to democracy and socialism and communism and capitalism. Laws like this are invented by the international Jew himself, who destroys religion and faith and its values that allow pedophilia and rape across the world. They don't want Sharia because it stops enabling such satanic, vile crimes they do on a regular basis, and they are scared of getting a harsher punishment, which they call a 7th-century mindset. If being anti-West is bad because we don't want our women to be whores and sex figures, then we are proud, as we have better moral standards than Westerners do. A religious person who invents anything that benefits something good not only for himself but for others as well—then it's not an issue. But that's not the case here; the Jew himself has created an intervention that has a negative impact on others who intervene in it. It only benefits the Jew himself. They are the most commonly found ones who are spreading hierarchy in God across Muslim countries.</p>
-    <p>Our mission here is to destabilize the US dollar trade system and make our own currency for trading and ban usury. Say no to kafir laws and restore sharia. If you're a Muslim, whether you're white, Black, or any color, which doesn't matter, this mission of ours is a wake-up call to our brothers and sisters that we must unite; if not, then in 10 decades it will get worse. unite the ummah.</p>
+    <h1 data-translate="mission_heading">OUR MISSION</h1>
+    <p data-translate="mission_p1">If you have received this, it's a sign from us. “If Muslims were to unite once again, no power in the world could harm them. Even atom bombs and rockets could not vanquish them.” Maulana Mohammad Yousuf said.</p>
+    <p data-translate="mission_p2">It's easy to tell if you look at the Muslim countries; there has been a hierarchy in God that's been spreading en masse across the countries. Such kafir satanic intervention like feminism and prostitution and OnlyFans and usury and clubs and pornography being exposed to the Muslim youth of this generation, like Salahudin Ayyubi quoted, "If you want to destroy any nation without war, make adultery and nudity common in the young generation." Islam says no to feminism, Islam says no to usury, Islam says no to pornography, and Islam says no to LGBTQ+ and queer and trans and to democracy and socialism and communism and capitalism. Laws like this are invented by the international Jew himself, who destroys religion and faith and its values that allow pedophilia and rape across the world. They don't want Sharia because it stops enabling such satanic, vile crimes they do on a regular basis, and they are scared of getting a harsher punishment, which they call a 7th-century mindset. If being anti-West is bad because we don't want our women to be whores and sex figures, then we are proud, as we have better moral standards than Westerners do. A religious person who invents anything that benefits something good not only for himself but for others as well—then it's not an issue. But that's not the case here; the Jew himself has created an intervention that has a negative impact on others who intervene in it. It only benefits the Jew himself. They are the most commonly found ones who are spreading hierarchy in God across Muslim countries.</p>
+    <p data-translate="mission_p3">Our mission here is to destabilize the US dollar trade system and make our own currency for trading and ban usury. Say no to kafir laws and restore sharia. If you're a Muslim, whether you're white, Black, or any color, which doesn't matter, this mission of ours is a wake-up call to our brothers and sisters that we must unite; if not, then in 10 decades it will get worse. unite the ummah.</p>
 
     <!-- Image placed underneath the last paragraph -->
     <div class="mission-image-wrapper">
@@ -321,7 +489,7 @@
 </div>
 
 <footer>
-    <div><span>Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span></div>
+    <div><span data-translate="footer_text">Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span></div>
     <div class="footer-brand">𝐊𝐇𝐈𝐋𝐀𝐅𝐀𝐇</div>
 </footer>
 
@@ -348,6 +516,192 @@
     document.querySelectorAll('.side-menu-links a').forEach(link => {
         link.addEventListener('click', closeMenu);
     });
+
+    // Language Modal Logic
+    const logoToggle = document.getElementById('logoToggle');
+    const langModal = document.getElementById('langModal');
+    const closeModal = document.getElementById('closeModal');
+
+    logoToggle.addEventListener('click', () => {
+        langModal.classList.add('active');
+    });
+
+    closeModal.addEventListener('click', () => {
+        langModal.classList.remove('active');
+    });
+
+    langModal.addEventListener('click', (e) => {
+        if (e.target === langModal) {
+            langModal.classList.remove('active');
+        }
+    });
+
+    const translations = {
+        en: {
+            menu_home: "Home",
+            menu_mission: "Mission",
+            menu_get_active: "Get Active",
+            menu_donate: "Donate",
+            video_title: "WAKE UP MUSLIMS",
+            mission_heading: "OUR MISSION",
+            mission_p1: "If you have received this, it's a sign from us. “If Muslims were to unite once again, no power in the world could harm them. Even atom bombs and rockets could not vanquish them.” Maulana Mohammad Yousuf said.",
+            mission_p2: "It's easy to tell if you look at the Muslim countries; there has been a hierarchy in God that's been spreading en masse across the countries. Such kafir satanic intervention like feminism and prostitution and OnlyFans and usury and clubs and pornography being exposed to the Muslim youth of this generation, like Salahudin Ayyubi quoted, \"If you want to destroy any nation without war, make adultery and nudity common in the young generation.\" Islam says no to feminism, Islam says no to usury, Islam says no to pornography, and Islam says no to LGBTQ+ and queer and trans and to democracy and socialism and communism and capitalism. Laws like this are invented by the international Jew himself, who destroys religion and faith and its values that allow pedophilia and rape across the world. They don't want Sharia because it stops enabling such satanic, vile crimes they do on a regular basis, and they are scared of getting a harsher punishment, which they call a 7th-century mindset. If being anti-West is bad because we don't want our women to be whores and sex figures, then we are proud, as we have better moral standards than Westerners do. A religious person who invents anything that benefits something good not only for himself but for others as well—then it's not an issue. But that's not the case here; the Jew himself has created an intervention that has a negative impact on others who intervene in it. It only benefits the Jew himself. They are the most commonly found ones who are spreading hierarchy in God across Muslim countries.",
+            mission_p3: "Our mission here is to destabilize the US dollar trade system and make our own currency for trading and ban usury. Say no to kafir laws and restore sharia. If you're a Muslim, whether you're white, Black, or any color, which doesn't matter, this mission of ours is a wake-up call to our brothers and sisters that we must unite; if not, then in 10 decades it will get worse. unite the ummah.",
+            footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
+        },
+        ar: {
+            menu_home: "الرئيسية",
+            menu_mission: "المهمة",
+            menu_get_active: "انخرط معنا",
+            menu_donate: "تبرع",
+            video_title: "استيقظوا أيها المسلمون",
+            mission_heading: "مهمتنا",
+            mission_p1: "إذا تلقيت هذا، فهذه إشارة منا. قال مولانا محمد يوسف: \"لو ان اتحاد المسلمين مرة أخرى، لما استطاعت أي قوة في العالم أن تلحق الضرر بهم. حتى القنابل الذرية والصواريخ لم تستطيع قهرهم.\"",
+            mission_p2: "من السهل أن تدرك ذلك إذا نظرت إلى البلدان الإسلامية؛ فقد انتشر الفساد والانحلال على نطاق واسع عبر هذه البلدان. مثل هذه التدخلات الشيطانية الكافية كالنسوية والبغاء وأونلي فانز والربا والنوادي والمورنوغرافي التي تتعرض لها شباب المسلمين في هذا الجيل، وكما قال صلاح الدين الأيوبي: \"إذا أردت تدمير أي أمة بدون حرب، فاجعل الزنا والعري شائعين في الجيل الناشئ.\" الإسلام يقول لا للنسوية، الإسلام يقول لا للربا، الإسلام يقول لا للمورنوغرافي، ويقول لا للمثليين والمتحولين والديمقراطية والاشتراكية والشيوعية والرأس مالية. قوانين كهذه اخترعها اليهود الدوليون أنفسهم ليدمروا الدين والإيمان وقيمه، والتي تسمح بالبيدوفيليا والاغتصاب في جميع أنحاء العالم. إنهم لا يريدون الشريعة لأنها توقف تمكين هذه الجرائم الشيطانية الدنيئة التي يمارسونها بانتظام، وهم خائفون من نيل عقاب أشد قسوة، والذي يسمونه عقلية القرن السابع. إذا كان الوقوف ضد الغرب سيئاً لأننا لا نريد لنسائنا أن كن عاهرات ورموزاً جنسية، فنحن فخورون بذلك، إذ لدينا معايير أخلاقية أفضل بكثير من الغربيين. الشخص المتدين الذي يبتكر أي شيء يعود بالنفع على الخير ليس فقط لنفسه بل للآخرين أيضاً - فهذه ليست مشكلة. لكن الأمر ليس كذلك هنا؛ فاليهود أنفسهم خلقوا تدخلاً له تأثير سلبي على الآخرين المتدخلين فيه. إنه لا يفيد سوى اليهودي نفسه. وهم أكثر من تجدهم ينشرون الفساد في البلدان الإسلامية.",
+            mission_p3: "مهمتنا هنا هي زعزعة استقرار نظام التجارة بالدولار الأمريكي وصنع عملتنا الخاصة للتجارة وتحريم الربا. قولوا لا للقوانين الكافر واستعادة الشريعة. إذا كنت مسلماً، سواء كنت أبيض أو أسود أو بأي لون، فهذا لا يهم، فهذه مهمتنا نداء استيقاظ لإخوتنا وأخواتنا بأننا يجب أن نتحد؛ وإذا لم يكن الأمر كذلك، فسيزداد سوءاً في عشرة عقود. اتحدوا أيها الأمة.",
+            footer_text: "حقوق الطبع والنشر © 2026 https://akhi076.github.io/islamicist-website/ جميع الحقوق محفوظة."
+        },
+        ur: {
+            menu_home: "ہوم",
+            menu_mission: "مشن",
+            menu_get_active: "سرگرم ہو جائیں",
+            menu_donate: "عطیہ دیں",
+            video_title: "مسلمانو بیدار ہو جاؤ",
+            mission_heading: "ہمارا مشن",
+            mission_p1: "اگر آپ کو یہ موصول ہوا ہے، تو یہ ہماری طرف سے ایک اشارہ ہے۔ مولانا محمد یوسف نے کہا تھا: \"اگر مسلمان ایک بار پھر متحد ہو جائیں، تو دنیا کی کوئی طاقت انہیں نقصان نہیں پہنچا سکتی۔ یہاں تک کہ ایٹم بم اور راکٹ بھی انہیں شکست نہیں دے سکتے۔\"",
+            mission_p2: "اگر آپ مسلم ممالک پر نظر ڈالیں تو یہ جاننا آسان ہے؛ خدا کے خلاف ایک پدانکراؤ پوری دنیا میں بڑے پیمانے پر پھیل رہا ہے۔ اس قسم کی کافرانہ شیطانی مداخلتیں جیسے کہ فیمینزم، جسم فروشیاں، اونلی فنز، سود، کلب اور پورنوگرافی اس نسل کے مسلم نوجوانوں کے سامنے لائی جا رہی ہیں، جیسا کہ صلاح الدین ایوبی نے کہا تھا: \"اگر آپ کسی قوم کو بغیر جنگ کے تباہ کرنا چاہتے ہیں، تو نوجوان نسل میں زنا اور عریانی کو عام کر دیں۔\" اسلام فیمینزم کو نا کہتا ہے، اسلام سود کو نا کہتا ہے، اسلام پورنوگرافی کو نا کہتا ہے، اور اسلام LGBTQ+، کوئیر، ٹرانس، جمہوریت، سوشلزم، کمیونزم اور سرمایہ داری کو نا کہتا ہے۔ اس طرح کے قوانین خود بین الاقوامی یہودی نے ایجاد کیے ہیں، جو مذہب، عقیدہ اور اس کی اقدار کو تباہ کرتے ہیں جو دنیا بھر میں پیڈوفیلیا اور عصمت دری کی اجازت دیتے ہیں۔ وہ شریعت نہیں چاہتے کیونکہ یہ ان شیطانی، گھناؤنے جرائم کو روکتی ہے جو وہ باقاعدگی سے کرتے ہیں، اور وہ سخت سزا پانے سے ڈرتے ہیں، جسے وہ ساتویں صدی کی ذہنیت کہتے ہیں۔ اگر مغرب کے خلاف ہونا برا ہے کیونکہ ہم نہیں چاہتے کہ ہماری عورتیں طوائفیں اور جنسی اشیاء بنیں، تو ہمیں فخر ہے، کیونکہ ہمارے پاس مغربی لوگوں سے بہتر اخلاقی اقدار ہیں۔ ایک مذہبی شخص جو کوئی ایسی چیز ایجاد کرتا ہے جو نہ صرف اپنے لیے بلکہ دوسروں کے لیے بھی کسی بھلائی کا فائدہ پہنچاتی ہے—تو یہ کوئی مسئلہ نہیں ہے۔ لیکن یہاں ایسا نہیں ہے؛ خود یہودی نے ایک مداخلت پیدا کی ہے جو اس میں مداخلت کرنے والوں پر منفی اثر ڈالتی ہے۔ اس سے صرف یہودی کو ہی فائدہ ہوتا ہے۔ وہ مسلم ممالک میں سب سے زیادہ کثرت سے پائے جاتے ہیں جو خدا کے خلاف نظام پھیلا رہے ہیں۔",
+            mission_p3: "ہمارا مشن یہاں امریکی ڈالر کے تجارتی نظام کو غیر مستحکم کرنا، تجارت کے لیے اپنی کرنسی بنانا اور سود پر پابندی لگانا ہے۔ کافرانہ قوانین کو نا کہیں اور شریعت کو بحال کریں۔ اگر آپ مسلمان ہیں، چاہے آپ سفید فام ہوں، سیاہ فام ہوں یا کسی بھی رنگ کے ہوں، اس سے کوئی فرق نہیں پڑتا، ہمارا یہ مشن ہمارے بھائیوں اور بہنوں کے لیے ایک بیداری کا خطرہ ہے کہ ہمیں متحد ہونا چاہیے؛ اگر نہیں، تو دس دہائیوں میں حالات اور بھی بدتر ہو جائیں گے۔ امت کو متحد کریں۔",
+            footer_text: "کاپی رائٹ © 2026 https://akhi076.github.io/islamicist-website/ تمام حقوق محفوظ ہیں۔"
+        },
+        bn: {
+            menu_home: "হোম",
+            menu_mission: "মিশন",
+            menu_get_active: "যুক্ত হোন",
+            menu_donate: "দান করুন",
+            video_title: "মুসলিমরা জেগে উঠুন",
+            mission_heading: "আমাদের মিশন",
+            mission_p1: "আপনি যদি এটি পেয়ে থাকেন তবে এটি আমাদের পক্ষ থেকে একটি ইঙ্গিত। মাওলানা মোহাম্মদ ইউসুফ বলেছেন: \"মুসলিমরা যদি আবার ঐক্যবদ্ধ হয়, তবে বিশ্বের কোনো শক্তিই তাদের ক্ষতি করতে পারবে না। এমনকি পারমাণবিক বোমা এবং রকেটও তাদের পরাস্ত করতে পারবে না।\"",
+            mission_p2: "মুসলিম দেশগুলোর দিকে তাকালে এটি সহজেই বোঝা যায়; দেশজুড়ে বিশৃঙ্খলা এবং নৈতিক পতন ব্যাপকভাবে ছড়িয়ে পড়ছে। নারীবাদ, পতিতাবৃত্তি, ওনলি ফ্যানস, সুদ, ক্লাব এবং পর্নোগ্রাফির মতো কাফের ও শয়তানি হস্তক্ষেপ এই প্রজন্মের মুসলিম যুবকদের সামনে তুলে ধরা হচ্ছে, যেমন সালাহউদ্দিন আইয়ুবি উদ্ধৃত করেছেন, \"যদি আপনি যুদ্ধ ছাড়া কোনো জাতিকে ধ্বংস করতে চান, তবে যুব প্রজন্মের মধ্যে ব্যভিচার এবং নগ্নতা সাধারণ করে তুলুন।\" ইসলাম নারীবাদকে না বলে, ইসলাম সুদকে না বলে, ইসলাম পর্নোগ্রাফিকে না বলে, এবং ইসলাম এলজিবিটিকিউ+, কুইয়ার, ট্রান্স, গণতন্ত্র, সমাজতন্ত্র, সাম্যবাদ এবং পুঁজিবাদকে না বলে। এই ধরণের আইনগুলো আন্তর্জাতিক ইহুদিরাই আবিষ্কার করেছে, যারা ধর্ম ও বিশ্বাস এবং এর মূল্যবোধকে ধ্বংস করে যা বিশ্বজুড়ে পেডোফিলিয়া এবং ধর্ষণের অনুমতি দেয়। তারা শরিআ চায় না কারণ এটি তাদের নিয়মিতভাবে করা এই ধরনের শয়তানি, জঘন্য অপরাধগুলোকে বন্ধ করে দেয় এবং তারা কঠোর শাস্তি পেতে ভয় পায়, যাকে তারা সপ্তম শতাব্দীর মানসিকতা বলে অভিহিত করে। পশ্চিমাবিরোধী হওয়া যদি খারাপ হয় কারণ আমরা চাই না আমাদের নারীরা যৌনবস্তু হোক, তবে আমরা গর্বিত, কারণ পশ্চিমাদের তুলনায় আমাদের নৈতিক মান অনেক ভালো। একজন ধার্মিক ব্যক্তি এমন কিছু আবিষ্কার করলে যা কেবল নিজের জন্য নয় বরং অন্যদের জন্যও ভালো কিছু বয়ে আনে—তবে তা কোনো সমস্যা নয়। কিন্তু এখানে তা নয়; ইহুদি নিজেই এমন এক হস্তক্ষেপ তৈরি করেছে যা এতে হস্তক্ষেপকারীদের ওপর নেতিবাচক প্রভাব ফেলে। এটি কেবল ইহুদিকেই উপকৃত করে। মুসলিম দেশগুলোতে তারাই সবচেয়ে বেশি এই পতন ছড়াচ্ছে।",
+            mission_p3: "আমাদের লক্ষ্য হলো মার্কিন ডলারের বাণিজ্য ব্যবস্থাকে অস্থিতিশীল করা এবং ব্যবসার জন্য নিজস্ব মুদ্রা তৈরি করা এবং সুদ নিষিদ্ধ করা। কাফের আইনকে না বলুন এবং শরিআ ফিরিয়ে আনুন। আপনি যদি একজন মুসলিম হন, আপনি সাদা, কালো বা যেকোনো বর্ণের হোন না কেন, তাতে কিছু যায় আসে না, আমাদের এই মিশনটি আমাদের ভাই ও বোনদের জন্য একটি জাগরণী বার্তা যে আমাদের অবশ্যই ঐক্যবদ্ধ হতে হবে; যদি তা না হয়, তবে আগামী দশকগুলোতে পরিস্থিতি আরও খারাপ হবে। উম্মাহকে ঐক্যবদ্ধ করুন।",
+            footer_text: "স্বত্বাধিকার © 2026 https://akhi076.github.io/islamicist-website/ সর্বস্বত্ব সংরক্ষিত।"
+        },
+        bs: {
+            menu_home: "Početna",
+            menu_mission: "Misija",
+            menu_get_active: "Uključi se",
+            menu_donate: "Doniraj",
+            video_title: "PROBUDITE SE MUSLIMANI",
+            mission_heading: "NAŠA MISIJA",
+            mission_p1: "Ako ste ovo primili, to je znak od nas. „Kada bi se muslimani ponovo ujedinili, nijedna sila na svijetu im ne bi mogla nauditi. Čak ni atomske bombe i rakete ih ne bi mogle pobijediti“, rekao je Mevlana Muhammed Jusuf.",
+            mission_p2: "Lako je vidjeti ako pogledate muslimanske zemlje; nered se masovno širi širom zemalja. Kafirsko šatansko uplitanje poput feminizma, prostitucije, OnlyFansa, kamata, klubova i pornografije izlaže se muslimanskoj omladini ove generacije, kao što je Salahudin Ejubi citirao: „Ako želite uništiti bilo koju naciju bez rata, učinite preljub i golotinju uobičajenim u mladoj generaciji.“ Islam kaže ne feminizmu, Islam kaže ne kamati, Islam kaže ne pornografiji, i Islam kaže ne LGBTQ+ osobama, queeru, transrodnosti, demokratiji, socijalizmu, komunizmu i kapitalizmu. Ovakve zakone izmišlja sam međunarodni Jevrej, koji uništava vjeru i njene vrijednosti koje omogućavaju pedofiliju i silovanje širom svijeta. Oni ne žele Šeriat jer on zaustavlja omogućavanje takvih sotonskih, opakih zločina koje redovno čine, i boje se oštrije kazne, koju nazivaju mentalitetom 7. stoljeća. Ako je biti protiv Zapada loše jer ne želimo da naše žene budu kurve i seksualne figure, onda smo ponosni, jer imamo bolje moralne standarde nego zapadnjaci. Vjernik koji izumi bilo šta što donosi dobro ne samo njemu nego i drugima – onda to nije problem. Ali ovdje nije tako; sam Jevrej je stvorio intervenciju koja ima negativan utjecaj na druge koji u njoj učestvuju. To koristi samo samom Jevreju. Oni najčešće šire ovakav nered širom muslimanskih zemalja.",
+            mission_p3: "Naša misija ovdje je da destabiliziramo trgovinski sistem američkog dolara, napravimo sopstvenu valutu za trgovinu i zabranimo kamatu. Recite ne kafirskim zakonima i vratite Šeriat. Ako ste musliman, bilo da ste bijelac, crnac ili bilo koje boje, to nije važno, ova naša misija je poziv na buđenje našoj braći i sestrama da se moramo ujediniti; ako ne, bit će još gore u idućim decenijama. Ujedinite ummet.",
+            footer_text: "Autorska prava © 2026 https://akhi076.github.io/islamicist-website/ Sva prava zadržana."
+        },
+        tr: {
+            menu_home: "Ana Sayfa",
+            menu_mission: "Misyon",
+            menu_get_active: "Aktif Ol",
+            menu_donate: "Bağış Yap",
+            video_title: "EY MÜSLÜMANLAR UYANIN",
+            mission_heading: "MİSYONUMUZ",
+            mission_p1: "Bunu aldıysanız, bu bizden bir işarettir. Mevlana Muhammed Yusuf şöyle demiştir: \"Eğer Müslümanlar bir kez daha birleşirse, dünyadaki hiçbir güç onlara zarar veremez. Atom bombaları ve roketler bile onları alt edemezdi.\"",
+            mission_p2: "Müslüman ülkelere baktığınızda bunu söylemek kolaydır; ülkeler arasında kitlesel olarak yayılan bir yozlaşma söz konusudur. Feminizm, fuhuş, OnlyFans, faiz, kulüpler ve pornografi gibi kafir şeytani müdahaleler bu neslin Müslüman gençliğine maruz bırakılmaktadır. Salahaddin Eyyubi'nin alıntıladığı gibi: \"Eğer bir milleti savaşmadan yok etmek istiyorsanız, genç nesilde zina ve çıplaklığı yaygın hale getirin.\" İslam feminizme hayır der, İslam faize hayır der, İslam pornografiye hayır der ve İslam LGBTQ+’ya, queer, trans, demokrasi, sosyalizm, komünizm ve kapitalizme hayır der. Bunun gibi yasalar, dünya çapında pedofiliye ve tecavüze izin veren dini, inancı ve değerleri yok eden uluslararası Yahudi'nin kendisi tarafından icat edilmiştir. Şeriatı istemiyorlar çünkü düzenli olarak yaptıkları bu şeytani, iğrenç suçları işlemeye devam etmelerini engelliyor ve 7. yüzyıl zihniyeti olarak adlandırdıkları daha sert bir cezaya çarptırılmaktan korkuyorlar. Batı karşıtı olmak kötüse, çünkü kadınlarımızın fahişe ve seks objesi olmasını istemiyoruz, o halde gurur duyuyoruz, çünkü Batılılardan daha iyi ahlaki standartlara sahibiz. Sadece kendine değil başkalarına da iyi bir şey kazandıran herhangi bir şeyi icat eden dindar bir kişi - o zaman bu bir sorun değildir. Ama burada durum böyle değil; Yahudi'nin kendisi, müdahale edenler üzerinde olumsuz bir etkisi olan bir müdahale yaratmıştır. Bu sadece Yahudi'nin kendisine fayda sağlar. Müslüman ülkeler arasında bu yozlaşmayı yayanlar en yaygın olarak onlardır.",
+            mission_p3: "Buradaki misyonumuz ABD doları ticaret sistemini istikrarsızlaştırmak, ticaret için kendi para birimimizi yapmak ve faizi yasaklamaktır. Kafir yasalarına hayır deyin ve Şeriatı yeniden tesis edin. Müslüman iseniz, ister beyaz, ister siyah veya herhangi bir renkten olun, bunun bir önemi yoktur, bu misyonumuz kardeşlerimize bir uyarı çağrısıdır ki birleşmeliyiz; eğer birleşmezsek on on yıl içinde daha da kötüleşecektir. Ümmeti birleştirin.",
+            footer_text: "Telif Hakkı © 2026 https://akhi076.github.io/islamicist-website/ Tüm Hakları Saklıdır."
+        },
+        'ar-eg': {
+            menu_home: "الرئيسية",
+            menu_mission: "المهمة",
+            menu_get_active: "شارك معانا",
+            menu_donate: "تبرع",
+            video_title: "اصحوا يا مسلمين",
+            mission_heading: "مهمتنا",
+            mission_p1: "لو وصلك الكلام ده، دي إشارة مننا. قال مولانا محمد يوسف: \"لو المسلمين اتحملوا واتحدوا تاني، مفيش أي قوة في العالم تقدر تضرهم. حتى القنابل الذرية والصواريخ مكنتش تقدر تغلبهم.\"",
+            mission_p2: "واضح جداً لما تبص على الدول الإسلامية؛ فيه حالة من الفساد والانحلال بتنتشر بشكل جماعي في البلاد. زي التدخلات الشيطانية الكافية دي زي النسوية والدعارة وأونلي فانز والربا والنوادي والبورنوغرافي اللي بتتعرض لشباب المسلمين في الجيل ده، زي ما صلاح الدين الأيوبي قال: \"لو عايز تدمر أي أمة من غير حرب، خلي الزنا والعري حاجة عادية في الجيل الصاعد.\" الإسلام بيאول لا للنسوية، الإسلام بيقول لا للربا، الإسلام بيقول لا للبورنوغرافي، وبيقول لا للمثليين والمتحولين والديمقراطية والاشتراكية والشيوعية والرأسمالية. القوانين دي اخترعها اليهود الدوليين نفسهم عشان يدمروا الدين والإيمان وقيمه اللي بتسمح بالبيدوفيليا والاغتصاب في العالم كله. هما مش عايزين الشريعة لأنها بتوقف الجرائم الشيطانية الدنيئة اللي بيعملوها بشكل دوري، وهما خائفين ياخدوا عقاب أصعب اللي بيسموه عقلية القرن السابع. لو الوقوف ضد الغرب وحش عشان مش عايزین ستاتنا يبقوا عاهرات وأجسام جنسية، فاحنا فخورين، عشان عندنا أخلاق أحسن بكتير من الغربيين. الشخص المتدين اللي بيخترع أي حاجة تفيد الخير مش لنفسه بس ولغيره كمان - متبقاش مشكلة. بس مش ده اللي حاصل هنا؛ اليهودي نفسه عمل تدخل بيأثر بالسلبية على اللي بيتدخلوا فيه. بيفيد اليهودي نفسه بس. هما أكتر ناس بيشروا الفساد في الدول الإسلامية.",
+            mission_p3: "مهمتنا هنا إننا نبوظ نظام تجارة الدولار الأمريكي ونعمل عملة خاصة بينا للتجارة ونمنع الربا. قولوا لا للقوانين الكافية ورجعوا الشريعة. لو إنت مسلم، سواء أبيض أو أسود أو بأي لون، مش مهم، مهمتنا دي صحوة لينا كلنا كإخوة إننا لازم نتحد؛ ولو متمسكناش، الوضع هيبقى أسوأ بكتير في العصور الجاية. اتحدوا يا أمة.",
+            footer_text: "جميع الحقوق محفوظة © 2026 https://akhi076.github.io/islamicist-website/"
+        },
+        id: {
+            menu_home: "Beranda",
+            menu_mission: "Misi",
+            menu_get_active: "Bergabung",
+            menu_donate: "Donasi",
+            video_title: "BANGUNLAH KAUM MUSLIMIN",
+            mission_heading: "MISI KAMI",
+            mission_p1: "Jika Anda menerima ini, itu adalah tanda dari kami. Maulana Mohammad Yousuf berkata, “Jika umat Islam bersatu kembali, tidak ada kekuatan di dunia yang dapat merugikan mereka. Bahkan bom atom dan roket pun tidak dapat menaklukkan mereka.”",
+            mission_p2: "Sangat mudah untuk melihat jika Anda melihat negara-negara Muslim; ada kerusakan moral yang menyebar secara massal di berbagai negara. Intervensi kafir yang penuh dosa seperti feminisme, prostitusi, OnlyFans, riba, klub, dan pornografi diekspos kepada generasi muda Muslim saat ini, seperti yang dikutip Salahudin Ayyubi, \"Jika Anda ingin menghancurkan suatu bangsa tanpa perang, buatlah perzinaan dan ketelanjangan menjadi hal biasa di kalangan generasi muda.\" Islam katakan tidak pada feminisme, Islam katakan tidak pada riba, Islam katakan tidak pada pornografi, dan Islam katakan tidak pada LGBTQ+, queer, trans, demokrasi, sosialisme, komunisme, dan kapitalisme. Hukum seperti ini diciptakan oleh Yahudi internasional sendiri, yang menghancurkan agama dan keyakinan serta nilainya yang memungkinkan pedofilia dan pemerkosaan di seluruh dunia. Mereka tidak menginginkan Syariah karena itu menghentikan kejahatan setan yang keji yang mereka lakukan secara teratur, dan mereka takut mendapatkan hukuman yang lebih berat, yang mereka sebut sebagai pola pikir abad ke-7. Jika menentang Barat adalah hal buruk karena kami tidak ingin wanita kami menjadi pelacur dan objek seksual, maka kami bangga, karena kami memiliki standar moral yang lebih baik daripada orang Barat. Orang religius yang menciptakan sesuatu yang mendatangkan kebaikan tidak hanya untuk dirinya sendiri tetapi juga untuk orang lain—maka itu bukan masalah. Tapi bukan itu masalahnya di sini; Yahudi sendiri telah menciptakan intervensi yang berdampak negatif pada pihak lain. Itu hanya menguntungkan Yahudi itu sendiri. Merekalah yang paling sering ditemukan menyebarkan kerusakan ini di negara-negara Muslim.",
+            mission_p3: "Misi kami di sini adalah untuk mendestabilisasi sistem perdagangan dolar AS, membuat mata uang kita sendiri untuk berdagang, dan melarang riba. Katakan tidak pada hukum kafir dan tegakkan kembali Syariah. Jika Anda seorang Muslim, baik putih, hitam, atau warna apa pun, itu tidak masalah, misi kami ini adalah panggilan bangun bagi saudara-saudari kita bahwa kita harus bersatu; jika tidak, dalam sepuluh dekade situasinya akan semakin memburuk. Satukan umat.",
+            footer_text: "Hak Cipta © 2026 https://akhi076.github.io/islamicist-website/ Seluruh Hak Cipta Dilindungi Undang-Undang."
+        },
+        sq: {
+            menu_home: "Kryefaqja",
+            menu_mission: "Misioni",
+            menu_get_active: "Bëhu Aktiv",
+            menu_donate: "Dhuroni",
+            video_title: "ZGJOHUNI MYSLIMANË",
+            mission_heading: "MISIONI YNË",
+            mission_p1: "Nëse e keni marrë këtë, është një shenjë nga ne. “Nëse myslimanët do të bashkoheshin edhe një herë, asnjë fuqi në botë nuk mund t'u bënte dëm. Madje edhe bombat atomike dhe raketa nuk mund t'i mposhtnin ata”, tha Maulana Mohammad Yousuf.",
+            mission_p2: "Është e lehtë për ta kuptuar nëse shikoni vendet myslimane; ka një shkatërrim moral që përhapet masivisht nëpër vende. Ndërhyrjet e tilla kafire satanike si feminizmi, prostitucioni, OnlyFans, kamata, klubet dhe pornografia po u ekspozohen rinisë myslimane të këtij brezi, siç citoi Salahudin Ayyubi, \"Nëse doni të shkatërroni çdo komb pa luftë, bëni që imoraliteti dhe zhveshja të bëhen të zakonshme tek brezi i ri.\" Islam thotë jo feminizmit, Islam thotë jo kamatës, Islam thotë jo pornografisë dhe Islam thotë jo LGBTQ+ dhe queer dhe trans dhe demokracisë dhe socializmit dhe komunizmit dhe kapitalizmit. Ligje të tilla janë shpikur nga vetë izraeliti/hebreu ndërkombëtar, i cili shkatërron fenë dhe besimin dhe vlerat e tij që lejojnë pedofilinë dhe pëhunë në mbarë botën. Ata nuk duan Sheriatin sepse ai ndalon mundësimin e krimeve të tilla satanike dhe të ulëta që ata i bëjnë rregullisht, dhe ata kanë frikë se do të marrin një ndëshkim më të ashpër, të cilin e quajnë mentalitet i shekullit të 7-të. Nëse të qenit kundër Perëndimit është e keqe sepse ne nuk duam që gratë tona të jenë kurva dhe figura seksuale, atëherë ne krenohemi, pasi kemi standarde më të mira morale sesa perëndimorët. Një person fetar që shpik diçka që sjell dobi jo vetëm për veten e tij, por edhe për të tjerët—atëherë nuk është problem. Por ky nuk është rasti këtu; vetë hebreu ka krijuar një ndërhyrje që ka një ndikim negativ tek të tjerët që ndërhyjnë në të. Kjo i sjell dobi vetëm vetë hebreut. Ata janë më të zakonshmit që përhapin shkatërrim moral në vendet myslimane.",
+            mission_p3: "Misioni ynë këtu është të destabilizojmë sistemin tregtar të dollarit amerikan dhe të bëjmë monedhën tonë për tregti dhe të ndalojmë kamatën. Thoni jo ligjeve kafire dhe rivendosni Sheriatin. Nëse jeni mysliman, qofshi i bardhë, i zi apo çfarëdo ngjyre, kjo nuk ka rëndësi, ky mision i yni është një thirrje zgjimi për vëllezërit dhe motrat tona se ne duhet të bashkohemi; nëse jo, atëherë në 10 dekada do të bëhet edhe më keq. Bashkoni ummetin.",
+            footer_text: "Të drejtat e autorit © 2026 https://akhi076.github.io/islamicist-website/ Të gjitha të drejtat e rezervuara."
+        },
+        so: {
+            menu_home: "Bogga Hore",
+            menu_mission: "Hadafka",
+            menu_get_active: "Firfircoonaow",
+            menu_donate: "Deeq Bixi",
+            video_title: "SOO KACAA MUSLIMIINTOOW",
+            mission_heading: "HADAFKAYAGA",
+            mission_p1: "Haddii aad tan heshay, waa calaamad naga timid. “Haddii ay muslimiintu midoobaan mar kale, awood adduunka joogta ma wax yeeli kartaa. Xitaa bambooyinka atomig iyo gantaallada ma awoodayaan inay ka adkaadaan,” ayuu yiri Maulana Maxamed Yuusuf.",
+            mission_p2: "Way fududahay in la ogaado haddii aad eegto waddamada Islaamka; waxaa jira musuqmaasuq iyo xumaan si ballaaran uga dhex fidaysa waddamada. Faragelinta shaydaaniga ah ee gaalada ah sida feminism-ka, dhilleysiga, OnlyFans, ribada, naadiyada, iyo lulataanka ee loo bandhigayo dhalinyarada Muslimiinta ah ee jiilkan, sida uu Salahudin Ayyubi xigtay, \"Haddii aad rabto inaad burburiso qaran kasta oo aan dagaal jirin, ka dhig sinada iyo qaawanida kuwo caadi ah jiilka da'da yar.\" Islaamku wuxuu diidayaa feminism-ka, Islaamku wuxuu diidayaa ribada, Islaamku wuxuu diidayaa lulataanka, isla markaana wuxuu diidayaa LGBTQ+, queer, trans, dimuqraadiyadda, shuuciyadda, iyo hanti-wadaagga. Sharciyada noocaan ah waxaa ikhtiraacay Yuhuudda caalamiga ah lafteeda, kuwaas oo burburiya diinta iyo iimaanka iyo qiimaheeda u oggolaanaya pedophilia iyo kufsi adduunka oo dhan. Ma rabaan Shariicada sababtoo ah waxay joojinaysaa suurtagelinta dambiyadaas shaydaaniga ah ee xun ee ay si joogto ah u sameeyaan, waxayna ka cabsanayaan inay helaan ciqaab adag, oo ay ugu yeeraan maskaxda qarnigii 7-aad. Haddii ka soo horjeedka reer Galbeedku ay xun tahay sababtoo ah ma doonayno in haweenkeenu noqdaan dhillooyin iyo astaamo galmo, markaa waanu ku faanaynaa, maadaama aan hayno anshax ka wanaagsan kan reer Galbeedka. Qofka diinta leh ee ikhtiraaca wax kasta oo faa'iido u leh khayrka oo aan ahayn naftiisa keliya ee sidoo kale kuwa kale - markaas dhibaato ma aha. Laakiin sidaas ma aha halkan; Yuhuuddu lafteedu waxay abuurtay faragelin saameyn xun ku leh kuwa soo farageliya. Waxay faa'iido u leedahay Yuhuudda lafteeda. Waa kuwa ugu badan ee faafiya xumaanta waddamada Islaamka.",
+            mission_p3: "Hadafkayaga halkan waa inaan daciifino nidaamka ganacsiga doolarka Mareykanka oo aan sameyno lacagteenna ganacsiga iyo inaan mamnuucno ribada. Dhaha maya sharciyada gaalada oo soo celiya Shariicada. Haddii aad tahay Muslim, ha ahaato caddaan, madow ama midab kasta, macno malahan, hadafkayagu waa baaq soo jeedin ah oo ku socota walaalaha ah inaan midoobin; haddii kale, tobanka tobaneeyo ee soo socda way ka sii dari doontaa. Mideeya ummadda.",
+            footer_text: "Xuquuqda Daabacaadda © 2026 https://akhi076.github.io/islamicist-website/ Xuquuqda oo dhan waa la dhowray."
+        },
+        'en-ng': {
+            menu_home: "Home",
+            menu_mission: "Mission",
+            menu_get_active: "Get Active",
+            menu_donate: "Donate",
+            video_title: "WAKE UP MUSLIMS",
+            mission_heading: "OUR MISSION",
+            mission_p1: "If you have received this, it's a sign from us. “If Muslims were to unite once again, no power in the world could harm them. Even atom bombs and rockets could not vanquish them.” Maulana Mohammad Yousuf said.",
+            mission_p2: "It's easy to tell if you look at the Muslim countries; there has been a hierarchy in God that's been spreading en masse across the countries. Such kafir satanic intervention like feminism and prostitution and OnlyFans and usury and clubs and pornography being exposed to the Muslim youth of this generation, like Salahudin Ayyubi quoted, \"If you want to destroy any nation without war, make adultery and nudity common in the young generation.\" Islam says no to feminism, Islam says no to usury, Islam says no to pornography, and Islam says no to LGBTQ+ and queer and trans and to democracy and socialism and communism and capitalism. Laws like this are invented by the international Jew himself, who destroys religion and faith and its values that allow pedophilia and rape across the world. They don't want Sharia because it stops enabling such satanic, vile crimes they do on a regular basis, and they are scared of getting a harsher punishment, which they call a 7th-century mindset. If being anti-West is bad because we don't want our women to be whores and sex figures, then we are proud, as we have better moral standards than Westerners do. A religious person who invents anything that benefits something good not only for himself but for others as well—then it's not an issue. But that's not the case here; the Jew himself has created an intervention that has a negative impact on others who intervene in it. It only benefits the Jew himself. They are the most commonly found ones who are spreading hierarchy in God across Muslim countries.",
+            mission_p3: "Our mission here is to destabilize the US dollar trade system and make our own currency for trading and ban usury. Say no to kafir laws and restore sharia. If you're a Muslim, whether you're white, Black, or any color, which doesn't matter, this mission of ours is a wake-up call to our brothers and sisters that we must unite; if not, then in 10 decades it will get worse. unite the ummah.",
+            footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
+        },
+        ps: {
+            menu_home: "کور پاڼه",
+            menu_mission: "مأموریت",
+            menu_get_active: "فعال شئ",
+            menu_donate: "مرسته وکړئ",
+            video_title: "مسلمانانو ویښ شئ",
+            mission_heading: "زموږ مأموریت",
+            mission_p1: "که تاسو دا ترلاسه کړی وي، دا زموږ له لوري یوه نښه ده. مولانا محمد یوسف ویلي وو: \"که مسلمانان یو ځل بیا متحد شي، د نړۍ هېڅ ځواک نشي کولی دوی ته زیان ورسوي. حتی اټومي بمونه او توغندي هم نشي کولی دوی مات کړي.\"",
+            mission_p2: "که تاسو اسلامي هیوادونو ته وګورئ نو دا پوهیدل اسانه دي؛ په هیوادونو کې په لویه کچه بې دیني او بد اخلاقي خپریږي. د کافرانو دغه شیطاني لاسوهنې لکه فیمینزم، فحشا، اونلي فنز، سود، کلبونه او پورنروګرافي چې د دې نسل مسلمان ځوانانو ته ښودل کیږي، لکه څنګه چې صلاح الدین ایوبي ویلي دي: \"که تاسو غواړئ یو ملت د جګړې پرته تباه کړئ، نو په ځوان نسل کې زنا او بربنډتوب عام کړئ.\" اسلام فیمینزم ته نه وايي، اسلام سود ته نه وايي، اسلام پورنروګرافي ته نه وايي، او اسلام LGBTQ+، کویر، ټرانس، ډیموکراسۍ، سوشلزم، کمونیزم او سرمایه دارۍ ته نه وايي. د دې په څیر قوانین پخپله نړیوال یهود ایجاد کړي دي، څوک چې دین، عقیده او د هغې ارزښتونه تباه کوي چې په ټوله نړۍ کې د ماشومانو د ناوړه ګټې اخیستنې او جنسي تیري اجازه ورکوي. دوی شریعت نه غواړي ځکه چې دا د داسې شیطاني، بدو جنایاتو مخه نیسي چې دوی یې په منظم ډول ترسره کوي، او دوی د سختې سزا ترلاسه کولو څخه ویره لري, کوم چې دوی د اوومې پیړۍ ذهني توب بولي. که د لویدیځ پر ضد کیدل بد وي ځکه چې موږ نه غواړو زموږ ښځې په عاهرو او جنسي شیانو بدلې شي، نو موږ ویاړو، ځکه چې موږ د لویدیځوالو په پرتله ښه اخلاقي معیارونه لرو. یو دیني کس چې هر هغه څه ایجادوي چې نه یوازې د ځان لپاره بلکه د نورو لپاره هم کوم ښه والی راوړي - نو دا کومه ستونزه نه ده. مګر دلته مسله دا نه ده؛ پخپله یهود یو داسې لاسوهنه رامینځته کړې چې په هغو کسانو منفي اغیزه کوي چې پدې کې مداخله کوي. دا یوازې یهود ته ګټه رسوي. دوی تر ټولو زیات هغه کسان دي چې په اسلامي هیوادونو کې فساد خپروي.",
+            mission_p3: "دلته زموږ مأموریت دا دی چې د امریکايي ډالر سوداګریز سیسټم بې ثباته کړو او د سوداګرۍ لپاره خپله اسعار جوړه کړو او سود منع کړو. د کافرانو قانون ته نه ووايئ او شریعت بیا راژوندی کړئ. که تاسو مسلمان یاست، څوک چې سپین، تور یا د کوم بل رنګ یاست، دا کوم مهم نه دی، زموږ دا مأموریت زموږ د وروڼو او خوارو لپاره د ویښتیا غږ دی چې موږ باید متحد شو؛ که نه، نو په لسو لسیزو کې به نور هم بدتر شي. امت متحد کړئ.",
+            footer_text: "د کاپی حق © 2026 https://akhi076.github.io/islamicist-website/ ټول حقونه خوندي دي."
+        }
+    };
+
+    function setLanguage(lang) {
+        const data = translations[lang];
+        if (!data) return;
+
+        if (lang === 'ar' || lang === 'ur' || lang === 'ar-eg' || lang === 'so' || lang === 'ps') {
+            document.documentElement.setAttribute('dir', 'rtl');
+        } else {
+            document.documentElement.setAttribute('dir', 'ltr');
+        }
+
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            const key = el.getAttribute('data-translate');
+            if (data[key]) {
+                el.innerHTML = data[key];
+            }
+        });
+
+        langModal.classList.remove('active');
+    }
 
     // Thumbnail Click Logic to Play Video
     const videoThumbnail = document.getElementById('videoThumbnail');
