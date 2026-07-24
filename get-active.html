@@ -151,7 +151,117 @@
             transform: scale(1.05);
         }
 
-        /* Page Content Area (Ready for your design) */
+        /* Language Modal Overlay Styles */
+        .lang-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lang-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lang-modal-content {
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 650px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .lang-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .lang-modal-close:hover {
+            color: #fff;
+        }
+
+        .lang-modal-title {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .flags-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            justify-items: center;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .flags-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .flags-grid::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 3px;
+        }
+
+        .flag-option {
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .flag-option:hover {
+            transform: translateY(-3px);
+            border-color: #777;
+            background: #2a2a2a;
+        }
+
+        .flag-option img {
+            width: 54px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .flag-option span {
+            font-size: 0.8rem;
+            color: #ddd;
+            font-weight: bold;
+        }
+
+        /* Page Content Area */
         .page-container {
             max-width: 900px;
             margin: 0 auto;
@@ -166,6 +276,14 @@
             margin-bottom: 30px;
             color: #fff;
             text-transform: uppercase;
+            text-align: center;
+        }
+
+        .page-container p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 25px;
         }
 
         footer{
@@ -185,7 +303,7 @@
 <body>
 
 <nav>
-    <button class="logo-btn" onclick="window.location.href='index.html'" title="Home">☪︎</button>
+    <button class="logo-btn" id="logoToggle" title="Select Nation / Language">☪︎</button>
     <button class="menu-btn" id="menuToggle" title="Open Navigation Menu">
         <span></span>
         <span></span>
@@ -200,21 +318,79 @@
         <button class="side-menu-close" id="closeSideMenu">&times;</button>
     </div>
     <div class="side-menu-links">
-        <a href="index.html">Home</a>
-        <a href="mission.html">Mission</a>
-        <a href="get-active.html">Get Active</a>
-        <a href="#">Donate</a>
+        <a href="index.html" data-translate="menu_home">Home</a>
+        <a href="mission.html" data-translate="menu_mission">Mission</a>
+        <a href="get-active.html" data-translate="menu_get_active">Get Active</a>
+        <a href="#" data-translate="menu_donate">Donate</a>
     </div>
 </div>
 
-<!-- EMPTY CONTAINER FOR YOU TO DESIGN -->
+<!-- Language / Flag Selection Modal -->
+<div class="lang-modal-overlay" id="langModal">
+    <div class="lang-modal-content">
+        <button class="lang-modal-close" id="closeModal">&times;</button>
+        <div class="lang-modal-title">Select Your Language or Nation</div>
+        <div class="flags-grid">
+            <div class="flag-option" onclick="setLanguage('en')">
+                <img src="https://flagcdn.com/w80/us.png" alt="English">
+                <span>English</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ar')">
+                <img src="https://flagcdn.com/w80/sa.png" alt="Saudi Arabia">
+                <span>Saudi Arabia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ur')">
+                <img src="https://flagcdn.com/w80/pk.png" alt="Pakistan">
+                <span>Pakistan</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('bn')">
+                <img src="https://flagcdn.com/w80/bd.png" alt="Bangladesh">
+                <span>Bangladesh</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('bs')">
+                <img src="https://flagcdn.com/w80/ba.png" alt="Bosnia">
+                <span>Bosnia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('tr')">
+                <img src="https://flagcdn.com/w80/tr.png" alt="Turkey">
+                <span>Turkey</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ar-eg')">
+                <img src="https://flagcdn.com/w80/eg.png" alt="Egypt">
+                <span>Egypt</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('id')">
+                <img src="https://flagcdn.com/w80/id.png" alt="Indonesia">
+                <span>Indonesia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('sq')">
+                <img src="https://flagcdn.com/w80/al.png" alt="Albania">
+                <span>Albania</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('so')">
+                <img src="https://flagcdn.com/w80/so.png" alt="Somalia">
+                <span>Somalia</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('en-ng')">
+                <img src="https://flagcdn.com/w80/ng.png" alt="Nigeria">
+                <span>Nigeria</span>
+            </div>
+            <div class="flag-option" onclick="setLanguage('ps')">
+                <img src="https://flagcdn.com/w80/af.png" alt="Afghanistan">
+                <span>Afghanistan</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- GET ACTIVE CONTENT AREA -->
 <div class="page-container">
-    <h1>Get Active</h1>
-    <p>Add your text, images, or elements here...</p>
+    <h1 data-translate="active_title">Get Active</h1>
+    <p data-translate="active_text">Add instructions, contact forms, or ways people can get involved and participate here...</p>
 </div>
 
 <footer>
-    <div><span>Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span></div>
+    <div><span data-translate="footer_text">Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span></div>
     <div class="footer-brand">𝐊𝐇𝐈𝐋𝐀𝐅𝐀𝐇</div>
 </footer>
 
@@ -241,6 +417,155 @@
     document.querySelectorAll('.side-menu-links a').forEach(link => {
         link.addEventListener('click', closeMenu);
     });
+
+    const logoToggle = document.getElementById('logoToggle');
+    const langModal = document.getElementById('langModal');
+    const closeModal = document.getElementById('closeModal');
+
+    logoToggle.addEventListener('click', () => {
+        langModal.classList.add('active');
+    });
+
+    closeModal.addEventListener('click', () => {
+        langModal.classList.remove('active');
+    });
+
+    langModal.addEventListener('click', (e) => {
+        if (e.target === langModal) {
+            langModal.classList.remove('active');
+        }
+    });
+
+    const translations = {
+        en: {
+            menu_home: "Home",
+            menu_mission: "Mission",
+            menu_get_active: "Get Active",
+            menu_donate: "Donate",
+            active_title: "Get Active",
+            active_text: "Add instructions, contact forms, or ways people can get involved and participate here...",
+            footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
+        },
+        ar: {
+            menu_home: "الرئيسية",
+            menu_mission: "المهمة",
+            menu_get_active: "انخرط معنا",
+            menu_donate: "تبرع",
+            active_title: "انخرط معنا",
+            active_text: "أضف التعليمات أو نماذج الاتصال أو الطرق التي يمكن للناس من خلالها المشاركة هنا...",
+            footer_text: "حقوق الطبع والنشر © 2026 https://akhi076.github.io/islamicist-website/ جميع الحقوق محفوظة."
+        },
+        ur: {
+            menu_home: "ہوم",
+            menu_mission: "مشن",
+            menu_get_active: "سرگرم ہو جائیں",
+            menu_donate: "عطیہ دیں",
+            active_title: "سرگرم ہو جائیں",
+            active_text: "یہاں ہدایات، رابطہ فارم، یا وہ طریقے شامل کریں جن سے لوگ شامل ہو سکتے ہیں...",
+            footer_text: "کاپی رائٹ © 2026 https://akhi076.github.io/islamicist-website/ تمام حقوق محفوظ ہیں۔"
+        },
+        bn: {
+            menu_home: "হোম",
+            menu_mission: "মিশন",
+            menu_get_active: "যুক্ত হোন",
+            menu_donate: "দান করুন",
+            active_title: "যুক্ত হোন",
+            active_text: "এখানে নির্দেশাবলী, যোগাযোগের ফর্ম বা মানুষ কীভাবে যুক্ত হতে পারে তার উপায়গুলো যোগ করুন...",
+            footer_text: "স্বত্বাধিকার © 2026 https://akhi076.github.io/islamicist-website/ সর্বস্বত্ব সংরক্ষিত।"
+        },
+        bs: {
+            menu_home: "Početna",
+            menu_mission: "Misija",
+            menu_get_active: "Uključi se",
+            menu_donate: "Doniraj",
+            active_title: "Uključi se",
+            active_text: "Ovdje dodajte upute, kontakt forme ili načine na koje se ljudi mogu uključiti...",
+            footer_text: "Autorska prava © 2026 https://akhi076.github.io/islamicist-website/ Sva prava zadržana."
+        },
+        tr: {
+            menu_home: "Ana Sayfa",
+            menu_mission: "Misyon",
+            menu_get_active: "Aktif Ol",
+            menu_donate: "Bağış Yap",
+            active_title: "Aktif Ol",
+            active_text: "Buraya talimatlar, iletişim formları veya insanların nasıl katılabileceğine dair yollar ekleyin...",
+            footer_text: "Telif Hakkı © 2026 https://akhi076.github.io/islamicist-website/ Tüm Hakları Saklıdır."
+        },
+        'ar-eg': {
+            menu_home: "الرئيسية",
+            menu_mission: "المهمة",
+            menu_get_active: "شارك معانا",
+            menu_donate: "تبرع",
+            active_title: "شارك معانا",
+            active_text: "أضف التعليمات أو نماذج الاتصال أو الطرق التي يمكن للناس من خلالها المشاركة هنا...",
+            footer_text: "جميع الحقوق محفوظة © 2026 https://akhi076.github.io/islamicist-website/"
+        },
+        id: {
+            menu_home: "Beranda",
+            menu_mission: "Misi",
+            menu_get_active: "Bergabung",
+            menu_donate: "Donasi",
+            active_title: "Bergabung",
+            active_text: "Tambahkan instruksi, formulir kontak, atau cara orang dapat terlibat di sini...",
+            footer_text: "Hak Cipta © 2026 https://akhi076.github.io/islamicist-website/ Seluruh Hak Cipta Dilindungi Undang-Undang."
+        },
+        sq: {
+            menu_home: "Kryefaqja",
+            menu_mission: "Misioni",
+            menu_get_active: "Bëhu Aktiv",
+            menu_donate: "Dhuroni",
+            active_title: "Bëhu Aktiv",
+            active_text: "Shtoni udhëzime, formularë kontakti ose mënyra se si njerëzit mund të përfshihen këtu...",
+            footer_text: "Të drejtat e autorit © 2026 https://akhi076.github.io/islamicist-website/ Të gjitha të drejtat e rezervuara."
+        },
+        so: {
+            menu_home: "Bogga Hore",
+            menu_mission: "Hadafka",
+            menu_get_active: "Firfircoonaow",
+            menu_donate: "Deeq Bixi",
+            active_title: "Firfircoonaow",
+            active_text: "Halkan ku dar tilmaamaha, foomamka xiriirka, ama siyaabaha ay dadku uga qeyb qaadan karaan...",
+            footer_text: "Xuquuqda Daabacaadda © 2026 https://akhi076.github.io/islamicist-website/ Xuquuqda oo dhan waa la dhowray."
+        },
+        'en-ng': {
+            menu_home: "Home",
+            menu_mission: "Mission",
+            menu_get_active: "Get Active",
+            menu_donate: "Donate",
+            active_title: "Get Active",
+            active_text: "Add instructions, contact forms, or ways people can get involved and participate here...",
+            footer_text: "Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved."
+        },
+        ps: {
+            menu_home: "کور پاڼه",
+            menu_mission: "مأموریت",
+            menu_get_active: "فعال شئ",
+            menu_donate: "مرسته وکړئ",
+            active_title: "فعال شئ",
+            active_text: "دلته لارښوونې، د اړیکې فورمې، یا هغه لارې اضافه کړئ چې خلک پدې کې برخه اخیستلی شي...",
+            footer_text: "د کاپی حق © 2026 https://akhi076.github.io/islamicist-website/ ټول حقونه خوندي دي."
+        }
+    };
+
+    function setLanguage(lang) {
+        const data = translations[lang];
+        if (!data) return;
+
+        if (lang === 'ar' || lang === 'ur' || lang === 'ar-eg' || lang === 'so' || lang === 'ps') {
+            document.documentElement.setAttribute('dir', 'rtl');
+        } else {
+            document.documentElement.setAttribute('dir', 'ltr');
+        }
+
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            const key = el.getAttribute('data-translate');
+            if (data[key]) {
+                el.innerHTML = data[key];
+            }
+        });
+
+        langModal.classList.remove('active');
+    }
 </script>
 
 </body>
