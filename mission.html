@@ -280,14 +280,13 @@
 </div>
 
 <div class="mission-container">
-    <!-- Video Player with Dark Red Thumbnail and Autoplay -->
+    <!-- Video Player with Dark Red Thumbnail -->
     <div class="mission-video-wrapper" id="videoWrapper">
         <div class="video-thumbnail" id="videoThumbnail">
             <h2>WAKE UP MUSLIMS</h2>
             <div class="play-btn-icon">▶</div>
         </div>
-        <!-- muted is added because modern browsers require videos to be muted for autoplay to work smoothly -->
-        <video id="missionVideo" controls muted>
+        <video id="missionVideo" controls>
             <source src="video-project-4_EV9WRB8e.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -328,7 +327,7 @@
         link.addEventListener('click', closeMenu);
     });
 
-    // Thumbnail and Autoplay Logic
+    // Thumbnail Click Logic to Play Video
     const videoThumbnail = document.getElementById('videoThumbnail');
     const missionVideo = document.getElementById('missionVideo');
 
@@ -338,20 +337,6 @@
             videoThumbnail.style.display = 'none';
         }, 400);
         missionVideo.play();
-    });
-
-    // Attempt autoplay on page load
-    window.addEventListener('DOMContentLoaded', () => {
-        missionVideo.play().then(() => {
-            // If autoplay succeeds, hide the thumbnail automatically
-            videoThumbnail.style.opacity = '0';
-            setTimeout(() => {
-                videoThumbnail.style.display = 'none';
-            }, 400);
-        }).catch(error => {
-            // Browser blocked autoplay without user interaction, thumbnail remains clickable
-            console.log("Autoplay prevented by browser policy, user interaction required.");
-        });
     });
 </script>
 
