@@ -25,8 +25,9 @@
             display:flex;
             justify-content:space-between;
             align-items: center;
-            background: #1a1a1a;
+            background: #1a1a1a; /* Grey color requested for visibility */
             z-index:1000;
+            border-bottom: 1px solid #333;
         }
 
         .logo-btn {
@@ -151,49 +152,43 @@
             transform: scale(1.05);
         }
 
-        .hero{
-            height:100vh;
-            background: black;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            text-align:center;
+        .mission-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
             padding: 0 20px;
-            position: relative;
+            background: black;
         }
 
-        .hero-content {
-            max-width: 900px;
-            position: relative;
-            z-index: 3;
+        .mission-hero h1 {
+            font-size: 64px;
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+            font-weight: bold;
         }
 
-        .hero h1{
-            font-size: 80px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .hero p{
-            font-size:22px;
-            color:#ccc;
+        .mission-hero p {
+            font-size: 20px;
+            color: #aaa;
             font-style: italic;
-        }
-
-        section{
-            padding:100px 50px;
-        }
-
-        #mission-main {
-            max-width: 900px;
-            margin: 0 auto;
-            min-height: 50vh;
+            line-height: 1.5;
+            max-width: 700px;
         }
 
         footer{
             text-align:center;
             padding:40px;
             background:#111;
+        }
+
+        .footer-brand {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            color: #aaa;
         }
     </style>
 </head>
@@ -217,30 +212,22 @@
     <div class="side-menu-links">
         <a href="index.html">Home</a>
         <a href="mission.html">Mission</a>
-        <a href="get-active.html">Get Active</a>
-        <a href="donate.html">Donate</a>
+        <a href="index.html#about">Get Active</a>
+        <a href="#">Donate</a>
     </div>
 </div>
 
-<section class="hero">
-    <div class="hero-content">
-        <h1>OUR MISSION</h1>
-        <p>This is your brand new, separate mission page! You can now code and design this page however you want, completely independent of your home page.</p>
-        <p style="margin-top: 15px;">Add your text, manifestos, or extra videos right here.</p>
-    </div>
-</section>
-
-<!-- EMPTY SECTION READY FOR YOUR DESIGN -->
-<section id="mission-main">
-    <!-- PUT YOUR NEW MISSION PAGE CONTENT, TEXT, OR VIDEOS HERE -->
+<section class="mission-hero">
+    <h1>OUR MISSION</h1>
+    <p>This is your brand new, separate mission page! You can now code and design this page however you want, completely independent of your home page.<br><br>Add your text, manifestos, or extra videos right here.</p>
 </section>
 
 <footer>
-    <span>Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span>
+    <div><span>Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span></div>
+    <div class="footer-brand">𝐊𝐇𝐈𝐋𝐀𝐅𝐀𝐇</div>
 </footer>
 
 <script>
-    // Side Menu Drawer Interaction Logic
     const menuToggle = document.getElementById('menuToggle');
     const sideMenu = document.getElementById('sideMenu');
     const sideMenuOverlay = document.getElementById('sideMenuOverlay');
