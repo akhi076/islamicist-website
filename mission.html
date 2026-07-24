@@ -159,8 +159,9 @@
             text-align: left;
         }
 
-        /* Video Container Styles */
+        /* Video Container Styles with Custom Dark Red Thumbnail */
         .mission-video-wrapper {
+            position: relative;
             width: 100%;
             max-width: 500px;
             margin: 0 auto 40px auto;
@@ -175,6 +176,53 @@
             width: 100%;
             height: auto;
             display: block;
+        }
+
+        .video-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #4a0000 0%, #1a0000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            cursor: pointer;
+            transition: opacity 0.4s ease;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .video-thumbnail h2 {
+            color: #fff;
+            font-size: 32px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.7);
+            margin-bottom: 15px;
+        }
+
+        .play-btn-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            color: white;
+            padding-left: 4px;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .video-thumbnail:hover .play-btn-icon {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
         }
 
         .mission-container h1 {
@@ -232,9 +280,14 @@
 </div>
 
 <div class="mission-container">
-    <!-- Video Player placed right on top of OUR MISSION -->
-    <div class="mission-video-wrapper">
-        <video controls>
+    <!-- Video Player with Dark Red Thumbnail and Autoplay -->
+    <div class="mission-video-wrapper" id="videoWrapper">
+        <div class="video-thumbnail" id="videoThumbnail">
+            <h2>WAKE UP MUSLIMS</h2>
+            <div class="play-btn-icon">▶</div>
+        </div>
+        <!-- muted is added because modern browsers require videos to be muted for autoplay to work smoothly -->
+        <video id="missionVideo" controls muted>
             <source src="video-project-4_EV9WRB8e.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -273,6 +326,32 @@
 
     document.querySelectorAll('.side-menu-links a').forEach(link => {
         link.addEventListener('click', closeMenu);
+    });
+
+    // Thumbnail and Autoplay Logic
+    const videoThumbnail = document.getElementById('videoThumbnail');
+    const missionVideo = document.getElementById('missionVideo');
+
+    videoThumbnail.addEventListener('click', () => {
+        videoThumbnail.style.opacity = '0';
+        setTimeout(() => {
+            videoThumbnail.style.display = 'none';
+        }, 400);
+        missionVideo.play();
+    });
+
+    // Attempt autoplay on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        missionVideo.play().then(() => {
+            // If autoplay succeeds, hide the thumbnail automatically
+            videoThumbnail.style.opacity = '0';
+            setTimeout(() => {
+                videoThumbnail.style.display = 'none';
+            }, 400);
+        }).catch(error => {
+            // Browser blocked autoplay without user interaction, thumbnail remains clickable
+            console.log("Autoplay prevented by browser policy, user interaction required.");
+        });
     });
 </script>
 
