@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Active - islamicist</title>
 
+    <!-- Mapbox GL CSS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+
     <style>
         *{
             margin:0;
@@ -263,7 +266,7 @@
 
         /* Page Content Area */
         .page-container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 160px 20px 100px 20px;
             text-align: left;
@@ -277,6 +280,36 @@
             color: #fff;
             text-transform: uppercase;
             text-align: left;
+        }
+
+        /* Map and Search Styles */
+        #map {
+            width: 100%;
+            height: 500px;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .search-container {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        #organization-search {
+            width: 100%;
+            padding: 14px 20px;
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        #organization-search:focus {
+            border-color: #666;
         }
 
         footer{
@@ -379,12 +412,23 @@
 <!-- GET ACTIVE CONTENT AREA -->
 <div class="page-container">
     <h1 data-translate="active_title">Get Active</h1>
+
+    <!-- Interactive Globe Map Container -->
+    <div id="map"></div>
+
+    <!-- Search Bar Container -->
+    <div class="search-container">
+        <input type="text" id="organization-search" placeholder="Search for Organizations...">
+    </div>
 </div>
 
 <footer>
     <div><span data-translate="footer_text">Copyright © 2026 https://akhi076.github.io/islamicist-website/ All Rights Reserved.</span></div>
     <div class="footer-brand">𝐊𝐇𝐈𝐋𝐀𝐅𝐀𝐇</div>
 </footer>
+
+<!-- Mapbox GL JS -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
 
 <script>
     const menuToggle = document.getElementById('menuToggle');
@@ -426,6 +470,24 @@
         if (e.target === langModal) {
             langModal.classList.remove('active');
         }
+    });
+
+    // Initialize Mapbox Globe
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZXhhbXBsZSIsImEiOiJjbHN2...'; // Swap this token out if needed
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/dark-v10',
+        center: [0, 20],
+        projection: 'globe',
+        zoom: 1.5
+    });
+
+    map.on('style.load', () => {
+        map.setFog({
+            color: 'rgb(18, 24, 38)',
+            'high-color': 'rgb(28, 39, 59)',
+            'horizon-blend': 0.02,
+        });
     });
 
     const translations = {
